@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <h1>Home</h1>
-    <p>{{ $t("general.hello_world") }}</p>
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: "Test",
 };
 </script>
 

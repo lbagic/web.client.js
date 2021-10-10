@@ -1,0 +1,24 @@
+@each $key, $value in get("container") {
+  .container-#{$key} {
+    padding-left: var(--element-container-padding-horizontal);
+    padding-right: var(--element-container-padding-horizontal);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: $value;
+  }
+}
+.grid-fill {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--element-grid-fill), 1fr)
+  );
+  gap: var(--element-grid-fill-gap);
+}
+.fw {
+  width: 100%;
+}
+.fh {
+  height: 100%;
+}

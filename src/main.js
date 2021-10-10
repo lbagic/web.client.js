@@ -1,6 +1,18 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import { configureApp } from "./main.config";
+import BreakpointPlugin from "./plugins/BreakpointPlugin";
+import CssVariablesPlugin from "./plugins/CssVariablesPlugin";
+import GlobalPropertiesPlugin from "./plugins/GlobalPropertiesPlugin";
+import { router } from "./router/router.js";
+import { store } from "./store/store.js";
+import "./styles/index.scss";
 
-createApp(App).use(store).use(router).mount("#app");
+const { app, i18n } = configureApp();
+
+app
+  .use(store)
+  .use(router)
+  .use(i18n)
+  .use(GlobalPropertiesPlugin)
+  .use(BreakpointPlugin)
+  .use(CssVariablesPlugin)
+  .mount("#app");

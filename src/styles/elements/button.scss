@@ -1,0 +1,34 @@
+button,
+.button {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+button:not(.card),
+.button:not(.card) {
+  padding: var(--element-button-padding);
+}
+
+@mixin generate-button(
+  $color /* palette color */,
+  $variant /* 'light' or 'dark' */
+) {
+  button.#{$color},
+  .button.#{$color} {
+    background: var(--color-#{$color});
+    @media (hover: hover) {
+      &:hover {
+        background: var(--color-#{$color}-#{$variant});
+      }
+      &:focus {
+        background: var(--color-#{$color}-#{$variant});
+      }
+    }
+    &:active {
+      background: var(--color-#{$color}-#{$variant}er);
+    }
+  }
+}
+
+@include generate-button("primary", "light");
+@include generate-button("secondary", "light");
+@include generate-button("ternary", "light");

@@ -1,0 +1,81 @@
+@mixin touch-device {
+  @media (hover: none) {
+    @content;
+  }
+}
+@mixin point-device {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+@mixin transition($transition-property-value) {
+  &-enter-from,
+  &-leave-to {
+    @content;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: $transition-property-value;
+  }
+}
+
+@mixin animate-underline() {
+  position: relative;
+  &::after {
+    background: currentColor;
+    bottom: 0px;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    transition: width 0.2s ease-in-out;
+    width: 0;
+  }
+  @media (hover: hover) {
+    &:hover::after {
+      width: 100%;
+    }
+  }
+  &.router-link-exact-active::after {
+    width: 100%;
+  }
+}
+
+@mixin s-only() {
+  @media (min-width: get("breakpoint.s")) and (max-width: get("breakpoint.m") - 1px) {
+    @content;
+  }
+}
+@mixin m() {
+  @media (min-width: get("breakpoint.m")) {
+    @content;
+  }
+}
+@mixin m-only() {
+  @media (min-width: get("breakpoint.m")) and (max-width: get("breakpoint.l") - 1px) {
+    @content;
+  }
+}
+@mixin l() {
+  @media (min-width: get("breakpoint.l")) {
+    @content;
+  }
+}
+@mixin l-only() {
+  @media (min-width: get("breakpoint.l")) and (max-width: get("breakpoint.xl") - 1px) {
+    @content;
+  }
+}
+@mixin xl() {
+  @media (min-width: get("breakpoint.xl")) {
+    @content;
+  }
+}

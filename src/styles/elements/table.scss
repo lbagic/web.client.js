@@ -1,0 +1,43 @@
+/* table normalize */
+table {
+  border-spacing: 0px;
+  position: relative;
+}
+td,
+th {
+  padding: var(--element-table-padding);
+  text-align: left;
+  background: var(--element-table-color);
+}
+
+/* table sticky headers */
+tr > th {
+  position: sticky;
+}
+thead > tr > th,
+table > tr:not(:last-child) > th {
+  top: 0;
+}
+tfoot > tr > th,
+table > tr:last-child > th {
+  bottom: 0;
+}
+
+/* table alternate row color */
+table th {
+  background: var(--element-table-header-color);
+}
+table > tr:nth-child(2n-1) > td,
+table > tbody > tr:nth-child(2n-1) > td {
+  background: var(--element-table-alternate-1-color);
+}
+table > tr:nth-child(2n) > td,
+table > tbody > tr:nth-child(2n) > td {
+  background: var(--element-table-alternate-2-color);
+}
+
+/* table border */
+table {
+  border-spacing: 1px;
+  background: black;
+}

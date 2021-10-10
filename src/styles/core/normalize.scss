@@ -1,0 +1,131 @@
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 16px;
+  height: 100%;
+  line-height: 1.5;
+}
+body {
+  height: 100%;
+  margin: 0;
+}
+#app {
+  height: 100%;
+}
+a {
+  align-items: center;
+  color: currentColor;
+  display: flex;
+  line-height: normal;
+  outline: none;
+  text-decoration: none;
+}
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+pre {
+  margin: 0;
+}
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+table {
+  border-spacing: 0px;
+  position: relative;
+  width: 100%;
+}
+td,
+th {
+  background: white;
+  padding: 0.5rem;
+  text-align: left;
+}
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  align-items: flex-start;
+}
+fieldset > legend {
+  font-size: 24px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+fieldset > label {
+  width: 100%;
+}
+input,
+select,
+textarea,
+button {
+  background: #f4f4f4;
+  border-radius: 0;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: initial;
+  margin: 0;
+  line-height: normal;
+  outline: none;
+  padding: 8px;
+  transition: all 0.2s ease-in-out;
+}
+textarea {
+  overflow: auto;
+  resize: vertical;
+  vertical-align: top;
+}
+input:not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="range"]),
+select,
+textarea {
+  width: 100%;
+}
+button,
+input[type="checkbox"],
+label {
+  cursor: pointer;
+}
+@media (hover: hover) {
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+    background-color: #e8e8e8;
+  }
+}
+legend {
+  padding: 0;
+}
+img {
+  object-position: center;
+  vertical-align: bottom;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+*[tabindex] {
+  outline: none;
+}

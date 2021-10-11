@@ -77,6 +77,7 @@ const generateModuleFunctions = (
     const stateTree = generateStateTree(module);
     if (!isEmpty(stateTree)) {
       if (!module.mutations) module.mutations = {};
+      // mutation.clearState
       module.mutations["clearState"] = (s) => clearState(stateTree, s);
     }
   }

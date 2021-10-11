@@ -5,9 +5,9 @@ table {
 }
 td,
 th {
-  padding: var(--element-table-padding);
+  padding: var(--el-table-padding);
   text-align: left;
-  background: var(--element-table-color);
+  background: var(--el-table-color);
 }
 
 /* table sticky headers */
@@ -25,15 +25,15 @@ table > tr:last-child > th {
 
 /* table alternate row color */
 table th {
-  background: var(--element-table-header-color);
+  background: var(--el-table-header-color);
 }
 table > tr:nth-child(2n-1) > td,
 table > tbody > tr:nth-child(2n-1) > td {
-  background: var(--element-table-alternate-1-color);
+  background: var(--el-table-alternate-1-color);
 }
 table > tr:nth-child(2n) > td,
 table > tbody > tr:nth-child(2n) > td {
-  background: var(--element-table-alternate-2-color);
+  background: var(--el-table-alternate-2-color);
 }
 
 /* table border */

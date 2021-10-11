@@ -1,30 +1,4 @@
-$palette-colors: (
-  "primary": #4267b2,
-  "secondary": #fdb73b,
-  "ternary": #76bfc2,
-  "success": #6cb76f,
-  "error": #f42f04,
-  "light": #fafafa,
-  "dark": #212121,
-  "white": #fff,
-  "muted": #dcdcdc,
-  "grey": #b0b0b0,
-  "black": #000,
-  "transparent": #0000,
-);
-
-$color-variants: (
-  white: (
-    "light": 15%,
-    "lighter": 20%,
-    "lightest": 75%,
-  ),
-  black: (
-    "dark": 10%,
-    "darker": 15%,
-    "darkest": 75%,
-  ),
-);
+@import "./colors.scss";
 
 $template-variables: (
   "breakpoint": (
@@ -70,7 +44,7 @@ $template-variables: (
 }
 
 $element-variables: (
-  "element": (
+  "el": (
     "background-color": #{var(--color-light)},
     "button-border-radius": 0.5rem,
     "button-padding": 1rem,

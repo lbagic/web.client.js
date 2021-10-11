@@ -5,7 +5,7 @@ button,
 }
 button:not(.card),
 .button:not(.card) {
-  padding: var(--element-button-padding);
+  padding: var(--el-button-padding);
 }
 
 @mixin generate-button(

@@ -1,8 +1,8 @@
 input:not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="range"]),
 select {
-  height: var(--element-input-height);
-  border: var(--element-input-border);
+  height: var(--el-input-height);
+  border: var(--el-input-border);
   &:focus {
-    border: var(--element-input-border-focus);
+    border: var(--el-input-border-focus);
   }
 }

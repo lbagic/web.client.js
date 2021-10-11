@@ -6,7 +6,7 @@
 - fonts ✅
 - cards ✅
 - buttons & links ✅
-  - define data-state: initial, loading, hover, active, disabled
+- buttons & links - define data-state - initial, loading, hover, active, disabled
 - breakpoints ✅
 - cleanup breakpoints ✅
 
@@ -21,14 +21,16 @@
 
 ## Integrations
 
-- store integration ✅
+- store implementation ✅
   - cleanup store.factory ✅
   - store persistance ✅
   - store reset ✅
-  - generate crud actions
+  - generate crud actions?
+- service implementation ✅
+  - generate service crud ✅
 - api implementation ✅
 
-  - api layer, service layer, integrate with popups
+  - integrate with popups
   - TODO - integrations via call config
     - isLoading: true, // show loading
     - isAutoMsg: true, // show err msg

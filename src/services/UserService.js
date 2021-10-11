@@ -1,13 +1,12 @@
+import { createServiceCrud } from "../utils/crud";
 import { FacebookAuth } from "./auth-providers/FacebookAuth";
 import { GoogleAuth } from "./auth-providers/GoogleAuth";
 import { TwitterAuth } from "./auth-providers/TwitterAuth";
 import { Api } from "./base/Api";
 
 export const UserService = {
-  update: (id, data) => Api.put(`users/${id}`, data),
-  changePassword: (id, data) => Api.put(`users/${id}/change_password`, data),
-  getUser: (id) => Api.get(`users/${id}`),
-
+  // crud calls
+  ...createServiceCrud(Api.snt, "/users"),
   // socials
   addGoogleSocial: (id) =>
     GoogleAuth.signIn().then((res) =>

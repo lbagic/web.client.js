@@ -10,18 +10,7 @@
 </template>
 
 <script>
-import { markRaw } from "@vue/reactivity";
-import Apple from "./icons/Apple.vue";
-import Facebook from "./icons/Facebook.vue";
-import Google from "./icons/Google.vue";
-import Logout from "./icons/Logout.vue";
-
-const icons = {
-  Apple,
-  Facebook,
-  Google,
-  Logout,
-};
+import { defineAsyncComponent } from "@vue/runtime-core";
 
 export default {
   name: "Icon",
@@ -29,7 +18,6 @@ export default {
     icon: {
       type: String,
       required: true,
-      validator: (value) => icons[value],
     },
     button: Boolean,
     color: String,
@@ -40,7 +28,6 @@ export default {
   },
   data() {
     return {
-      component: markRaw(icons[this.icon]),
       cssVariables: {
         baseColor: this.getColor(this.color),
         hoverColor: this.getColor(this.hover),
@@ -58,6 +45,14 @@ export default {
     },
   },
   computed: {
+    component: (vm) =>
+      defineAsyncComponent({
+        loader: () => import(`./icons/${vm.icon}.vue`),
+        onError: () =>
+          console.warn(
+            `Invalid prop: <icon /> failed to resolve where icon="${vm.icon}". This is most likely due to a typo or missing icon component.`
+          ),
+      }),
     classes() {
       const classes = [];
       this.button && classes.push("pointer");
@@ -71,8 +66,6 @@ export default {
 
 <style lang="scss">
 .icon-component {
-  margin-top: auto;
-  margin-bottom: auto;
   & > * {
     transition: all 0.2s ease-in-out;
   }

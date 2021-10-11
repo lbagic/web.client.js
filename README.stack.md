@@ -26,7 +26,7 @@
   - store persistance ✅
   - store reset ✅
   - generate crud actions
-- api implementation
+- api implementation ✅
 
   - api layer, service layer, integrate with popups
   - TODO - integrations via call config

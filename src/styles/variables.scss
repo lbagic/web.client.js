@@ -45,6 +45,7 @@ $template-variables: (
 
 $element-variables: (
   "el": (
+    "fieldset-spacing": 0.5rem,
     "background-color": #{var(--color-light)},
     "button-border-radius": 0.5rem,
     "button-padding": 1rem,
@@ -59,7 +60,8 @@ $element-variables: (
     "grid-fill-gap": 1rem,
     "input-border": 1px solid #{var(--color-muted)},
     "input-border-focus": 1px solid #{var(--color-grey)},
-    "input-height": 50px,
+    "input-height": 55px,
+    "button-height": 55px,
     "table-alternate-1-color": #{var(--color-primary-lightest)},
     "table-alternate-2-color": #{var(--color-light)},
     "table-color": #{var(--color-light)},

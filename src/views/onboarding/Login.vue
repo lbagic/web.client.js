@@ -14,7 +14,10 @@
     >
       Login
     </button>
-    <router-link to="/forgot-password" class="animate-underline"
+    <router-link
+      to="/forgot-password"
+      class="animate-underline"
+      style="justify-self: center"
       >Forgot password?</router-link
     >
   </fieldset>

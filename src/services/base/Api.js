@@ -13,13 +13,13 @@ export const Api = {
     }),
     errorHandler: (error) => {
       if (error.response.status === 401) store.dispatch("AccountModule/logout");
-      Promise.reject({
+      throw {
         msg: error.response?.data?.error?.display?.msg || "Api error",
         apiErrors: error.response?.data?.error?.api_errors,
         debug: error.response?.data?.error?.debug,
         status: error.response?.status,
         meta: error.response,
-      });
+      };
     },
   }),
   axios: createApi({ baseUrl: "" }),

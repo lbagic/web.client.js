@@ -1,6 +1,13 @@
+fieldset {
+  gap: var(--el-fieldset-spacing);
+}
+fieldset > legend {
+  margin-bottom: var(--el-fieldset-spacing);
+}
 input:not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="range"]),
+textarea,
 select {
-  height: var(--el-input-height);
+  min-height: var(--el-input-height);
   border: var(--el-input-border);
   &:focus {
     border: var(--el-input-border-focus);

@@ -8,6 +8,7 @@ export const AccountModule = {
   }),
   getters: {
     isLoggedIn: (s) => !!s.token,
+    userType: (s, g) => (g.isLoggedIn ? "user" : "visitor"),
   },
   actions: {
     login({ commit, dispatch }, payload) {
@@ -16,14 +17,18 @@ export const AccountModule = {
         commit("setToken", payload.token);
         commit("UserModule/setUser", payload.user, { root: true });
         dispatch("onLogin", undefined, { root: true });
-        router.push("/services");
+        router.go();
       });
       return promise;
     },
     logout({ commit, dispatch }) {
-      commit("clearState", undefined, { root: true });
-      dispatch("onLogout", undefined, { root: true });
-      router.push("/login");
+      AccountService.logout()
+        .catch()
+        .finally(() => {
+          commit("clearState", undefined, { root: true });
+          dispatch("onLogout", undefined, { root: true });
+          router.go();
+        });
     },
     register(ctx, payload) {
       const promise = AccountService.register(payload);

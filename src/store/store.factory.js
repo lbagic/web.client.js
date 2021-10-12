@@ -111,6 +111,10 @@ const generateModuleFunctions = (
         currentPath: path,
       });
     else if (Array.isArray(value)) {
+      // getters.findItem
+      getters[`find${pathName}`] = (state) => (id) =>
+        valuePointer(state).find((el) => el.id === id);
+
       // mutations.addItem
       mutations[`add${pathName}`] = (state, items) => {
         const _items = Array.isArray(items) ? items : [items];
@@ -145,20 +149,9 @@ const generateModuleFunctions = (
 
       // mutations.pushItem
       mutations[`push${pathName}`] = (state, items) => {
+        const _array = valuePointer(state);
         const _items = Array.isArray(items) ? items : [items];
-        valuePointer(state).push(..._items);
-      };
-
-      // mutations.popItem
-      mutations[`pop${pathName}`] = (state) => valuePointer(state).pop();
-
-      // mutations.shiftItem
-      mutations[`shift${pathName}`] = (state) => valuePointer(state).shift();
-
-      // mutations.unshiftItem
-      mutations[`unshift${pathName}`] = (state, items) => {
-        const _items = Array.isArray(items) ? items : [items];
-        valuePointer(state).unshift(..._items);
+        _array.push(..._items);
       };
     }
   });

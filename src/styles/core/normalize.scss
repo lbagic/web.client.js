@@ -16,10 +16,7 @@ body {
   height: 100%;
 }
 a {
-  align-items: center;
   color: currentColor;
-  display: flex;
-  line-height: normal;
   outline: none;
   text-decoration: none;
 }
@@ -63,14 +60,12 @@ fieldset {
   margin: 0;
   padding: 0;
   display: grid;
-  justify-items: center;
   gap: 1rem;
   align-items: flex-start;
 }
 fieldset > legend {
   font-size: 24px;
   margin-bottom: 1rem;
-  text-align: center;
 }
 fieldset > label {
   width: 100%;

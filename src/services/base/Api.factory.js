@@ -6,7 +6,9 @@ export const createApi = (
     baseUrl: "",
     requestHandler: (request) => request,
     responseHandler: (response) => response,
-    errorHandler: (error) => Promise.reject(error),
+    errorHandler: (error) => {
+      throw error;
+    },
     getToken: () => undefined,
   }
 ) => {

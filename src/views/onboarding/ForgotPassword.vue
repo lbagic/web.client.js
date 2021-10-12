@@ -16,7 +16,10 @@
     >
       Recover password
     </button>
-    <router-link to="/reset-password" class="animate-underline"
+    <router-link
+      to="/reset-password"
+      class="animate-underline"
+      style="justify-self: center"
       >Got recovery token?</router-link
     >
   </fieldset>

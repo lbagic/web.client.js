@@ -16,7 +16,6 @@ export const createServiceCrud = (api, url) => ({
   get: (id, config = {}) => api.get(`${url}/${id}`, config),
   getAll: (config = {}) => api.get(url, config),
   create: (data = {}, config = {}) => api.post(url, data, config),
-  update: (id, data = {}, config = {}) =>
-    api.post(`${url}/${id}`, data, config),
-  delete: (id, config = {}) => api.post(`${url}/${id}`, config),
+  update: (id, data = {}, config = {}) => api.put(`${url}/${id}`, data, config),
+  delete: (id, config = {}) => api.delete(`${url}/${id}`, config),
 });

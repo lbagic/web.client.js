@@ -1,7 +1,7 @@
 <template>
   <fieldset class="container-s my-auto">
     <label>
-      <input type="email" v-model="email" name="email" placeholder="Email" />
+      <input v-model="email" type="email" name="email" placeholder="Email" />
     </label>
     <button
       class="primary fw"

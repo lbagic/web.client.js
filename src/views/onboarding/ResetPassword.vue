@@ -1,15 +1,15 @@
 <template>
   <fieldset class="container-s my-auto">
-    <input type="email" v-model="email" name="email" placeholder="Email" />
+    <input v-model="email" type="email" name="email" placeholder="Email" />
     <input
-      type="text"
       v-model="form.recovery_token"
+      type="text"
       name="token"
       placeholder="Recovery token"
     />
     <input
-      type="password"
       v-model="form.password"
+      type="password"
       name="password"
       placeholder="New password"
     />

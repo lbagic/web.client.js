@@ -2,19 +2,19 @@
   <nav class="navigation container-expand">
     <router-link :to="isLoggedIn ? '/' : '/login'">App</router-link>
     <router-link
-      class="animate-underline button primary"
       v-for="route in routes"
       :key="route.name"
+      class="animate-underline button primary"
       :to="route.path"
       >{{ route.name }}</router-link
     >
     <button
+      v-if="isLoggedIn"
       class="animate-underline primary"
       style="margin-left: auto"
-      v-if="isLoggedIn"
       @click="$store.dispatch('AccountModule/logout')"
     >
-      <icon icon="Logout" />
+      <icon icon="Off" />
     </button>
   </nav>
 </template>

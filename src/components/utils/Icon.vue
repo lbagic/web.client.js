@@ -69,19 +69,19 @@ export default {
   & > * {
     transition: all 0.2s ease-in-out;
   }
-  &-color > *[stroke]:not([stroke="white"]) {
+  &-color > *[stroke] {
     stroke: var(--base-color);
   }
 
-  &-color > *[fill]:not([fill="white"]) {
+  &-color > *[fill] {
     fill: var(--base-color);
   }
 
-  &-hover:hover > *[stroke]:not([stroke="white"]) {
+  &-hover:hover > *[stroke] {
     stroke: var(--hover-color);
   }
 
-  &-hover:hover > *[fill]:not([fill="white"]) {
+  &-hover:hover > *[fill] {
     fill: var(--hover-color);
   }
 }

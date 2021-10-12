@@ -13,6 +13,12 @@
   grid-template-columns: repeat(auto-fill, minmax(var(--el-grid-fill), 1fr));
   gap: var(--el-grid-fill-gap);
 }
+.grid {
+  display: grid;
+}
+.flex {
+  display: flex;
+}
 .fw {
   width: 100%;
 }

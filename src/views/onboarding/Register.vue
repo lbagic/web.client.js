@@ -1,15 +1,15 @@
 <template>
   <fieldset class="container-s my-auto">
-    <input type="email" v-model="form.email" name="email" placeholder="Email" />
+    <input v-model="form.email" type="email" name="email" placeholder="Email" />
     <input
-      type="password"
       v-model="form.password"
+      type="password"
       name="password"
       placeholder="Password"
     />
     <input
-      type="password"
       v-model="form.password_confirmation"
+      type="password"
       name="password"
       placeholder="Confirm password"
     />

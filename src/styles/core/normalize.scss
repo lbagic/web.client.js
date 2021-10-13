@@ -59,9 +59,6 @@ fieldset {
   border: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: 1rem;
-  align-items: flex-start;
 }
 fieldset > legend {
   font-size: 24px;
@@ -85,6 +82,18 @@ button {
   outline: none;
   padding: 8px;
   transition: all 0.2s ease-in-out;
+}
+fieldset[disabled] input,
+fieldset[disabled] select,
+fieldset[disabled] textarea,
+fieldset[disabled] button {
+  background: #e4e4e4;
+}
+input[disabled],
+select[disabled],
+textarea[disabled],
+button[disabled] {
+  background: #e4e4e4;
 }
 textarea {
   overflow: auto;

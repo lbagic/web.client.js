@@ -1,3 +1,6 @@
+.container {
+  padding: 1rem;
+}
 @each $key, $value in get("container") {
   .container-#{$key} {
     padding-left: var(--el-container-padding-horizontal);

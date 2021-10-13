@@ -12,7 +12,8 @@ export const Api = {
       meta: response,
     }),
     errorHandler: (error) => {
-      if (error.response.status === 401) store.dispatch("AccountModule/logout");
+      if (error.response?.status === 401)
+        store.dispatch("AccountModule/logout");
       throw {
         msg: error.response?.data?.error?.display?.msg || "Api error",
         apiErrors: error.response?.data?.error?.api_errors,

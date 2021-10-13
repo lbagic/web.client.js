@@ -27,18 +27,43 @@ export const createApi = (
     delete: instance.delete,
   };
 
+  instance.interceptors.request.use((res) => {
+    if (!res.baseURL)
+      console.error(
+        `Api error: baseUrl is not set! Your calls are bound to fail. ${res.method.toUpperCase()} ${
+          res.url
+        }`
+      );
+    return res;
+  });
+
+  instance.interceptors.response.use(
+    (res) => {
+      const { method, url, baseURL } = res.config;
+      console.log(method.toUpperCase(), baseURL + url, res.status, res);
+      return res;
+    },
+    (err) => {
+      console.warn(err);
+      throw err;
+    }
+  );
+
   // attach interceptors
   if (requestHandler || getToken)
-    instance.interceptors.request.use((config) => {
-      const token = getToken && getToken();
-      if (token) config.headers.Authorization = `Bearer ${token}`;
-      if (requestHandler) requestHandler(config);
-      return config;
-    }, Promise.reject);
+    instance.interceptors.request.use(
+      (config) => {
+        const token = getToken && getToken();
+        if (token) config.headers.Authorization = `Bearer ${token}`;
+        if (requestHandler) requestHandler(config);
+        return config;
+      },
+      () => {}
+    );
   if (responseHandler || errorHandler)
     instance.interceptors.response.use(
       responseHandler ? responseHandler : (res) => res,
-      errorHandler ? errorHandler : Promise.reject
+      errorHandler ? errorHandler : () => {}
     );
 
   // dedupe identical calls

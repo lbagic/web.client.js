@@ -86,14 +86,14 @@ button {
 fieldset[disabled] input,
 fieldset[disabled] select,
 fieldset[disabled] textarea,
-fieldset[disabled] button {
-  background: #e4e4e4;
-}
+fieldset[disabled] button,
 input[disabled],
 select[disabled],
 textarea[disabled],
 button[disabled] {
-  background: #e4e4e4;
+  background: #e4e4e4 !important;
+  cursor: initial !important;
+  color: #888 !important;
 }
 textarea {
   overflow: auto;

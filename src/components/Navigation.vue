@@ -25,12 +25,14 @@ export default {
   name: "Navigation",
   computed: {
     routes() {
-      const $attrs = { class: "flex align animate-underline button primary" };
+      const $attrs = {
+        class: "flex align-items animate-underline button primary",
+      };
       const userRoutes = [
         {
           name: "Home",
           innerHtml: "Logo",
-          $attrs: { class: "flex align" },
+          $attrs: { class: "flex align-items" },
         },
         { name: "Test", $attrs },
       ];
@@ -38,7 +40,7 @@ export default {
         {
           name: "Login",
           innerHtml: "Logo",
-          $attrs: { class: "flex align" },
+          $attrs: { class: "flex align-items" },
         },
         { name: "Login", $attrs },
         { name: "Register", $attrs },

@@ -58,7 +58,7 @@ export const createModuleCrud = (serviceCrud, path, hooks = {}) => {
       if (!id) throw new Error(`Cannot get resource "${pathName}" without id.`);
       const promise = serviceCrud.get(id);
       promise
-        .then((res) => ctx.commit(`add${pathName}`, res.payload))
+        .then(({ payload }) => ctx.commit(`add${pathName}`, payload))
         .catch(() => {});
       usePromiseHook(hooks.get, promise, ctx, id);
       return promise;
@@ -66,7 +66,7 @@ export const createModuleCrud = (serviceCrud, path, hooks = {}) => {
     [`getAll${pathName}`]: (ctx) => {
       const promise = serviceCrud.getAll();
       promise
-        .then((res) => ctx.commit(`set${pathName}`, res.payload))
+        .then(({ payload }) => ctx.commit(`set${pathName}`, payload))
         .catch(() => {});
       usePromiseHook(hooks.getAll, promise, ctx);
       return promise;
@@ -76,7 +76,7 @@ export const createModuleCrud = (serviceCrud, path, hooks = {}) => {
         throw new Error(`Cannot create resource "${pathName}" without data.`);
       const promise = serviceCrud.create(data);
       promise
-        .then((res) => ctx.commit(`add${pathName}`, res.payload))
+        .then(({ payload }) => ctx.commit(`add${pathName}`, payload))
         .catch(() => {});
       usePromiseHook(hooks.create, promise, ctx, data);
       return promise;
@@ -92,7 +92,7 @@ export const createModuleCrud = (serviceCrud, path, hooks = {}) => {
       delete _data.id;
       const promise = serviceCrud.update(data.id, _data);
       promise
-        .then((res) => ctx.commit(`add${pathName}`, res.payload))
+        .then(({ payload }) => ctx.commit(`add${pathName}`, payload))
         .catch(() => {});
       usePromiseHook(hooks.update, promise, ctx, data);
       return promise;

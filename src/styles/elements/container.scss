@@ -1,6 +1,7 @@
 .container {
   padding: 1rem;
 }
+
 @each $key, $value in get("container") {
   .container-#{$key} {
     padding-left: var(--el-container-padding-horizontal);
@@ -22,10 +23,16 @@
 .flex {
   display: flex;
 }
-.align {
+.align-items {
   align-items: center;
 }
-.justify {
+.align-content {
+  align-content: center;
+}
+.justify-items {
+  justify-items: center;
+}
+.justify-content {
   justify-content: center;
 }
 .fw {

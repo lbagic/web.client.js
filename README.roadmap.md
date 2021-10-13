@@ -25,7 +25,7 @@
   - cleanup store.factory ✅
   - store persistance ✅
   - store reset ✅
-  - generate crud actions?
+  - generate crud actions ✅
 - service implementation ✅
   - generate service crud ✅
 - api implementation ✅

@@ -20,10 +20,13 @@ export default {
       required: true,
     },
     button: Boolean,
-    color: String,
+    color: {
+      type: String,
+      default: "primary-lighter",
+    },
     hover: {
       type: String,
-      default: "ternary",
+      default: "primary-darker",
     },
   },
   data() {
@@ -69,19 +72,19 @@ export default {
   & > * {
     transition: all 0.2s ease-in-out;
   }
-  &-color > *[stroke] {
+  &-color > *[stroke]:not([stroke="white"]) {
     stroke: var(--base-color);
   }
 
-  &-color > *[fill] {
+  &-color > *[fill]:not([fill="white"]) {
     fill: var(--base-color);
   }
 
-  &-hover:hover > *[stroke] {
+  &-hover:hover > *[stroke]:not([stroke="white"]) {
     stroke: var(--hover-color);
   }
 
-  &-hover:hover > *[fill] {
+  &-hover:hover > *[fill]:not([fill="white"]) {
     fill: var(--hover-color);
   }
 }

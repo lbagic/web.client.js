@@ -1,20 +1,22 @@
 <template>
-  <nav class="navigation container-expand">
-    <router-link
-      v-for="route in routes"
-      :key="route.name"
-      v-bind="route.$attrs"
-      >{{ route.innerHtml }}</router-link
-    >
-    <button
-      v-if="$isLoggedIn"
-      class="animate-underline primary"
-      style="margin-left: auto"
-      @click="$store.dispatch('AccountModule/logout')"
-    >
-      <icon icon="Off" color="light" />
-    </button>
-  </nav>
+  <div style="width: 100vw">
+    <nav class="navigation container-expand">
+      <router-link
+        v-for="route in routes"
+        :key="route.name"
+        v-bind="route.$attrs"
+        >{{ route.innerHtml }}</router-link
+      >
+      <button
+        v-if="$isLoggedIn"
+        class="animate-underline primary"
+        style="margin-left: auto"
+        @click="$store.dispatch('AccountModule/logout')"
+      >
+        <icon icon="Off" color="light" />
+      </button>
+    </nav>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import VuexPersist from "vuex-persist";
+import { secureLocalStorage } from "../utils/secureLocalStorage";
 
 export const createVuexStore = (
   module = {
@@ -50,14 +51,12 @@ const createVuexModule = (module, options = {}) => {
     const persistModules = Object.keys(output.persist);
     if (persistModules.length) {
       if (!output.plugins) output.plugins = [];
-      const vuexPersist = new VuexPersist({
-        storage: window.localStorage,
-        reducer: (state) =>
-          persistModules.reduce((a, moduleName) => {
-            a[moduleName] = state[moduleName];
-            return a;
-          }, {}),
-      });
+      const vuexPersist = createVuexPersist((state) =>
+        persistModules.reduce((a, moduleName) => {
+          a[moduleName] = state[moduleName];
+          return a;
+        }, {})
+      );
       output.plugins.push(vuexPersist.plugin);
     }
   }
@@ -189,3 +188,9 @@ const clearState = (stateTree, state) => {
     else state[key] = refValue;
   });
 };
+
+const createVuexPersist = (reducerFn) =>
+  new VuexPersist({
+    storage: secureLocalStorage,
+    reducer: reducerFn,
+  });

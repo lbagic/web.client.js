@@ -44,7 +44,15 @@ export const createApi = (
       return res;
     },
     (err) => {
-      console.warn(err);
+      if (err.config) {
+        const { method, url, baseURL } = err.config;
+        console.error(
+          method.toUpperCase(),
+          baseURL + url,
+          err?.response?.status,
+          { ...err }
+        );
+      }
       throw err;
     }
   );

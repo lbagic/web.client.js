@@ -16,7 +16,11 @@ export const createServiceCrud = (api, url) => ({
   get: (id, config = {}) => api.get(`${url}/${id}`, config),
   getAll: (config = {}) => api.get(url, config),
   create: (data = {}, config = {}) => api.post(url, data, config),
-  update: (id, data = {}, config = {}) => api.put(`${url}/${id}`, data, config),
+  update: (data = {}, config = {}) => {
+    const id = data.id;
+    delete data.id;
+    return api.put(`${url}/${id}`, data, config);
+  },
   delete: (id, config = {}) => api.delete(`${url}/${id}`, config),
 });
 
@@ -88,9 +92,7 @@ export const createModuleCrud = (serviceCrud, path, hooks = {}) => {
         throw new Error(
           `Cannot update resource "${pathName}" without data.id.`
         );
-      const _data = { ...data };
-      delete _data.id;
-      const promise = serviceCrud.update(data.id, _data);
+      const promise = serviceCrud.update(data);
       promise
         .then(({ payload }) => ctx.commit(`add${pathName}`, payload))
         .catch(() => {});

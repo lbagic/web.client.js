@@ -15,6 +15,7 @@
       >
         <icon icon="Off" color="light" />
       </button>
+      <router-link to="/test" class="flex align-items">Test</router-link>
     </nav>
   </div>
 </template>
@@ -25,6 +26,11 @@ import Icon from "./utils/Icon.vue";
 export default {
   components: { Icon },
   name: "Navigation",
+  data() {
+    return {
+      startRoutes: [{ name: "Home", text: "Logo" }],
+    };
+  },
   computed: {
     routes() {
       const $attrs = {

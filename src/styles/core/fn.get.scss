@@ -1,4 +1,4 @@
-@function get($key, $map: $template-variables) {
+@function get($key, $map: $css-variables) {
   $keys: str-explode($key, ".");
 
   @if not deep-map-check($map, $keys...) {

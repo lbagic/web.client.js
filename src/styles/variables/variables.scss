@@ -1,6 +1,6 @@
 @import "./colors.scss";
 
-$template-variables: (
+$css-variables: (
   "breakpoint": (
     "s": 0px,
     "m": 600px,
@@ -21,8 +21,8 @@ $template-variables: (
     "header": 6000,
     "footer": 5000,
   ),
-  "palette-colors": $palette-colors,
-  "color": generate-colors($palette-colors, $color-variants),
+  "base-color": $base-color,
+  "color": $color,
   "shadow": (
     "dark-1": "0 0 8px #00000011",
     "dark-2": "0 0 8px #00000018",
@@ -34,16 +34,6 @@ $template-variables: (
     "3": cubic-bezier(0.53, -0.05, 0.22, 0.9),
     "4": cubic-bezier(0.45, 0, 0.47, 1.4),
   ),
-);
-
-:root {
-  @include generate-css-variables($template-variables);
-}
-:export {
-  cssVariables: generate-json-map($template-variables);
-}
-
-$element-variables: (
   "el": (
     "fieldset-spacing": 0.5rem,
     "background-color": #{var(--color-light)},
@@ -71,8 +61,8 @@ $element-variables: (
 );
 
 :root {
-  @include generate-css-variables($element-variables);
+  @include generate-css-variables($css-variables);
 }
 :export {
-  elementVariables: generate-json-map($template-variables);
+  cssVariables: generate-json-map($css-variables);
 }

@@ -1,4 +1,4 @@
-$palette-colors: (
+$base-color: (
   "primary": #4267b2,
   "secondary": #fdb73b,
   "ternary": #76bfc2,
@@ -25,3 +25,5 @@ $color-variants: (
     "darkest": 75%,
   ),
 );
+
+$color: generate-colors($base-color, $color-variants);

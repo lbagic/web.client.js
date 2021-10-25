@@ -1,7 +1,6 @@
-import rawVariables from "../styles/variables.scss";
+import rawCssVariables from "../styles/variables/variables.scss";
 import { deepFreeze } from "./deepFreeze";
 
-export const cssVariables = deepFreeze({
-  ...JSON.parse(/{.*}/.exec(rawVariables.cssVariables)[0]),
-  ...JSON.parse(/{.*}/.exec(rawVariables.elementVariables)[0]),
-});
+export const cssVariables = deepFreeze(
+  JSON.parse(/{.*}/.exec(rawCssVariables.cssVariables)[0])
+);

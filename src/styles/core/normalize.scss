@@ -6,17 +6,21 @@ html {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 16px;
   height: 100%;
-  line-height: 1.5;
+  line-height: 1.15;
 }
 body {
   height: 100%;
   margin: 0;
 }
+main {
+  display: block;
+}
 #app {
   height: 100%;
 }
 a {
-  color: currentColor;
+  color: inherit;
+  background-color: transparent;
   outline: none;
   text-decoration: none;
 }
@@ -33,8 +37,13 @@ h5 {
   font-weight: inherit;
   margin: 0;
 }
+code,
+kbd,
+samp,
 pre {
   margin: 0;
+  font-size: 1em;
+  font-family: monospace, monospace;
 }
 ol,
 ul {
@@ -61,27 +70,39 @@ fieldset {
   margin: 0;
   padding: 0;
 }
-fieldset > legend {
-  font-size: 24px;
-  margin-bottom: 1rem;
+legend {
+  padding: 0;
+  color: inherit;
+  max-width: 100%;
+  font-size: 1.5rem;
+  display: table;
+  white-space: normal;
 }
-fieldset > label {
-  width: 100%;
+label {
+  display: block;
+}
+textarea {
+  overflow: auto;
+  resize: vertical;
+  vertical-align: top;
 }
 input,
 select,
 textarea,
 button {
   background: #f4f4f4;
-  border-radius: 0;
+  border-style: none;
   border: none;
   color: inherit;
   font-family: inherit;
-  font-size: initial;
-  margin: 0;
+  font-size: 100%;
+  line-height: 1.15;
   line-height: normal;
+  margin: 0;
   outline: none;
-  padding: 8px;
+  overflow: visible;
+  padding: 1rem;
+  text-transform: none;
   transition: all 0.2s ease-in-out;
 }
 fieldset[disabled] input,
@@ -96,12 +117,7 @@ button[disabled] {
   cursor: initial !important;
   color: #888 !important;
 }
-textarea {
-  overflow: auto;
-  resize: vertical;
-  vertical-align: top;
-}
-input:not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="range"]),
+input,
 select,
 textarea {
   width: 100%;
@@ -119,12 +135,22 @@ label {
     background-color: #e8e8e8;
   }
 }
-legend {
-  padding: 0;
-}
 img {
   object-position: center;
   vertical-align: bottom;
+}
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
 }
 *,
 *::before,
@@ -133,4 +159,32 @@ img {
 }
 *[tabindex] {
   outline: none;
+}
+
+// normalize browser behaviors
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+[type="checkbox"],
+[type="radio"] {
+  padding: 0;
+}
+textarea {
+  overflow: auto;
+}
+progress {
+  vertical-align: baseline;
 }

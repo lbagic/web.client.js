@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@js-temporal/polyfill": "^0.2.0",
     "axios": "^0.22.0",
     "core-js": "^3.6.5",
     "secure-ls": "^1.2.6",

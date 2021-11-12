@@ -1,9 +1,9 @@
 @charset 'UTF-8';
 
-@import "./fn.get.scss";
-@import "./fn.generate-colors.scss";
-@import "./fn.generate-json.scss";
-@import "./fn.generate-css-variables.scss";
+@import "./functions/get.scss";
+@import "./functions/generate-colors.scss";
+@import "./functions/generate-json.scss";
+@import "./functions/generate-css-variables.scss";
 
-@import "../variables/variables.scss";
-@import "../variables/mixins.scss";
+@import "./generics/variables.scss";
+@import "./generics/mixins.scss";

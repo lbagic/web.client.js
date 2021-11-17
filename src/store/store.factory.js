@@ -1,6 +1,5 @@
 import { createStore } from "vuex";
 import VuexPersist from "vuex-persist";
-import { secureLocalStorage } from "../utils/secureLocalStorage";
 
 export const createVuexStore = (
   module = {
@@ -191,6 +190,6 @@ const clearState = (stateTree, state) => {
 
 const createVuexPersist = (reducerFn) =>
   new VuexPersist({
-    storage: secureLocalStorage,
+    storage: localStorage,
     reducer: reducerFn,
   });

@@ -16,6 +16,7 @@
   - datetime input
   - form inputs
   - validation, accessibility, error/info
+  - support errors from api calls (current_password field gets current_password error)
 - modal (details summary?), overlay, popup, notification, (toasts?)
 - topbar loading state
 

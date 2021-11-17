@@ -1,0 +1,26 @@
+%snt-container-base {
+  --snt-container-padding: 1rem;
+  @include l {
+    --snt-container-padding: 2rem;
+  }
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: var(--snt-container-padding);
+  padding-right: var(--snt-container-padding);
+}
+
+@each $key, $value in get("container") {
+  .snt-container-#{$key} {
+    @extend %snt-container-base;
+    max-width: $value;
+  }
+}
+
+.snt-grid-fill {
+  --snt-grid-fill: 200px;
+  --snt-grid-fill-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--snt-grid-fill), 1fr));
+  gap: var(--snt-grid-fill-gap);
+}

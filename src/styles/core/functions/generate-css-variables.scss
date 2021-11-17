@@ -9,7 +9,7 @@
     @if type-of($value) == "map" {
       @include generate-css-variables($value, $current-key);
     } @else {
-      --#{$current-key}: #{$value};
+      --snt-#{$current-key}: #{$value};
     }
   }
 }

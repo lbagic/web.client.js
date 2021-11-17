@@ -1,5 +1,5 @@
 button {
-  min-height: var(--el-button-height);
+  min-height: var(--snt-form-field-height);
 }
 button,
 .button {
@@ -8,7 +8,7 @@ button,
 }
 button:not(.card),
 .button:not(.card) {
-  padding: var(--el-button-padding);
+  padding: var(--snt-form-field-padding);
 }
 
 @mixin generate-button(

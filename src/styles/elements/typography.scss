@@ -1,0 +1,72 @@
+:root {
+  --snt-font-global-scale: 1;
+  --snt-font-scale-factor: 1.25;
+  --snt-font-base-size: calc(16px * var(--snt-font-global-scale));
+
+  @include s-only {
+    --snt-font-global-scale: 0.8;
+  }
+}
+
+// font faces
+
+@font-face {
+  font-family: SpaceMono;
+  src: url("~@/assets/fonts/SpaceMono-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.snt-font-mono {
+  font-family: SpaceMono;
+}
+
+// font sizes
+
+.snt-fs-1 {
+  font-size: calc(
+    var(--snt-font-base-size) * var(--snt-font-scale-factor) *
+      var(--snt-font-scale-factor) * var(--snt-font-scale-factor) *
+      var(--snt-font-scale-factor) * var(--snt-font-scale-factor)
+  );
+}
+.snt-fs-2 {
+  font-size: calc(
+    var(--snt-font-base-size) * var(--snt-font-scale-factor) *
+      var(--snt-font-scale-factor) * var(--snt-font-scale-factor) *
+      var(--snt-font-scale-factor)
+  );
+}
+.snt-fs-3 {
+  font-size: calc(
+    var(--snt-font-base-size) * var(--snt-font-scale-factor) *
+      var(--snt-font-scale-factor) * var(--snt-font-scale-factor)
+  );
+}
+.snt-fs-4 {
+  font-size: calc(
+    var(--snt-font-base-size) * var(--snt-font-scale-factor) *
+      var(--snt-font-scale-factor)
+  );
+}
+.snt-fs-5 {
+  font-size: calc(var(--snt-font-base-size) * var(--snt-font-scale-factor));
+}
+.snt-fs-6 {
+  font-size: var(--snt-font-base-size);
+}
+.snt-fs-7 {
+  font-size: calc(var(--snt-font-base-size) / var(--snt-font-scale-factor));
+}
+.snt-fs-8 {
+  font-size: calc(
+    var(--snt-font-base-size) / var(--snt-font-scale-factor) /
+      var(--snt-font-scale-factor)
+  );
+}
+.snt-fs-9 {
+  font-size: calc(
+    var(--snt-font-base-size) / var(--snt-font-scale-factor) /
+      var(--snt-font-scale-factor) / var(--snt-font-scale-factor)
+  );
+}

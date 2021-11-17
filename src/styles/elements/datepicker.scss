@@ -216,7 +216,7 @@
   box-sizing: unset;
 }
 .dp__overlay::-webkit-scrollbar-track {
-  -webkit-box-shadow: var(--dp-scroll-bar-background);
+  box-shadow: var(--dp-scroll-bar-background);
   background-color: var(--dp-scroll-bar-background);
 }
 .dp__overlay::-webkit-scrollbar {

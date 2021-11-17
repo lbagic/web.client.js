@@ -1,0 +1,18 @@
+.snt-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  // display: grid;
+  // gap: var(--el-fieldset-spacing);
+  // align-items: flex-start;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+textarea,
+select {
+  min-height: var(--snt-form-field-height);
+  padding: var(--snt-form-field-padding);
+  border: var(--snt-form-field-border);
+  &:focus {
+    border: var(--snt-form-field-border-focus);
+  }
+}

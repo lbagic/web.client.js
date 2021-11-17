@@ -1,22 +1,19 @@
 <template>
-  <div>
-    <fieldset>
-      <legend>Form name</legend>
-      <label>
-        <p>Email</p>
-        <input type="email" />
-      </label>
-      <label>
-        <p>Password</p>
-        <input type="password" />
-      </label>
-    </fieldset>
-  </div>
+  <multiselect v-model="value" :options="options"></multiselect>
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
+
 export default {
   name: "Test",
+  components: { Multiselect },
+  data() {
+    return {
+      value: null,
+      options: ["list", "of", "options"],
+    };
+  },
 };
 </script>
 

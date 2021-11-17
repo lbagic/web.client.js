@@ -50,7 +50,7 @@
 }
 
 @mixin s-only() {
-  @media (min-width: get("breakpoint.s")) and (max-width: get("breakpoint.m") - 1px) {
+  @media (min-width: get("breakpoint.s")) and (max-width: calc(get("breakpoint.m") - 1px)) {
     @content;
   }
 }
@@ -60,7 +60,7 @@
   }
 }
 @mixin m-only() {
-  @media (min-width: get("breakpoint.m")) and (max-width: get("breakpoint.l") - 1px) {
+  @media (min-width: get("breakpoint.m")) and (max-width: calc(get("breakpoint.l") - 1px)) {
     @content;
   }
 }
@@ -70,7 +70,7 @@
   }
 }
 @mixin l-only() {
-  @media (min-width: get("breakpoint.l")) and (max-width: get("breakpoint.xl") - 1px) {
+  @media (min-width: get("breakpoint.l")) and (max-width: calc(get("breakpoint.xl") - 1px)) {
     @content;
   }
 }

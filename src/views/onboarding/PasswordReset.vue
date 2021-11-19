@@ -1,10 +1,10 @@
 <template>
-  <fieldset class="container-s my-auto">
+  <fieldset class="snt-container-s my-auto">
     <input v-model="email" type="email" name="email" placeholder="Email" />
     <input
       v-model="form.recovery_token"
       type="text"
-      name="token"
+      name="recovery-token"
       placeholder="Recovery token"
     />
     <input
@@ -14,8 +14,8 @@
       placeholder="New password"
     />
     <button
-      class="primary fw"
-      style="color: var(--color-light); margin-top: 8px"
+      class="primary w-1-1"
+      style="color: var(--snt-color-light); margin-top: 8px"
       @click="
         $store
           .dispatch('AccountModule/resetPassword', {

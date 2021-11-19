@@ -17,17 +17,17 @@ button:not(.card),
 ) {
   button.#{$color},
   .button.#{$color} {
-    background: var(--color-#{$color});
+    background: var(--snt-color-#{$color});
     @media (hover: hover) {
       &:hover {
-        background: var(--color-#{$color}-#{$variant});
+        background: var(--snt-color-#{$color}-#{$variant});
       }
       &:focus {
-        background: var(--color-#{$color}-#{$variant});
+        background: var(--snt-color-#{$color}-#{$variant});
       }
     }
     &:active {
-      background: var(--color-#{$color}-#{$variant}er);
+      background: var(--snt-color-#{$color}-#{$variant}er);
     }
   }
 }

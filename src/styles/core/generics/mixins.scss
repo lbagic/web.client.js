@@ -27,7 +27,7 @@
   }
 }
 
-@mixin animate-underline() {
+@mixin snt-animate-underline() {
   position: relative;
   &::after {
     background: currentColor;

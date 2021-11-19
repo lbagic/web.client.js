@@ -42,7 +42,7 @@ export default {
       if (value && value[0] === "#") return value;
       const cssColor = getComputedStyle(
         document.documentElement
-      ).getPropertyValue(`--color-${value}`);
+      ).getPropertyValue(`--snt-color-${value}`);
       if (cssColor) return cssColor;
       return "#000";
     },

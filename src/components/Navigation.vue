@@ -9,13 +9,13 @@
       >
       <button
         v-if="$isLoggedIn"
-        class="animate-underline primary"
+        class="snt-animate-underline primary"
         style="margin-left: auto"
         @click="$store.dispatch('AccountModule/logout')"
       >
         <icon icon="Off" color="light" />
       </button>
-      <router-link to="/test" class="flex align-items">Test</router-link>
+      <router-link to="/test" :class="navItemClass">Test</router-link>
     </nav>
   </div>
 </template>
@@ -33,9 +33,7 @@ export default {
   },
   computed: {
     routes() {
-      const $attrs = {
-        class: "flex align-items animate-underline button primary",
-      };
+      const $attrs = { class: this.navItemClass };
       const userRoutes = [
         {
           name: "Home",
@@ -65,19 +63,22 @@ export default {
         };
       });
     },
+    navItemClass() {
+      return "flex align-items snt-animate-underline button primary";
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.animate-underline::after {
+.snt-animate-underline::after {
   height: 3px;
 }
 .navigation {
   display: flex;
   overflow-x: auto;
-  background: var(--color-primary);
-  color: var(--color-light);
+  background: var(--snt-color-primary);
+  color: var(--snt-color-light);
   & > * {
     padding: 1rem;
   }

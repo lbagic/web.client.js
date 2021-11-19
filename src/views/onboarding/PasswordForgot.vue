@@ -1,11 +1,11 @@
 <template>
-  <fieldset class="container-s my-auto">
+  <fieldset class="snt-container-s my-auto">
     <label>
       <input v-model="email" type="email" name="email" placeholder="Email" />
     </label>
     <button
-      class="primary fw"
-      style="color: var(--color-light); margin-top: 8px"
+      class="primary w-1-1"
+      style="color: var(--snt-color-light); margin-top: 8px"
       @click="
         $store
           .dispatch('AccountModule/recoverPassword', {
@@ -16,10 +16,7 @@
     >
       Recover password
     </button>
-    <router-link
-      to="/reset-password"
-      class="animate-underline"
-      style="justify-self: center"
+    <router-link to="/reset-password" class="snt-animate-underline justify-self"
       >Got recovery token?</router-link
     >
   </fieldset>

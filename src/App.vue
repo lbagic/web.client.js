@@ -1,8 +1,6 @@
 <template>
-  <div id="application">
-    <navigation />
-    <router-view />
-  </div>
+  <navigation />
+  <router-view />
 </template>
 
 <script>
@@ -14,8 +12,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-#application {
+<style lang="scss">
+#app {
   height: 100%;
   display: grid;
   grid-template-rows: auto 1fr;

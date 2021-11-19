@@ -14,13 +14,13 @@ export const routes = [
   {
     path: "/forgot-password",
     name: "Forgot Password",
-    component: () => import("../views/onboarding/ForgotPassword.vue"),
+    component: () => import("../views/onboarding/PasswordForgot.vue"),
     meta: { visitorOnly: true },
   },
   {
     path: "/reset-password",
     name: "Reset password",
-    component: () => import("../views/onboarding/ResetPassword.vue"),
+    component: () => import("../views/onboarding/PasswordReset.vue"),
     meta: { visitorOnly: true },
   },
   {
@@ -35,6 +35,11 @@ if (process.env.NODE_ENV === "development") {
   routes.push({
     path: "/test",
     name: "Test",
-    component: () => import("../views/Test.vue"),
+    component: () => import("../views/_test/Test.vue"),
+  });
+  routes.push({
+    path: "/test/components",
+    name: "Components",
+    component: () => import("../views/_test/Components.vue"),
   });
 }

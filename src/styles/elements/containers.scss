@@ -1,6 +1,6 @@
 %snt-container-base {
   --snt-container-padding: 1rem;
-  @include l {
+  @include snt-l {
     --snt-container-padding: 2rem;
   }
   margin-left: auto;

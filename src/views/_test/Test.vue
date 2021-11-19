@@ -1,5 +1,7 @@
 <template>
-  <div>Test</div>
+  <div>
+    <div class="card">asdf</div>
+  </div>
 </template>
 
 <script>

@@ -1,10 +1,11 @@
 <template>
-  <div style="width: 100vw">
+  <header class="navigation-wrapper">
     <nav class="navigation container-expand">
       <router-link
         v-for="route in routes"
         :key="route.name"
         v-bind="route.$attrs"
+        @click="snap"
         >{{ route.innerHtml }}</router-link
       >
       <button
@@ -15,9 +16,8 @@
       >
         <icon icon="Off" color="light" />
       </button>
-      <router-link to="/test" :class="navItemClass">Test</router-link>
     </nav>
-  </div>
+  </header>
 </template>
 
 <script>
@@ -33,38 +33,47 @@ export default {
   },
   computed: {
     routes() {
-      const $attrs = { class: this.navItemClass };
-      const userRoutes = [
-        {
-          name: "Home",
-          innerHtml: "Logo",
-          $attrs: { class: "flex align-items" },
-        },
-        { name: "Test", $attrs },
-      ];
-      const visitorRoutes = [
-        {
-          name: "Login",
-          innerHtml: "Logo",
-          $attrs: { class: "flex align-items" },
-        },
-        { name: "Login", $attrs },
-        { name: "Register", $attrs },
-      ];
-      const routes = this.$isLoggedIn ? userRoutes : visitorRoutes;
+      const logoClass = "flex align-items snt-f3";
+      const linkClass = "flex align-items snt-animate-underline snt-f";
+
+      const routes = this.$isLoggedIn
+        ? [
+            {
+              name: "Home",
+              innerHtml: "Logo",
+              $attrs: { class: logoClass },
+            },
+          ]
+        : [
+            {
+              name: "Login",
+              innerHtml: "Logo",
+              $attrs: { class: logoClass },
+            },
+            { name: "Login", $attrs: { class: linkClass } },
+            { name: "Register", $attrs: { class: linkClass } },
+          ];
+
+      if (process.env.NODE_ENV !== "production")
+        routes.push({ name: "Test", $attrs: { class: linkClass } });
 
       return routes.map((el) => {
         const route = this.$routes.find((route) => el.name === route.name);
         if (!route) throw new Error(`Can't find route with name "${el.name}"`);
-        const to = route.path;
+
         return {
           innerHtml: el.innerHtml ?? el.name,
-          $attrs: { ...el.$attrs, to },
+          $attrs: { ...el.$attrs, to: route.path },
         };
       });
     },
-    navItemClass() {
-      return "flex align-items snt-animate-underline button primary";
+  },
+  methods: {
+    snap({ target }) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
     },
   },
 };
@@ -74,16 +83,19 @@ export default {
 .snt-animate-underline::after {
   height: 3px;
 }
-.navigation {
+.navigation-wrapper {
   display: flex;
   overflow-x: auto;
   background: var(--snt-color-primary);
+  // scroll-snap-type: x mandatory;
+}
+.navigation {
+  width: 100%;
+  display: flex;
   color: var(--snt-color-light);
   & > * {
+    // scroll-snap-align: start end;
     padding: 1rem;
-  }
-  & > * + * {
-    font-size: 12px;
   }
 }
 </style>

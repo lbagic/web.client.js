@@ -1,19 +1,19 @@
-.card {
-  padding: var(--snt-card-padding);
-  border-radius: var(--snt-card-border-radius);
-  box-shadow: var(--snt-card-shadow);
-}
-button.card,
-.button.card {
-  @media (hover: hover) {
-    &:hover {
-      box-shadow: var(--snt-card-shadow-hover);
-    }
-    &:focus-within {
-      box-shadow: var(--snt-card-shadow-focus);
-    }
-  }
-  &:active {
-    box-shadow: var(--snt-card-shadow-active);
-  }
-}
+// .card {
+//   padding: var(--snt-card-padding);
+//   border-radius: var(--snt-card-border-radius);
+//   box-shadow: var(--snt-card-shadow);
+// }
+// button.card,
+// .button.card {
+//   @media (hover: hover) {
+//     &:hover {
+//       box-shadow: var(--snt-card-shadow-hover);
+//     }
+//     &:focus-within {
+//       box-shadow: var(--snt-card-shadow-focus);
+//     }
+//   }
+//   &:active {
+//     box-shadow: var(--snt-card-shadow-active);
+//   }
+// }

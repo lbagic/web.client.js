@@ -1,0 +1,96 @@
+*[tabindex],
+input,
+select,
+textarea,
+button,
+a {
+  outline: none;
+  &:focus {
+    box-shadow: 0 0 5px red;
+  }
+}
+// INPUT START ---------------
+// input,
+// select,
+// textarea,
+// button {
+//   background: #f4f4f4;
+//   border-style: none;
+//   border: none;
+//   color: inherit;
+//   font-family: inherit;
+//   font-size: 100%;
+//   line-height: 1.15;
+//   line-height: normal;
+//   margin: 0;
+//   outline: none;
+//   overflow: visible;
+//   padding: 0;
+//   text-transform: none;
+//   transition: all 0.2s ease-in-out;
+// }
+// fieldset[disabled] input,
+// fieldset[disabled] select,
+// fieldset[disabled] textarea,
+// fieldset[disabled] button,
+// input[disabled],
+// select[disabled],
+// textarea[disabled],
+// button[disabled] {
+//   background: #e4e4e4 !important;
+//   cursor: initial !important;
+//   color: #888 !important;
+// }
+// INPUT END ---------------
+
+// THIS OPTIONAL?
+// input,
+// select,
+// textarea {
+//   // width: 100%;
+// }
+
+// ANOTHER ONE
+// button,
+// [type="checkbox"],
+// [type="radio"],
+// label {
+//   cursor: pointer;
+// }
+
+// HOVER STYLES
+// @media (hover: hover) {
+//   input:focus,
+//   select:focus,
+//   textarea:focus,
+//   button:focus {
+//     background-color: #e8e8e8;
+//   }
+// }
+
+// OTHER INPUT NORMALIZATIONS; test
+// [type="number"]::-webkit-inner-spin-button,
+// [type="number"]::-webkit-outer-spin-button {
+//   height: auto;
+// }
+// [type="search"] {
+//   -webkit-appearance: textfield;
+//   outline-offset: -2px;
+// }
+// [type="search"]::-webkit-search-decoration {
+//   -webkit-appearance: none;
+// }
+// ::-webkit-file-upload-button {
+//   -webkit-appearance: button;
+//   font: inherit;
+// }
+// [type="checkbox"],
+// [type="radio"] {
+//   padding: 0;
+// }
+// textarea {
+//   overflow: auto;
+// }
+// progress {
+//   vertical-align: baseline;
+// }

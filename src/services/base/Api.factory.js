@@ -62,7 +62,7 @@ export const createApi = (
       errorHandler ? errorHandler : () => {}
     );
 
-  // Buffer identical calls
+  // buffer identical calls
   const bufferMap = new Map();
   const bufferIdenticalCalls = (fn, ...args) => {
     const token = getToken && getToken();

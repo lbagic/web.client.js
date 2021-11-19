@@ -1,37 +1,37 @@
-button {
-  min-height: var(--snt-form-field-height);
-}
-button,
-.button {
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-button:not(.card),
-.button:not(.card) {
-  padding: var(--snt-form-field-padding);
-}
+// button {
+//   min-height: var(--snt-form-field-height);
+// }
+// button,
+// .button {
+//   transition: all 0.2s ease-in-out;
+//   cursor: pointer;
+// }
+// button:not(.card),
+// .button:not(.card) {
+//   padding: var(--snt-form-field-padding);
+// }
 
-@mixin generate-button(
-  $color /* palette color */,
-  $variant /* 'light' or 'dark' */
-) {
-  button.#{$color},
-  .button.#{$color} {
-    background: var(--snt-color-#{$color});
-    @media (hover: hover) {
-      &:hover {
-        background: var(--snt-color-#{$color}-#{$variant});
-      }
-      &:focus {
-        background: var(--snt-color-#{$color}-#{$variant});
-      }
-    }
-    &:active {
-      background: var(--snt-color-#{$color}-#{$variant}er);
-    }
-  }
-}
+// @mixin generate-button(
+//   $color /* palette color */,
+//   $variant /* 'light' or 'dark' */
+// ) {
+//   button.#{$color},
+//   .button.#{$color} {
+//     background: var(--snt-color-#{$color});
+//     @media (hover: hover) {
+//       &:hover {
+//         background: var(--snt-color-#{$color}-#{$variant});
+//       }
+//       &:focus {
+//         background: var(--snt-color-#{$color}-#{$variant});
+//       }
+//     }
+//     &:active {
+//       background: var(--snt-color-#{$color}-#{$variant}er);
+//     }
+//   }
+// }
 
-@include generate-button("primary", "light");
-@include generate-button("secondary", "light");
-@include generate-button("ternary", "light");
+// @include generate-button("primary", "light");
+// @include generate-button("secondary", "light");
+// @include generate-button("ternary", "light");

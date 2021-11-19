@@ -1,5 +1,6 @@
 <template>
   <fieldset class="snt-container-s my-auto">
+    <legend>asdf</legend>
     <input v-model="form.email" type="email" name="email" placeholder="Email" />
     <input
       v-model="form.password"
@@ -41,4 +42,11 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.p1 {
+  padding: 1rem;
+}
+.p0 {
+  padding: 0rem;
+}
+</style>

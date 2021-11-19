@@ -46,7 +46,7 @@ $css-variables: (
   ),
   "card": (
     "padding": 1rem,
-    "border-radius": 0.5rem,
+    "border-radius": 4px,
     "shadow": #{var(--snt-box-shadow-1)},
     "shadow-hover": #{var(--snt-box-shadow-2)},
     "shadow-focus": #{var(--snt-box-shadow-2)},

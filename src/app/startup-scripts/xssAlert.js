@@ -1,5 +1,8 @@
-export const initializeXssAlert = () => {
-  if (process.env.NODE_ENV !== "test") {
+!(function () {
+  if (
+    process.env.NODE_ENV === "staging" ||
+    process.env.NODE_ENV === "production"
+  ) {
     console.log(
       "%cStop!",
       "color:red; font-size:60px; font-weight: bold; -webkit-text-stroke: 1px black;"
@@ -9,4 +12,4 @@ export const initializeXssAlert = () => {
       "font-size: 18px;"
     );
   }
-};
+})();

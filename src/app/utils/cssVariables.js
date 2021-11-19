@@ -1,4 +1,4 @@
-import { rawCssVariables } from "../styles/core/generics/variables.scss";
+import { rawCssVariables } from "../../styles/core/generics/variables.scss";
 import { deepFreeze } from "./deepFreeze";
 
 export const getPropertyValue = (name) =>

@@ -16,27 +16,34 @@ const replaceMethod = (target, aspect, advice) => (methodName) => {
   };
 };
 
-const validateArguments = (target, aspect, method) => {
-  if (typeof target !== "object")
-    throw new Error("Provided aspect is not a function.");
-  if (typeof aspect !== "function")
-    throw new Error("Provided target is not an object.");
-  if (method && (typeof method !== "string" || !Array.isArray(method)))
-    throw new Error(
-      "Provided method is not a string or array of method names."
-    );
-};
+/**
+ * TODO: Description and better type.
+ *
+ * @param {String} advice Advice where to inject aspect.
+ * @return {(target: object, aspect: function, methodNameOrNames?: string|string[]) => undefined}
+ */
 
 const inject =
   (advice) =>
   (target, aspect, methodNames = null) => {
-    validateArguments(target, aspect, methodNames);
+    if (typeof target !== "object")
+      throw new Error("Provided aspect is not a function.");
+    if (typeof aspect !== "function")
+      throw new Error("Provided target is not an object.");
+    if (
+      methodNames &&
+      (typeof methodNames !== "string" || !Array.isArray(methodNames))
+    )
+      throw new Error(
+        "Provided method is not a string or array of method names."
+      );
 
     const names = !methodNames
       ? getMethodNames(target)
       : Array.isArray(methodNames)
       ? methodNames
       : [methodNames];
+
     names.forEach(replaceMethod(target, aspect, advice));
   };
 

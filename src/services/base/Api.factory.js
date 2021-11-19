@@ -1,5 +1,5 @@
 import axios from "axios";
-import { aop } from "../../utils/aop";
+import { aop } from "../../app/utils/aop";
 
 export const createApi = (
   config = {
@@ -27,37 +27,25 @@ export const createApi = (
     delete: instance.delete,
   };
 
-  instance.interceptors.request.use((res) => {
-    if (!res.baseURL)
-      console.error(
-        `Api error: baseUrl is not set! Your calls are bound to fail. ${res.method.toUpperCase()} ${
-          res.url
-        }`
-      );
-    return res;
-  });
-
+  // attach default logging interceptors
   instance.interceptors.response.use(
     (res) => {
-      const { method, url, baseURL } = res.config;
-      console.log(method.toUpperCase(), baseURL + url, res.status, res);
+      const { method, url } = res.config;
+      console.log(method.toUpperCase(), url, res.status, res);
       return res;
     },
     (err) => {
       if (err.config) {
-        const { method, url, baseURL } = err.config;
-        console.error(
-          method.toUpperCase(),
-          baseURL + url,
-          err?.response?.status,
-          { ...err }
-        );
+        const { method, url } = err.config;
+        console.error(method.toUpperCase(), url, err?.response?.status, {
+          ...err,
+        });
       }
       throw err;
     }
   );
 
-  // attach interceptors
+  // attach customly configured interceptors
   if (requestHandler || getToken)
     instance.interceptors.request.use(
       (config) => {
@@ -74,24 +62,25 @@ export const createApi = (
       errorHandler ? errorHandler : () => {}
     );
 
-  // dedupe identical calls
-  const dedupeMap = new Map();
-  const dedupePendingCalls = (fn, ...args) => {
+  // Buffer identical calls
+  const bufferMap = new Map();
+  const bufferIdenticalCalls = (fn, ...args) => {
     const token = getToken && getToken();
     // generate key based on call arguments and token
     const key = JSON.stringify({ args, config }) + (token ?? "");
-    const identicalUnresolvedCall = dedupeMap.get(key);
+    const identicalUnresolvedCall = bufferMap.get(key);
     // if identical call is already in progress, return its reference
     if (identicalUnresolvedCall) return identicalUnresolvedCall;
-    // if no identical calls are in progress, return a new one
+    // if no identical calls are in progress, call and return a new one
     else {
       const newCall = fn(...args);
-      dedupeMap.set(key, newCall);
-      newCall.catch(() => {}).finally(() => dedupeMap.delete(key));
+      bufferMap.set(key, newCall);
+      newCall.catch(() => {}).finally(() => bufferMap.delete(key));
       return newCall;
     }
   };
 
-  aop.injectBeforeExecuting(calls, dedupePendingCalls);
+  aop.injectBeforeExecuting(calls, bufferIdenticalCalls);
+
   return calls;
 };

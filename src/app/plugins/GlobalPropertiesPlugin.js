@@ -1,5 +1,5 @@
-import { routes } from "../router/routes";
-import { store } from "../store/store";
+import { routes } from "../../router/routes";
+import { store } from "../../store/store";
 import { capitalize } from "../utils/capitalize";
 import { cssVariables } from "../utils/cssVariables";
 

@@ -13,6 +13,7 @@
 ## Components
 
 - inputs
+  - select/text input with suggestions (hidden input with whole object?)
   - datetime input
   - form inputs
   - validation, accessibility, error/info
@@ -22,6 +23,7 @@
 
 ## Integrations
 
+- stylelint
 - store implementation ✅
   - cleanup store.factory ✅
   - store persistance ✅

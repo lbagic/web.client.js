@@ -1,12 +1,7 @@
-const secretKey = process.env.VUE_APP_PASSWORKD_ENCRYPTION_KEY;
-
-if (!secretKey)
-  throw new Error(
-    "Cant use hashPassword methoud without VUE_APP_PASSWORKD_ENCRYPTION_KEY."
-  );
+import { env } from "../config/env";
 
 export const hashPassword = async (string) => {
-  const secret = secretKey; // the secret key
+  const secret = env.VUE_APP_SNT_PASSWORD_ENCRYPTION_KEY;
   const enc = new TextEncoder("utf-8");
   const algorithm = { name: "HMAC", hash: "SHA-256" };
 

@@ -14,17 +14,17 @@
         style="margin-left: auto"
         @click="$store.dispatch('AccountModule/logout')"
       >
-        <icon icon="Off" color="light" />
+        <snt-icon icon="Off" color="light" />
       </button>
     </nav>
   </header>
 </template>
 
 <script>
-import Icon from "./utils/Icon.vue";
+import SntIcon from "./utils/SntIcon.vue";
 
 export default {
-  components: { Icon },
+  components: { SntIcon },
   name: "Navigation",
   data() {
     return {
@@ -33,8 +33,8 @@ export default {
   },
   computed: {
     routes() {
-      const logoClass = "flex align-items snt-f3";
-      const linkClass = "flex align-items snt-animate-underline snt-f";
+      const logoClass = "flex align-items snt-f2";
+      const linkClass = "flex align-items snt-animate-underline snt-fs1";
 
       const routes = this.$isLoggedIn
         ? [
@@ -84,6 +84,7 @@ export default {
   height: 3px;
 }
 .navigation-wrapper {
+  height: var(--snt-navigation-height);
   display: flex;
   overflow-x: auto;
   background: var(--snt-color-primary);

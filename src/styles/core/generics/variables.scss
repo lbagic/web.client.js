@@ -59,6 +59,9 @@ $css-variables: (
     "alt-color": #{var(--snt-color-primary-lightest)},
     "border-color": black,
   ),
+  "navigation": (
+    "height": 50px,
+  ),
 );
 
 :root {

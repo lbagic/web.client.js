@@ -16,6 +16,6 @@ export default {
 #app {
   height: 100%;
   display: grid;
-  grid-template-rows: 60px 1fr;
+  grid-template-rows: auto 1fr;
 }
 </style>

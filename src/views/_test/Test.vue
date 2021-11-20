@@ -1,51 +1,24 @@
 <template>
   <div>
-    <fieldset>
-      <legend>asdf</legend>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <fieldset>
-      <legend>asdf</legend>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <fieldset>
-      <legend>asdf</legend>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <fieldset>
-      <legend>asdf</legend>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <fieldset>
-      <legend>asdf</legend>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <fieldset>
-      <legend>asdf</legend>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <fieldset>
-      <legend>asdf</legend>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <fieldset>
-      <legend>asdf</legend>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <fieldset>
-      <input id="" type="text" name="" />
-    </fieldset>
-    <br />
-    <textarea id="" name="" cols="30" rows="10"></textarea>
-    <br />
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <p class="snt-f6">aaa</p>
+    <meter></meter>
   </div>
 </template>
 

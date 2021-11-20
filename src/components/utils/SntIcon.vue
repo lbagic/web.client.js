@@ -13,7 +13,7 @@
 import { defineAsyncComponent } from "@vue/runtime-core";
 
 export default {
-  name: "Icon",
+  name: "SntIcon",
   props: {
     icon: {
       type: String,

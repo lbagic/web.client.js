@@ -13,3 +13,9 @@ export const configApp = () => {
 
   return { app, i18n };
 };
+
+export const configuration = {
+  defaultApplicationTitle: "Application",
+  defaultUserRoute: "/",
+  defaultVisitorRoute: "/login",
+};

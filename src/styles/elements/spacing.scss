@@ -1,0 +1,13 @@
+:root {
+  --snt-spacing-global-scale: 1;
+  --snt-spacing-base: calc(16px * var(--snt-spacing-global-scale));
+  --snt-s1: var(--snt-spacing-base);
+  --snt-s1p5: calc(var(--snt-spacing-base) * 1.5);
+  --snt-s2: calc(var(--snt-spacing-base) * 2);
+  --snt-s2p5: calc(var(--snt-spacing-base) * 2.5);
+  --snt-s3: calc(var(--snt-spacing-base) * 3);
+  --snt-s3p5: calc(var(--snt-spacing-base) * 3.5);
+  --snt-s4: calc(var(--snt-spacing-base) * 4);
+  --snt-s4p5: calc(var(--snt-spacing-base) * 4.5);
+  --snt-s5: calc(var(--snt-spacing-base) * 5);
+}

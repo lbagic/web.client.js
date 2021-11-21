@@ -51,6 +51,8 @@ Input types - not gonna implement
 
 Functions to implement:
 
+- support icons left and right
+  - default icons for some inputs
 - validation
 - hint
 - error

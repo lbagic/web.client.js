@@ -23,7 +23,7 @@
 
 ## Integrations
 
-- stylelint
+- i18n ✅
 - store implementation ✅
   - cleanup store.factory ✅
   - store persistance ✅
@@ -32,7 +32,6 @@
 - service implementation ✅
   - generate service crud ✅
 - api implementation ✅
-
   - integrate with popups
   - TODO - integrations via call config
     - isLoading: true, // show loading
@@ -41,10 +40,9 @@
     - isApiMock: false, // prefix /api/mock to mock data
     - isRemoveField: true, // remove all empty params
     - removeFields: [] // manual remove empty params
-
+- stylelint
 - external services
   - google, twitter, facebook, stripe, etc... (cleanup firebase integrations)
-- i18n ✅
 
 ## R&D:
 

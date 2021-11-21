@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="snt-f6">aaa</p>
+    <p class="snt-f6 testy">aaa</p>
     <p class="snt-f6">aaa</p>
     <p class="snt-f6">aaa</p>
     <p class="snt-f6">aaa</p>

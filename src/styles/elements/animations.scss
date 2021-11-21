@@ -1,3 +1,10 @@
+:root {
+  --snt-bezier-1: cubic-bezier(0.72, 0.16, 0.28, 0.93);
+  --snt-bezier-2: cubic-bezier(0.81, 0.17, 0.28, 1);
+  --snt-bezier-3: cubic-bezier(0.53, -0.05, 0.22, 0.9);
+  --snt-bezier-4: cubic-bezier(0.45, 0, 0.47, 1.4);
+}
+
 .snt-fade {
   @include snt-transition(all 0.4s var(--snt-bezier-1)) {
     opacity: 0;

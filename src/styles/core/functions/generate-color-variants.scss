@@ -1,18 +1,18 @@
-@function generate-colors($palette-colors, $color-variants) {
+@function generate-color-variants($palette, $variants) {
   $colors: ();
-  @each $colorName, $colorHex in $palette-colors {
+  @each $colorName, $colorHex in $palette {
     $colors: map-merge(
       $colors,
       (
-        "#{$colorName}": $colorHex,
+        "color-#{$colorName}": $colorHex,
       )
     );
-    @each $variantHex, $variantMap in $color-variants {
+    @each $variantHex, $variantMap in $variants {
       @each $variantName, $mixPercentage in $variantMap {
         $colors: map-merge(
           $colors,
           (
-            "#{$colorName}-#{$variantName}":
+            "color-#{$colorName}-#{$variantName}":
               mix($variantHex, $colorHex, $mixPercentage),
           )
         );

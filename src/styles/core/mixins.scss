@@ -1,0 +1,43 @@
+@mixin snt-transition($transition-property-value) {
+  &-enter-from,
+  &-leave-to {
+    @content;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: $transition-property-value;
+  }
+}
+
+@mixin snt-animate-underline() {
+  position: relative;
+  &::after {
+    background: currentColor;
+    bottom: 0px;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    transition: width 0.2s ease-in-out;
+    width: 0;
+  }
+  @media (hover: hover) {
+    &:hover::after {
+      width: 100%;
+    }
+  }
+  &.router-link-exact-active::after {
+    width: 100%;
+  }
+}
+
+@mixin touch-device {
+  @media (hover: none) {
+    @content;
+  }
+}
+@mixin click-device {
+  @media (hover: hover) {
+    @content;
+  }
+}

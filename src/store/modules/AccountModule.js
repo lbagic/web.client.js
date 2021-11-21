@@ -8,7 +8,6 @@ export const AccountModule = {
   }),
   getters: {
     isLoggedIn: (s) => !!s.token,
-    userType: (s, g) => (g.isLoggedIn ? "user" : "visitor"),
   },
   actions: {
     login({ commit, dispatch }, payload) {

@@ -1,4 +1,4 @@
-$base-color: (
+$base-colors: (
   "primary": #4267b2,
   "secondary": #fdb73b,
   "ternary": #76bfc2,
@@ -26,4 +26,8 @@ $color-variants: (
   ),
 );
 
-$color: generate-colors($base-color, $color-variants);
+:root {
+  @include generate-css-variables(
+    generate-color-variants($base-colors, $color-variants)
+  );
+}

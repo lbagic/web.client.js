@@ -1,42 +1,21 @@
 :root {
-  --snt-font-global-scale: 1;
-  --snt-font-scale-factor: 1.25;
   --snt-font-base-size: calc(16px * var(--snt-font-global-scale));
-
-  @include snt-s-only {
+  --snt-font-scale-factor: 1.25;
+  --snt-font-global-scale: 1;
+  @include s-only {
     --snt-font-global-scale: 0.8;
   }
 
-  --snt-f1: var(--snt-font-base-size);
-  --snt-f2: calc(var(--snt-font-base-size) * var(--snt-font-scale-factor));
-  --snt-f3: calc(
-    var(--snt-font-base-size) * var(--snt-font-scale-factor) *
-      var(--snt-font-scale-factor)
-  );
-  --snt-f4: calc(
-    var(--snt-font-base-size) * var(--snt-font-scale-factor) *
-      var(--snt-font-scale-factor) * var(--snt-font-scale-factor)
-  );
-  --snt-f5: calc(
-    var(--snt-font-base-size) * var(--snt-font-scale-factor) *
-      var(--snt-font-scale-factor) * var(--snt-font-scale-factor) *
-      var(--snt-font-scale-factor)
-  );
-  --snt-f6: calc(
-    var(--snt-font-base-size) * var(--snt-font-scale-factor) *
-      var(--snt-font-scale-factor) * var(--snt-font-scale-factor) *
-      var(--snt-font-scale-factor) * var(--snt-font-scale-factor)
-  );
+  --snt-f-6: calc(var(--snt-f-5) * var(--snt-font-scale-factor));
+  --snt-f-5: calc(var(--snt-f-4) * var(--snt-font-scale-factor));
+  --snt-f-4: calc(var(--snt-f-3) * var(--snt-font-scale-factor));
+  --snt-f-3: calc(var(--snt-f-2) * var(--snt-font-scale-factor));
+  --snt-f-2: calc(var(--snt-f-1) * var(--snt-font-scale-factor));
+  --snt-f-1: var(--snt-font-base-size);
 
-  --snt-fs1: calc(var(--snt-font-base-size) / var(--snt-font-scale-factor));
-  --snt-fs2: calc(
-    var(--snt-font-base-size) / var(--snt-font-scale-factor) /
-      var(--snt-font-scale-factor)
-  );
-  --snt-fs3: calc(
-    var(--snt-font-base-size) / var(--snt-font-scale-factor) /
-      var(--snt-font-scale-factor) / var(--snt-font-scale-factor)
-  );
+  --snt-fs-1: calc(var(--snt-font-base-size) / var(--snt-font-scale-factor));
+  --snt-fs-2: calc(var(--snt-fs-1) / var(--snt-font-scale-factor));
+  --snt-fs-3: calc(var(--snt-fs-2) / var(--snt-font-scale-factor));
 }
 
 // font faces
@@ -53,30 +32,30 @@
 }
 
 // font sizes
-.snt-f1 {
-  font-size: var(--snt-f1);
+.snt-f-6 {
+  font-size: var(--snt-f-6);
 }
-.snt-f2 {
-  font-size: var(--snt-f2);
+.snt-f-5 {
+  font-size: var(--snt-f-5);
 }
-.snt-f3 {
-  font-size: var(--snt-f3);
+.snt-f-4 {
+  font-size: var(--snt-f-4);
 }
-.snt-f4 {
-  font-size: var(--snt-f4);
+.snt-f-3 {
+  font-size: var(--snt-f-3);
 }
-.snt-f5 {
-  font-size: var(--snt-f5);
+.snt-f-2 {
+  font-size: var(--snt-f-2);
 }
-.snt-f6 {
-  font-size: var(--snt-f6);
+.snt-f-1 {
+  font-size: var(--snt-f-1);
 }
-.snt-fs1 {
-  font-size: var(--snt-fs1);
+.snt-fs-1 {
+  font-size: var(--snt-fs-1);
 }
-.snt-fs2 {
-  font-size: var(--snt-fs2);
+.snt-fs-2 {
+  font-size: var(--snt-fs-2);
 }
-.snt-fs3 {
-  font-size: var(--snt-fs3);
+.snt-fs-3 {
+  font-size: var(--snt-fs-3);
 }

@@ -1,5 +1,6 @@
 // button {
-//   min-height: var(--snt-form-field-height);
+//   --snt-button-height: 55px;
+//   min-height: var(--snt-button-height);
 // }
 // button,
 // .button {
@@ -8,7 +9,7 @@
 // }
 // button:not(.card),
 // .button:not(.card) {
-//   padding: var(--snt-form-field-padding);
+//   padding: var(--snt-field-padding);
 // }
 
 // @mixin generate-button(

@@ -1,6 +1,10 @@
-// normalize table
-
 .snt-table {
+  --snt-table-padding: 0.5rem;
+  --snt-table-color: var(--snt-color-primary-lighter);
+  --snt-table-background-color: var(--snt-color-light);
+  --snt-table-alt-color: var(--snt-color-primary-lightest);
+  --snt-table-border-color: black;
+
   border-spacing: 0px;
   position: relative;
   width: 100%;

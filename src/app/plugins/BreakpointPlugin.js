@@ -1,10 +1,10 @@
 import { nextTick, reactive } from "vue";
+import { rawBreakpoints } from "../../styles/core/variables.scss";
+import { parseSassJson } from "../utils/parseSassJson";
 
 export default {
   install(app) {
-    const map = {
-      ...app.config.globalProperties.$cssVariables.breakpoint,
-    };
+    const map = parseSassJson(rawBreakpoints);
 
     // get breakpoint keys
     const keys = Object.keys(map);

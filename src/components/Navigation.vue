@@ -22,6 +22,7 @@
 
 <script>
 import SntIcon from "./utils/SntIcon.vue";
+import { routes as routerRoutes } from "../router/routes.js";
 
 export default {
   components: { SntIcon },
@@ -33,8 +34,8 @@ export default {
   },
   computed: {
     routes() {
-      const logoClass = "flex align-items snt-f2";
-      const linkClass = "flex align-items snt-animate-underline snt-fs1";
+      const logoClass = "flex align-items snt-f-2";
+      const linkClass = "flex align-items snt-animate-underline snt-fs-1";
 
       const routes = this.$isLoggedIn
         ? [
@@ -58,7 +59,7 @@ export default {
         routes.push({ name: "Test", $attrs: { class: linkClass } });
 
       return routes.map((el) => {
-        const route = this.$routes.find((route) => el.name === route.name);
+        const route = routerRoutes.find((route) => el.name === route.name);
         if (!route) throw new Error(`Can't find route with name "${el.name}"`);
 
         return {
@@ -84,7 +85,7 @@ export default {
   height: 3px;
 }
 .navigation-wrapper {
-  height: var(--snt-navigation-height);
+  height: var(--snt-nav-height);
   display: flex;
   overflow-x: auto;
   background: var(--snt-color-primary);

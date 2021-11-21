@@ -48,3 +48,9 @@ Input types - not gonna implement
 - input-submit
 - input-time // maybe
 - input-week
+
+Functions to implement:
+
+- validation
+- hint
+- error

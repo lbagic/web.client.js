@@ -78,9 +78,15 @@ fieldset {
 }
 label {
   display: block;
+  cursor: pointer;
 }
 textarea {
   overflow: auto;
   resize: vertical;
   vertical-align: top;
+}
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"] {
+  margin: 0;
 }

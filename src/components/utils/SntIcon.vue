@@ -3,7 +3,7 @@
     <component
       :is="component"
       :class="classes"
-      class="icon-component"
+      class="snt-icon"
       @click="button && $emit('click')"
     />
   </div>
@@ -24,17 +24,15 @@ export default {
       type: String,
       default: "primary-lighter",
     },
-    hover: {
+    hoverColor: {
       type: String,
       default: "primary-darker",
     },
   },
   data() {
     return {
-      cssVariables: {
-        baseColor: this.getColor(this.color),
-        hoverColor: this.getColor(this.hover),
-      },
+      colorValue: this.getColor(this.color),
+      hoverColorValue: this.getColor(this.hoverColor),
     };
   },
   methods: {
@@ -59,33 +57,33 @@ export default {
     classes() {
       const classes = [];
       this.button && classes.push("pointer");
-      this.color && classes.push("icon-component-color");
-      this.hover && this.button && classes.push("icon-component-hover");
+      this.color && classes.push("snt-icon-color");
+      this.hoverColor && this.button && classes.push("snt-icon-hover-color");
       return classes;
     },
   },
 };
 </script>
 
-<style lang="scss">
-.icon-component {
+<style scoped lang="scss">
+::v-deep .snt-icon {
   & > * {
     transition: all 0.2s ease-in-out;
   }
   &-color > *[stroke]:not([stroke="white"]) {
-    stroke: var(--base-color);
+    stroke: v-bind(colorValue);
   }
 
   &-color > *[fill]:not([fill="white"]) {
-    fill: var(--base-color);
+    fill: v-bind(colorValue);
   }
 
-  &-hover:hover > *[stroke]:not([stroke="white"]) {
-    stroke: var(--hover-color);
+  &-hover-color:hover > *[stroke]:not([stroke="white"]) {
+    stroke: v-bind(hoverColorValue);
   }
 
-  &-hover:hover > *[fill]:not([fill="white"]) {
-    fill: var(--hover-color);
+  &-hover-color:hover > *[fill]:not([fill="white"]) {
+    fill: v-bind(hoverColorValue);
   }
 }
 </style>

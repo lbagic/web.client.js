@@ -5,21 +5,28 @@
 - variables & utility classes ✅
 - fonts ✅
 - cards ✅
-- buttons & links ✅
-- buttons & links - define data-state - initial, loading, hover, active, disabled
 - breakpoints ✅
-- cleanup breakpoints ✅
+- buttons & links
+- buttons & links - define data-state - initial, loading, hover, active, disabled
 
 ## Components
 
-- inputs
-  - select/text input with suggestions (hidden input with whole object?)
-  - datetime input
-  - form inputs
-  - validation, accessibility, error/info
-  - support errors from api calls (current_password field gets current_password error)
+- button component (links included? for example link that looks like a button)
+- revisit icon component (properties) ✅
 - modal (details summary?), overlay, popup, notification, (toasts?)
 - topbar loading state
+- component list/test page (list all custom components)
+- inputs:
+  - generic inputs ✅
+  - text input/select with datalist ✅
+  - datetime input (datepicker component)
+  - validation ✅
+  - error/help ✅
+  - label before/after/inline/block
+  - icon support (+ default icons for some input types)
+  - accessibility
+  - support errors from api calls (current_password field gets current_password error)
+  - snt-fieldset - generate whole forms (scope to replace elements)
 
 ## Integrations
 

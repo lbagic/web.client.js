@@ -1,6 +1,6 @@
 import { nextTick, reactive } from "vue";
 import { rawBreakpoints } from "../../styles/core/variables.scss";
-import { parseSassJson } from "../utils/parseSassJson";
+import { parseSassJson } from "../../utils/parseSassJson";
 
 export default {
   install(app) {

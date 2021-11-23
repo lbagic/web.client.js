@@ -1,10 +1,10 @@
 <template>
-  <div>Components</div>
+  <input type="text" />
 </template>
 
 <script>
 export default {
-  name: "Components",
+  name: "SntText",
 };
 </script>
 

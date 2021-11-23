@@ -1,7 +1,6 @@
-import BreakpointPlugin from "./app/plugins/BreakpointPlugin";
-import CssVariablesPlugin from "./app/plugins/CssVariablesPlugin";
-import GlobalPropertiesPlugin from "./app/plugins/GlobalPropertiesPlugin";
-import "./app/startup-scripts/index.js";
+import BreakpointPlugin from "./config/plugins/BreakpointPlugin";
+import GlobalPropertiesPlugin from "./config/plugins/GlobalPropertiesPlugin";
+import "./config/startup-scripts/index.js";
 import { configApp } from "./main.config.js";
 import { router } from "./router/router.js";
 import { store } from "./store/store.js";
@@ -15,5 +14,4 @@ app
   .use(i18n)
   .use(GlobalPropertiesPlugin)
   .use(BreakpointPlugin)
-  .use(CssVariablesPlugin)
   .mount("#app");

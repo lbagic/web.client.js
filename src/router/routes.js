@@ -35,11 +35,11 @@ if (process.env.NODE_ENV === "development") {
   routes.push({
     path: "/test",
     name: "Test",
-    component: () => import("../views/_test/Test.vue"),
+    component: () => import("../views/Test.vue"),
   });
   routes.push({
-    path: "/test/components",
-    name: "Components",
-    component: () => import("../views/_test/Components.vue"),
+    path: "/test-inputs",
+    name: "TestInputs",
+    component: () => import("../views/TestInputs.vue"),
   });
 }

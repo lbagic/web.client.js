@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Home</h1>
-    <p>{{ $t("general.hello_world") }}</p>
   </div>
 </template>
 

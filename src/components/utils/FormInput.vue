@@ -1,4 +1,7 @@
 <script>
+import Vue from "vue";
+import FormInputInfo from "./FormInputInfo.vue";
+
 const isTextField = (type) =>
   [
     "text",
@@ -20,22 +23,62 @@ export default {
   props: {
     type: { type: String, default: "text" },
     validator: { type: Function, default: () => true },
+    info: { type: String },
+  },
+  components: { FormInputInfo },
+  created() {},
+  mounted() {
+    if (this.type !== "checkbox") {
+      const InfoComponent = Vue.extend(FormInputInfo);
+      this.infoInstance = new InfoComponent();
+      this.infoInstance.$mount();
+      this.$el.insertAdjacentElement("afterend", this.infoInstance.$el);
+      this.infoInstance.info = this.info;
+    }
+    this.htmlValid = this.$el.validity.valid;
+    this.value = this.$el.value;
   },
   data() {
     return {
+      infoInstance: undefined,
       value: undefined,
       wasFocused: false,
       htmlValid: undefined,
     };
   },
+  watch: {
+    isValid(x) {
+      this.$emit("valid", x);
+    },
+    errorHandler(flag) {
+      if (!this.infoInstance) return;
+      if (flag[0]) {
+        const errorMessage = this.validator(this.value);
+        this.infoInstance.error =
+          typeof errorMessage === "string" ? errorMessage : "";
+      } else {
+        this.infoInstance.error = "";
+      }
+    },
+  },
   computed: {
     isValid() {
       let valid = this.htmlValid;
-      if (this.validator) valid = valid && this.validator(this.value);
+      if (this.validator) {
+        const state = this.validator(this.value);
+        let validator = false;
+        if (state === undefined) validator = false;
+        else if (typeof state === "string") validator = false;
+        else if (typeof state === "boolean") validator = state;
+        valid = valid && validator;
+      }
       return valid;
     },
     showError() {
       return this.wasFocused && !this.isValid;
+    },
+    errorHandler() {
+      return [this.showError, this.value];
     },
     element() {
       const elementMap = { textarea: "textarea" };
@@ -58,16 +101,6 @@ export default {
       if (this.datePlaceholder) attrs.placeholder = this.datePlaceholder;
       return attrs;
     },
-  },
-  watch: {
-    isValid(x) {
-      this.$emit("valid", x);
-    },
-  },
-
-  mounted() {
-    this.htmlValid = this.$el.validity.valid;
-    this.value = this.$el.value;
   },
   methods: {
     processValue() {
@@ -105,16 +138,28 @@ export default {
 
 <style scoped lang="scss">
 .x-base {
-  @extend .transition, .w-1-1;
-  font-size: 16px;
+  transition: var(--transition-default);
+  // -webkit-appearance: none;
+  width: 100%;
+  font-size: 1rem;
   &::placeholder {
-    @extend .color-muted;
+    color: var(--color-muted);
   }
 }
+.x-base:not([type="checkbox"]) {
+  -webkit-appearance: none;
+}
+.x-base[type="checkbox"] {
+  width: initial;
+}
+[type="checkbox"]:focus {
+  box-shadow: 0 0 0 2px black;
+}
 .x-border {
-  @extend .p-0p5, .shadow-bot-1;
+  padding: 0.5rem;
+  box-shadow: 0 1.1px black;
   &:focus {
-    @extend .shadow-bot-2;
+    box-shadow: 0 2px black;
   }
 }
 .x-error {
@@ -133,7 +178,6 @@ input[type="month"]::-webkit-calendar-picker-indicator {
   top: 6px;
   padding: 0;
 }
-
 // number input
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -143,8 +187,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 // range input
 $track-color: #000 !default;
-$thumb-color: $color-light !default;
-// $thumb-color: url('~@/assets/icons/FormInputThumbSlider.svg');
+// $thumb-color: $color-light !default;
+$thumb-color: url("~@/assets/icons/FormInputThumbSlider.svg");
 
 $thumb-radius: 22px !default;
 $thumb-height: 43px !default;
@@ -182,7 +226,7 @@ $ie-bottom-track-color: darken($track-color, $contrast) !default;
 input[type="range"] {
   -webkit-appearance: none;
   background: transparent;
-  margin: $thumb-height / 2 0;
+  margin: calc(#{$thumb-height} / 2) 0;
   width: $track-width;
 
   &::-moz-focus-outer {
@@ -215,8 +259,9 @@ input[type="range"] {
   &::-webkit-slider-thumb {
     @include thumb;
     -webkit-appearance: none;
-    margin-top: (
-      (-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2
+    margin-top: calc(
+      (-1 * #{$track-border-width} * 2 + #{$track-height}) / 2 - #{$thumb-height} /
+        2
     );
   }
 
@@ -225,7 +270,7 @@ input[type="range"] {
     background: $track-color;
     border: $track-border-width solid $track-border-color;
     border-radius: $track-radius;
-    height: $track-height / 2;
+    height: calc(#{$track-height} / 2);
   }
 
   &::-moz-range-thumb {
@@ -236,25 +281,25 @@ input[type="range"] {
     @include track;
     background: transparent;
     border-color: transparent;
-    border-width: ($thumb-height / 2) 0;
+    border-width: calc(#{$thumb-height} / 2) 0;
     color: transparent;
   }
 
   &::-ms-fill-lower {
     background: $ie-bottom-track-color;
     border: $track-border-width solid $track-border-color;
-    border-radius: ($track-radius * 2);
+    border-radius: calc(#{$track-radius} * 2);
   }
 
   &::-ms-fill-upper {
     background: $track-color;
     border: $track-border-width solid $track-border-color;
-    border-radius: ($track-radius * 2);
+    border-radius: calc(#{$track-radius} * 2);
   }
 
   &::-ms-thumb {
     @include thumb;
-    margin-top: $track-height / 4;
+    margin-top: calc(#{$track-height} / 4);
   }
 
   &:disabled {

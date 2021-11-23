@@ -1,5 +1,5 @@
 import axios from "axios";
-import { aop } from "../../app/utils/aop";
+import { aop } from "../../utils/aop";
 
 export const createApi = (
   config = {

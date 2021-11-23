@@ -55,8 +55,11 @@ export default {
             { name: "Register", $attrs: { class: linkClass } },
           ];
 
-      if (process.env.NODE_ENV !== "production")
-        routes.push({ name: "Test", $attrs: { class: linkClass } });
+      if (process.env.NODE_ENV !== "production") {
+        const testRoutes = [{ name: "Test" }, { name: "TestInputs" }];
+        testRoutes.map((el) => ({ ...el, $attrs: { class: linkClass } }));
+        routes.push(...testRoutes);
+      }
 
       return routes.map((el) => {
         const route = routerRoutes.find((route) => el.name === route.name);

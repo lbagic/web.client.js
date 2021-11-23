@@ -17,16 +17,16 @@
 - topbar loading state
 - component list/test page (list all custom components)
 - inputs:
-  - generic inputs ✅
-  - text input/select with datalist ✅
-  - datetime input (datepicker component)
   - validation ✅
   - error/help ✅
-  - label before/after/inline/block
-  - icon support (+ default icons for some input types)
   - accessibility
-  - support errors from api calls (current_password field gets current_password error)
+  - generic inputs ✅
+  - text input/select with datalist ✅
+  - label before/after/inline/block ✅
+  - datetime input (datepicker component)
+  - icon support (+ default icons for some input types)
   - snt-fieldset - generate whole forms (scope to replace elements)
+  - support errors from api calls (current_password field gets current_password error)
 
 ## Integrations
 

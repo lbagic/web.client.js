@@ -12,12 +12,18 @@
       required
       :validator="(val) => (val === '' ? 'KHM, REQUIRED!' : true)"
       error="Whaaat?"
+      placeholder="Things"
       help="I am here to help"
     />
     <!-- email -->
     <p>input-email</p>
     <input type="email" />
-    <snt-input type="email" value="qweqwe" />
+    <snt-input
+      type="email"
+      value="qweqwe"
+      label="Enter email"
+      placeholder="WEMAIL"
+    />
     <!-- password -->
     <p>input-password</p>
     <input type="password" />
@@ -53,7 +59,7 @@
     <!-- radio -->
     <p>input-radio</p>
     <input type="radio" />
-    <snt-input type="radio">
+    <snt-input type="radio" labelPosition="block end">
       <template #label>
         <p>
           Radio input <a href="/" class="snt-animate-underline">link to go</a>

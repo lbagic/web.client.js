@@ -60,11 +60,13 @@ export default {
   render() {
     const wrapperChildren = [];
     const labelChildren = [];
-    const inputWrapperChildren = [];
+    const inputWrapChildren = [];
     const labelSlot =
-      (this.$slots.label || this.label) &&
-      labelChildren.push(this.$slots.label?.() ?? this.label);
+      this.$slots.label || this.label
+        ? this.$slots.label?.() ?? this.label
+        : undefined;
 
+    if (this.type === "checkbox") console.log(labelSlot);
     // attach label before
     if (labelSlot && this.labelPosition.includes("start"))
       labelChildren.push(labelSlot);
@@ -76,18 +78,16 @@ export default {
       selectOptionList = this.normalizedOptions.map((opt, index) =>
         h(
           "option",
-          {
-            key: index,
-            value: this.resolveValue(opt),
-          },
+          { key: index, value: this.resolveValue(opt) },
           this.resolveLabel(opt)
         )
       );
     }
+    console.log(this.type === "text" && this.inputAttrs);
     const inputElementConfig = {
       onInput: this.onInput,
       onBlur: () => (this.wasBlurred = true),
-      attrs: this.inputAttrs,
+      ...this.inputAttrs,
       ref: "input",
       value: this.value,
     };
@@ -100,34 +100,26 @@ export default {
       selectOptionList
     );
 
-    inputWrapperChildren.push(inputElement);
+    inputWrapChildren.push(inputElement);
 
     if (this.type === "text" && this.hasOptions) {
       const inputOptionList = this.normalizedOptions.map((opt, index) =>
-        h(
-          "option",
-          {
-            key: index,
-          },
-          this.resolveLabel(opt)
-        )
+        h("option", { key: index }, this.resolveLabel(opt))
       );
 
       const inputDatalistElement = h(
         "datalist",
-        {
-          id: this.uniqueId + "-list",
-        },
+        { id: `${this.uniqueId}-list` },
         inputOptionList
       );
 
-      inputWrapperChildren.push(inputDatalistElement);
+      inputWrapChildren.push(inputDatalistElement);
     }
 
     const inputWrapper = h(
       "div",
       { style: "display: flex" },
-      inputWrapperChildren
+      inputWrapChildren
     );
 
     labelChildren.push(inputWrapper);
@@ -146,7 +138,6 @@ export default {
     }
 
     // attach errors
-    console.log(this.wasBlurred);
     if (!this.hideErrors && this.wasBlurred && this.errorMessage) {
       const error = h("p", { class: "snt-input-error" }, this.errorMessage);
       wrapperChildren.push(error);

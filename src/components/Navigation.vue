@@ -56,8 +56,10 @@ export default {
           ];
 
       if (process.env.NODE_ENV !== "production") {
-        const testRoutes = [{ name: "Test" }, { name: "TestInputs" }];
-        testRoutes.map((el) => ({ ...el, $attrs: { class: linkClass } }));
+        const testRoutes = [
+          { name: "Test", $attrs: { class: linkClass } },
+          { name: "TestInputs", $attrs: { class: linkClass } },
+        ];
         routes.push(...testRoutes);
       }
 

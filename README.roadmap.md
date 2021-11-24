@@ -8,13 +8,13 @@
 - breakpoints ✅
 - buttons & links - define data-state - initial, loading, hover, active, disabled
 
-## Components - 6/10
+## Components - 7/10
 
 - button component (links included? for example link that looks like a button)
 - revisit icon component (properties) ✅
 - modal (details summary?), overlay, popup, notification, (toasts?)
 - inputs:
-  - datetime input (datepicker component)
+  - datetime input (datepicker component) ✅
   - input styling
   - validation ✅
   - error/help ✅

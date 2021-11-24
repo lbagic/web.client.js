@@ -285,4 +285,10 @@ textarea {
   background: #0001;
   width: 100%;
 }
+// input[type="date"] {
+//   -webkit-appearance: none;
+// }
+input[type="date"]::-webkit-input-placeholder {
+  visibility: hidden !important;
+}
 </style>

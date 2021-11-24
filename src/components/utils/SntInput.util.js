@@ -52,82 +52,98 @@ export const normalizedOptions = (vm) =>
 
 export const sntInputElements = {
   text: {
+    type: "text",
     component: "input",
     defaultValue: "",
     targetValueProperty: "value",
   },
   email: {
+    type: "email",
     component: "input",
     defaultValue: "",
     targetValueProperty: "value",
   },
   password: {
+    type: "password",
     component: "input",
     defaultValue: "",
     targetValueProperty: "value",
   },
   search: {
+    type: "search",
     component: "input",
     defaultValue: "",
     targetValueProperty: "value",
   },
   number: {
+    type: "number",
     component: "input",
     defaultValue: undefined,
     targetValueProperty: "valueAsNumber",
   },
   tel: {
+    type: "tel",
     component: "input",
     defaultValue: "",
     targetValueProperty: "value",
   },
   color: {
+    type: "color",
     component: "input",
     defaultValue: "",
     targetValueProperty: "value",
   },
   url: {
+    type: "url",
     component: "input",
     defaultValue: "",
     targetValueProperty: "value",
   },
   checkbox: {
+    type: "checkbox",
     component: "input",
     defaultValue: "",
     targetValueProperty: "checked",
   },
   radio: {
+    type: "radio",
     component: "input",
     defaultValue: "",
     targetValueProperty: "checked",
   },
   range: {
+    type: "range",
     component: "input",
     defaultValue: undefined,
     targetValueProperty: "valueAsNumber",
   },
   file: {
+    type: "file",
     component: "input",
     defaultValue: "",
     targetValueProperty: "value",
   },
   textarea: {
+    type: "textarea",
     component: "textarea",
     defaultValue: "",
     targetValueProperty: "value",
   },
   select: {
+    type: "select",
     component: "select",
     defaultValue: "",
     targetValueProperty: "value",
   },
   date: {
+    type: "text",
     component: "input",
     datetimeParser: (val) => val.toISOString().slice(0, 10),
     defaultValue: "",
     targetValueProperty: "value",
   },
   time: {
+    type: "text",
     component: "input",
     datetimeParser: (val) =>
       `${twoDigitFormat(val.hours)}:${twoDigitFormat(val.minutes)}`,
@@ -138,6 +154,7 @@ export const sntInputElements = {
     },
   },
   month: {
+    type: "text",
     component: "input",
     datetimeParser: (val) => `${val.year}-${twoDigitFormat(val.month + 1)}`,
     defaultValue: "",

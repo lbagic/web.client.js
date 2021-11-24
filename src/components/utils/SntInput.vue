@@ -213,7 +213,7 @@ export default {
     element: (vm) => sntInputElements[vm.type],
     inputAttrs() {
       let attrs = elementAttrs(this);
-      if (this.element.component === "input") attrs.type = this.type;
+      if (this.element.component === "input") attrs.type = this.element.type;
       if (this.element.attrs) attrs = { ...attrs, ...this.element.attrs };
       return attrs;
     },
@@ -285,10 +285,10 @@ textarea {
   background: #0001;
   width: 100%;
 }
-input::-webkit-calendar-picker-indicator {
-  display: none;
-}
-input[type="date"]::-webkit-input-placeholder {
-  visibility: hidden !important;
-}
+// input::-webkit-calendar-picker-indicator {
+//   display: none;
+// }
+// input[type="date"]::-webkit-input-placeholder {
+//   visibility: hidden !important;
+// }
 </style>

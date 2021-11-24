@@ -129,7 +129,10 @@ export default {
       const value = e.target[this.element.targetValueProperty];
 
       // case: number and range NaN edgecase
-      this.value = this.output = isNaN(value) ? undefined : value;
+      this.value = this.output =
+        (this.type === "range" || this.type === "number") && isNaN(value)
+          ? undefined
+          : value;
 
       // case: text with options
       if (this.type === "text" && this.hasOptions) {

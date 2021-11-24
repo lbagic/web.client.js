@@ -1,46 +1,47 @@
+<template>
+  <div v-bind="rootAttrs" class="snt-input-info-delimiter">
+    <label :class="labelClass">
+      <!-- label slot #before -->
+      <slot v-if="hasLabel && labelPlacement.start" name="label">
+        <p>{{ label }}</p>
+      </slot>
+      <component
+        :is="element.component"
+        v-bind="inputAttrs"
+        ref="input"
+        :value="value"
+        :list="`${uniqueId}-list`"
+        @input="onInput"
+        @blur="this.wasBlurred = true"
+      >
+        <option
+          v-for="(opt, index) in normalizedOptions"
+          :key="index"
+          :value="resolveValue(opt)"
+        >
+          {{ resolveLabel(opt) }}
+        </option>
+      </component>
+      <!-- label slot #after -->
+      <slot v-if="hasLabel && labelPlacement.end" name="label">
+        <p>{{ label }}</p>
+      </slot>
+      <!-- datalis for text input with options -->
+      <datalist v-if="type === 'text' && hasOptions" :id="`${uniqueId}-list`">
+        <option v-for="(opt, index) in normalizedOptions" :key="index">
+          {{ resolveLabel(opt) }}
+        </option>
+      </datalist>
+    </label>
+    <p v-if="help" class="snt-input-help">{{ help }}</p>
+    <transition v-if="!hideErrors" name="snt-drop">
+      <p v-if="wasBlurred && errorMessage" class="snt-input-error">
+        {{ errorMessage }}
+      </p>
+    </transition>
+  </div>
+</template>
 <script>
-// <template>
-//   <div v-bind="rootAttrs">
-//     <label>
-//       <slot name="label">
-//         <p>{{ label }}</p>
-//       </slot>
-//       <div style="display: flex">
-//         <component
-//           :is="element.component"
-//           v-bind="inputAttrs"
-//           ref="input"
-//           :value="value"
-//           :list="uniqueId + '-list'"
-//           @input="onInput"
-//           @blur="this.wasBlurred = true"
-//         >
-//           <option
-//             v-for="(opt, index) in normalizedOptions"
-//             :key="index"
-//             :value="resolveValue(opt)"
-//           >
-//             {{ resolveLabel(opt) }}
-//           </option>
-//         </component>
-//         <datalist
-//           v-if="type === 'text' && hasOptions"
-//           :id="uniqueId + '-list'"
-//           ref="datalist"
-//         >
-//           <option v-for="(opt, index) in normalizedOptions" :key="index">
-//             {{ resolveLabel(opt) }}
-//           </option>
-//         </datalist>
-//       </div>
-//     </label>
-//     <p v-if="help" class="snt-input-help">{{ help }}</p>
-//     <p v-if="!hideErrors && wasBlurred && errorMessage" class="snt-input-error">
-//       {{ errorMessage }}
-//     </p>
-//   </div>
-// </template>
-import { h } from "@vue/runtime-core";
 import {
   componentMap,
   componentTypes,
@@ -57,97 +58,9 @@ const { rootAttrs, elementAttrs } = rootAttributeSplitter({
 });
 
 export default {
-  render() {
-    const wrapperChildren = [];
-    const labelChildren = [];
-    const inputWrapChildren = [];
-    const labelSlot =
-      this.$slots.label || this.label
-        ? this.$slots.label?.() ?? this.label
-        : undefined;
-
-    if (this.type === "checkbox") console.log(labelSlot);
-    // attach label before
-    if (labelSlot && this.labelPosition.includes("start"))
-      labelChildren.push(labelSlot);
-
-    // input wrapper with children
-
-    let selectOptionList = [];
-    if (this.type === "select" && this.hasOptions) {
-      selectOptionList = this.normalizedOptions.map((opt, index) =>
-        h(
-          "option",
-          { key: index, value: this.resolveValue(opt) },
-          this.resolveLabel(opt)
-        )
-      );
-    }
-    console.log(this.type === "text" && this.inputAttrs);
-    const inputElementConfig = {
-      onInput: this.onInput,
-      onBlur: () => (this.wasBlurred = true),
-      ...this.inputAttrs,
-      ref: "input",
-      value: this.value,
-    };
-    if (this.type === "text" && this.hasOptions)
-      inputElementConfig.list = this.uniqueId + "-list";
-
-    const inputElement = h(
-      this.element.component,
-      inputElementConfig,
-      selectOptionList
-    );
-
-    inputWrapChildren.push(inputElement);
-
-    if (this.type === "text" && this.hasOptions) {
-      const inputOptionList = this.normalizedOptions.map((opt, index) =>
-        h("option", { key: index }, this.resolveLabel(opt))
-      );
-
-      const inputDatalistElement = h(
-        "datalist",
-        { id: `${this.uniqueId}-list` },
-        inputOptionList
-      );
-
-      inputWrapChildren.push(inputDatalistElement);
-    }
-
-    const inputWrapper = h(
-      "div",
-      { style: "display: flex" },
-      inputWrapChildren
-    );
-
-    labelChildren.push(inputWrapper);
-
-    // attach label after
-    if (labelSlot && this.labelPosition.includes("end"))
-      labelChildren.push(labelSlot);
-
-    const label = h("label", labelChildren);
-    wrapperChildren.push(label);
-
-    // attach help
-    if (this.help) {
-      const help = h("p", { class: "snt-input-help" }, this.help);
-      wrapperChildren.push(help);
-    }
-
-    // attach errors
-    if (!this.hideErrors && this.wasBlurred && this.errorMessage) {
-      const error = h("p", { class: "snt-input-error" }, this.errorMessage);
-      wrapperChildren.push(error);
-    }
-    const wrapper = h("div", this.rootAttrs, wrapperChildren);
-    return wrapper;
-  },
   name: "TestInput",
   inheritAttrs: false,
-  emits: ["valid"],
+  emits: ["valid", "update:modelValue"],
   props: {
     type: {
       type: String,
@@ -165,7 +78,6 @@ export default {
         const allowed = ["block", "inline", "start", "end"];
         return params.every((param) => allowed.includes(param));
       },
-      default: "block start",
     },
     hideErrors: Boolean,
     optionsValuePath: { type: String, default: "value" },
@@ -173,6 +85,7 @@ export default {
     options: [Array, Object],
   },
   mounted() {
+    console.log(this.$props);
     this.uniqueId = getUniqueId(this.$options.__scopeId);
     this.isValid = this.errorHandler(this.$refs.input.value);
     this.value = this.output =
@@ -273,16 +186,63 @@ export default {
     hasOptions() {
       return !!this.normalizedOptions.length;
     },
+    hasLabel() {
+      return this.$slots.label || this.label;
+    },
+    labelClass() {
+      if (!this.hasLabel) return;
+      return this.labelPlacement.inline
+        ? "snt-input-label__inline"
+        : "snt-input-label__block";
+    },
+    labelPlacement() {
+      const isCheckbox = this.type === "checkbox" || this.type === "radio";
+      const pos = this.labelPosition
+        ? this.labelPosition
+        : isCheckbox
+        ? "inline end"
+        : "block start";
+      return {
+        block: !pos.includes("inline"),
+        inline: pos.includes("inline"),
+        start: !pos.includes("end"),
+        end: pos.includes("end"),
+      };
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
+.snt-input-label__block {
+  &:deep() > * + * {
+    margin-block-start: var(--snt-input-label-block-margin);
+  }
+}
+.snt-input-label__inline {
+  display: inline-flex;
+  align-items: center;
+  &:deep() > * + * {
+    margin-inline-start: var(--snt-input-label-inline-margin);
+  }
+}
+.snt-input-info-delimiter {
+  & > *:nth-child(2) {
+    margin-top: 3px;
+  }
+  & > *:nth-child(3) {
+    margin-top: 2px;
+  }
+}
 .snt-input-help {
   color: var(--snt-color-grey);
+  font-size: var(--snt-fs-1);
+  line-height: 1.2;
 }
 .snt-input-error {
   color: var(--snt-color-error);
+  font-size: var(--snt-fs-1);
+  line-height: 1.2;
 }
 input:not([type="checkbox"]):not([type="radio"]),
 select,
@@ -290,11 +250,4 @@ textarea {
   background: #0001;
   width: 100%;
 }
-
-// label {
-// display: inline-flex;
-// flex-direction: row-reverse;
-// align-items: center;
-// vertical-align: middle;
-// }
 </style>

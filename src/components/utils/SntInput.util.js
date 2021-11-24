@@ -21,14 +21,14 @@ export const getUniqueId = (string) => `${string}-${uniqueIdCounter++}`;
 export const htmlErrors = {
   // customError: false,
   badInput: "Bad input value.",
-  patternMismatch: "Value not allowed.",
+  patternMismatch: "Value is not allowed.",
   rangeOverflow: "Value is larger than allowed.",
   rangeUnderflow: "Value is smaller than allowed.",
-  stepMismatch: "Step mismatch.",
-  tooLong: "Value is too long",
+  stepMismatch: "Input step mismatch.",
+  tooLong: "Value is too long.",
   tooShort: "Value is too short.",
-  typeMismatch: "Value type mismatch.",
-  valueMissing: "Value is required.",
+  typeMismatch: "Value is of wrong type.",
+  valueMissing: "Value is missing.",
 };
 
 export const htmlErrorKeys = Object.keys(htmlErrors);

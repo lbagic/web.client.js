@@ -1,7 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { configuration } from "../main.config";
 import { store } from "../store/store";
 import { routes } from "./routes";
+
+const config = {
+  appTitle: "Application",
+  userHome: "/",
+  visitorHome: "/login",
+};
 
 export const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -9,12 +14,10 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta?.title ?? configuration.defaultApplicationTitle;
+  document.title = to.meta?.title ?? config.appTitle;
 
   const isLoggedIn = store.getters["AccountModule/isLoggedIn"];
-  const homePage = isLoggedIn
-    ? configuration.defaultUserRoute
-    : configuration.defaultVisitorRoute;
+  const homePage = isLoggedIn ? config.userHome : config.visitorHome;
   const authorizeLocation = (route) => {
     if (!route.matched.length) return false;
     return isLoggedIn ? !route.meta?.visitorOnly : !route.meta?.userOnly;

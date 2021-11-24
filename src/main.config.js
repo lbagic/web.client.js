@@ -1,24 +1,22 @@
 import { createApp } from "vue";
-import { createI18n } from "vue-i18n";
 import App from "./App.vue";
-import en from "./config/translations/en.json";
+import { i18n } from "./config/plugins/i18n.js";
+import { breakpoint } from "./config/plugins/sntBreakpoints.js";
+import { router } from "./router/router.js";
+import { store } from "./store/store.js";
 
-export const configApp = () => {
+export const mainConfig = () => {
   const app = createApp(App);
 
-  const i18n = createI18n({
-    locale: "en",
-    messages: { en },
-  });
-  if (process.env.NODE_ENV !== "production")
-    i18n.global.missing = (locale, key) =>
-      console.warn(`[i18n] Translation missing: ${locale} ${key}`);
+  const global = app.config.globalProperties;
+  global.$log = console.log;
+  global.$isLoggedIn = store.getters["AccountModule/isLoggedIn"];
 
-  return { app, i18n };
-};
-
-export const configuration = {
-  defaultApplicationTitle: "Application",
-  defaultUserRoute: "/",
-  defaultVisitorRoute: "/login",
+  return {
+    app,
+    i18n,
+    breakpoint,
+    router,
+    store,
+  };
 };

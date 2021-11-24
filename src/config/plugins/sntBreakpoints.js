@@ -2,7 +2,7 @@ import { nextTick, reactive } from "vue";
 import { rawBreakpoints } from "../../styles/core/variables.scss";
 import { parseSassJson } from "../../utils/parseSassJson";
 
-export default {
+export const breakpoint = {
   install(app) {
     const map = parseSassJson(rawBreakpoints);
 

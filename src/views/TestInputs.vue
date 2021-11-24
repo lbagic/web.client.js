@@ -10,6 +10,7 @@
         { value: 22222222222222, label: 'bbb' },
       ]"
       required
+      label="Que?"
       :validator="(val) => (val === '' ? 'KHM, REQUIRED!' : true)"
       error="Whaaat?"
       placeholder="Things"
@@ -51,20 +52,20 @@
     <!-- checkbox -->
     <p>input-checkbox</p>
     <input type="checkbox" />
-    <snt-input type="checkbox">
+    <snt-input type="checkbox" labelPosition="inline end">
       <template #label>
-        <p>Im a descripton</p>
+        <p>Im a <a href="/" class="snt-animate-underline">LINK</a></p>
       </template>
     </snt-input>
     <!-- radio -->
     <p>input-radio</p>
     <input type="radio" />
-    <snt-input type="radio" labelPosition="block end">
-      <template #label>
+    <snt-input type="radio" label="Im radio label">
+      <!-- <template #label>
         <p>
           Radio input <a href="/" class="snt-animate-underline">link to go</a>
         </p>
-      </template>
+      </template> -->
     </snt-input>
     <!-- range -->
     <p>input-range</p>

@@ -18,6 +18,7 @@ export default {
     icon: {
       type: String,
       required: true,
+      default: "Google",
     },
     button: Boolean,
     color: {
@@ -66,7 +67,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-::v-deep .snt-icon {
+:deep().snt-icon {
   & > * {
     transition: all 0.2s ease-in-out;
   }

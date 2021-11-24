@@ -1,22 +1,35 @@
 <template>
   <div>
-    <snt-input
-      type="text"
-      :options="[
-        { value: 1, label: 'aaa' },
-        { value: 22222222222222, label: 'bbb' },
-      ]"
-      required
-      :validator="(val) => (val === '' ? 'KHM, REQUIRED!' : true)"
-      error="Whaaat?"
-      placeholder="Things"
-      help="I am here to help"
-    />
-    <snt-icon icon="Google" />
+    <datepicker v-model="date" @cleared="trigger" />
+    <pre>{{ actual }}</pre>
   </div>
 </template>
 
-<script setup>
-import SntIcon from "../components/utils/SntIcon.vue";
-import SntInput from "../components/utils/SntInput.vue";
+<script>
+import Datepicker from "vue3-date-time-picker";
+import "vue3-date-time-picker/dist/main.css";
+
+export default {
+  name: "Test",
+  components: { Datepicker },
+  data() {
+    return {
+      date: undefined,
+    };
+  },
+  computed: {
+    actual() {
+      return {
+        date: this.date,
+      };
+    },
+  },
+  methods: {
+    trigger(x) {
+      console.log("triggered", x);
+    },
+  },
+};
 </script>
+
+<style scoped lang="scss"></style>

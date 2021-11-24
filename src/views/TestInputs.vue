@@ -2,7 +2,6 @@
   <div class="test-wrapper">
     <!-- text -->
     <p>input-text</p>
-    <input type="text" />
     <snt-input
       type="text"
       :options="[
@@ -18,7 +17,6 @@
     />
     <!-- email -->
     <p>input-email</p>
-    <input type="email" />
     <snt-input
       type="email"
       value="qweqwe"
@@ -27,31 +25,24 @@
     />
     <!-- password -->
     <p>input-password</p>
-    <input type="password" />
     <snt-input type="password" />
     <!-- search -->
     <p>input-search</p>
-    <input type="search" />
     <snt-input type="search" required />
     <!-- number -->
     <p>input-number</p>
-    <input type="number" />
     <snt-input type="number" />
     <!-- tel -->
     <p>input-tel</p>
-    <input type="tel" />
     <snt-input type="tel" />
     <!-- color -->
     <p>input-color</p>
-    <input type="color" />
     <snt-input type="color" />
     <!-- url -->
     <p>input-url</p>
-    <input type="url" />
     <snt-input type="url" />
     <!-- checkbox -->
     <p>input-checkbox</p>
-    <input type="checkbox" />
     <snt-input type="checkbox" labelPosition="inline end">
       <template #label>
         <p>Im a <a href="/" class="snt-animate-underline">LINK</a></p>
@@ -59,7 +50,6 @@
     </snt-input>
     <!-- radio -->
     <p>input-radio</p>
-    <input type="radio" />
     <snt-input type="radio" label="Im radio label">
       <!-- <template #label>
         <p>
@@ -69,11 +59,9 @@
     </snt-input>
     <!-- range -->
     <p>input-range</p>
-    <input type="range" />
     <snt-input type="range" />
     <!-- file -->
     <p>input-file</p>
-    <input type="file" />
     <snt-input type="file" />
     <!-- textarea -->
     <p>textarea</p>
@@ -98,13 +86,12 @@
       ]"
     />
     <!-- date -->
-    <p>input-date</p>
-    <input type="date" />
-    <snt-input type="date" />
+    <!-- <p>input-date</p>
+    <snt-input v-model="val" type="date" required label="qwe" />
+    <p>value: {{ val }}</p> -->
     <!-- time -->
-    <p>input-time</p>
-    <input type="time" />
-    <snt-input type="time" />
+    <!-- <p>input-time</p>
+    <snt-input type="time" /> -->
   </div>
 </template>
 
@@ -116,7 +103,7 @@ export default {
   name: "TestInputs",
   mounted() {},
   data() {
-    return {};
+    return { val: "" };
   },
 };
 </script>
@@ -124,7 +111,6 @@ export default {
 <style scoped lang="scss">
 .test-wrapper {
   display: grid;
-  grid-template-columns: auto 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
 }

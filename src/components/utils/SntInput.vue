@@ -43,8 +43,8 @@
 </template>
 <script>
 import {
-  componentMap,
-  componentTypes,
+  sntInputElements,
+  sntInputTypes,
   normalizedOptions,
   rootAttributeSplitter,
   htmlErrors,
@@ -65,7 +65,7 @@ export default {
     type: {
       type: String,
       required: true,
-      validator: (value) => componentTypes.includes(value),
+      validator: (value) => sntInputTypes.includes(value),
     },
     validator: { type: Function, default: () => true },
     help: String,
@@ -85,13 +85,19 @@ export default {
     options: [Array, Object],
   },
   mounted() {
-    console.log(this.$props);
     this.uniqueId = getUniqueId(this.$options.__scopeId);
     this.isValid = this.errorHandler(this.$refs.input.value);
     this.value = this.output =
       this.inputAttrs.value ??
       this.$refs.input.value ??
       this.element.defaultValue;
+
+    // if (this.type === "date") {
+    //   const entries = Object.entries(this.inputAttrs);
+    //   const el = this.getInputElement();
+    //   entries.forEach(([key, value]) => el.setAttribute(key, value));
+    //   console.log(el);
+    // }
   },
   data() {
     return {
@@ -173,10 +179,15 @@ export default {
     update() {
       this.$emit("update:modelValue", this.output);
     },
+    // getInputElement() {
+    //   return this.type === "date"
+    //     ? this.$refs.input.$el.children[0].children[0].children[0]
+    //     : this.$refs.input;
+    // },
   },
   computed: {
     rootAttrs,
-    element: (vm) => componentMap[vm.type],
+    element: (vm) => sntInputElements[vm.type],
     inputAttrs: (vm) => {
       const attrs = elementAttrs(vm);
       if (vm.element.component === "input") attrs.type = vm.type;

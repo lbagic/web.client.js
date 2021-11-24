@@ -1,3 +1,13 @@
+import Datepicker from "vue3-date-time-picker";
+import "vue3-date-time-picker/dist/main.css";
+
+const dateComponent = {
+  // component: "input",
+  component: Datepicker,
+  defaultValue: "",
+  targetValueProperty: "value",
+};
+
 export const rootAttributeSplitter = (attributeMap = {}) => {
   const _attributeMap = Object.entries(attributeMap);
   return {
@@ -45,7 +55,7 @@ export const normalizedOptions = (vm) =>
       }, [])
     : [];
 
-export const componentMap = {
+export const sntInputElements = {
   text: {
     component: "input",
     defaultValue: "",
@@ -116,16 +126,8 @@ export const componentMap = {
     defaultValue: "",
     targetValueProperty: "value",
   },
-  date: {
-    component: "input",
-    defaultValue: "",
-    targetValueProperty: "value",
-  },
-  time: {
-    component: "input",
-    defaultValue: "",
-    targetValueProperty: "value",
-  },
+  date: dateComponent,
+  // time: dateComponent,
 };
 
-export const componentTypes = Object.keys(componentMap);
+export const sntInputTypes = Object.keys(sntInputElements);

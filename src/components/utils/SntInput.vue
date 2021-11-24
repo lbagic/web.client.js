@@ -285,9 +285,9 @@ textarea {
   background: #0001;
   width: 100%;
 }
-// input[type="date"] {
-//   -webkit-appearance: none;
-// }
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
 input[type="date"]::-webkit-input-placeholder {
   visibility: hidden !important;
 }

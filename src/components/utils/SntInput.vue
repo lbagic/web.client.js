@@ -7,13 +7,15 @@
       </slot>
       <component
         :is="element.component"
-        v-bind="inputAttrs"
         ref="input"
-        :value="value"
         :list="`${uniqueId}-list`"
+        :value="value"
+        v-bind="inputAttrs"
+        @blur.stop="onBlur"
+        @focus="onFocus"
         @input="onInput"
-        @blur="this.wasBlurred = true"
       >
+        <!-- @blur="onBlur" -->
         <option
           v-for="(opt, index) in normalizedOptions"
           :key="index"
@@ -32,6 +34,15 @@
           {{ resolveLabel(opt) }}
         </option>
       </datalist>
+      <datepicker
+        v-show="false"
+        v-if="isDate"
+        ref="datepicker"
+        v-bind="inputAttrs"
+        v-model="dateInput"
+        style="position: absolute"
+        @closed="onBlur('datetime')"
+      />
     </label>
     <p v-if="help" class="snt-input-help">{{ help }}</p>
     <transition v-if="!hideErrors" name="snt-drop">
@@ -39,6 +50,7 @@
         {{ errorMessage }}
       </p>
     </transition>
+    <p>{{ value }}</p>
   </div>
 </template>
 <script>
@@ -51,6 +63,7 @@ import {
   htmlErrorKeys,
   getUniqueId,
 } from "./SntInput.util.js";
+import Datepicker from "vue3-date-time-picker";
 
 const { rootAttrs, elementAttrs } = rootAttributeSplitter({
   rootclass: "class",
@@ -60,7 +73,8 @@ const { rootAttrs, elementAttrs } = rootAttributeSplitter({
 export default {
   name: "TestInput",
   inheritAttrs: false,
-  emits: ["valid", "update:modelValue"],
+  emits: ["valid", "update:modelValue", "blur"],
+  components: { Datepicker },
   props: {
     type: {
       type: String,
@@ -91,13 +105,6 @@ export default {
       this.inputAttrs.value ??
       this.$refs.input.value ??
       this.element.defaultValue;
-
-    // if (this.type === "date") {
-    //   const entries = Object.entries(this.inputAttrs);
-    //   const el = this.getInputElement();
-    //   entries.forEach(([key, value]) => el.setAttribute(key, value));
-    //   console.log(el);
-    // }
   },
   data() {
     return {
@@ -105,9 +112,11 @@ export default {
       value: "",
       output: "",
       wasBlurred: false,
-      lastError: false,
       isValid: false,
+      lastError: "",
       errorMessage: "",
+      dateInput: "",
+      parsedDateInput: "",
     };
   },
   watch: {
@@ -120,16 +129,20 @@ export default {
         this.errorMessage = this.lastError = this.error;
       },
     },
+    dateInput(val) {
+      this.$refs.input.value = this.element.datetimeParser(val);
+      this.onInput();
+    },
   },
   methods: {
-    onInput(e) {
+    onInput() {
       if (this.lastError === this.errorMessage) this.lastError = "";
-      this.errorHandler(e.target.value);
 
-      const value = e.target[this.element.targetValueProperty];
+      const value = this.$refs.input[this.element.targetValueProperty];
+      console.log({ el: this.$refs.input });
 
-      // case: number and range NaN edgecase
       this.value = this.output =
+        // case: number and range NaN edgecase
         (this.type === "range" || this.type === "number") && isNaN(value)
           ? undefined
           : value;
@@ -146,22 +159,34 @@ export default {
 
         // case: default
       } else this.update();
+      this.errorHandler();
     },
-    errorHandler(value) {
-      const err = this.getError(value);
+    onFocus() {
+      if (!this.isDate) return;
+      this.$refs.datepicker.openMenu();
+    },
+    onBlur(el) {
+      if (this.isDate && el !== "datetime") return;
+      this.$emit("blur", undefined);
+      this.wasBlurred = true;
+      this.errorHandler();
+    },
+    errorHandler() {
+      const err = this.getError();
       this.isValid = err.isValid;
-      if (this.lastError !== this.errorMessage) this.errorMessage = err.message;
+      if (!this.lastError || this.lastError !== this.errorMessage)
+        this.errorMessage = err.message;
     },
-    getError(input) {
-      const validation = this.getValidationError(input);
+    getError() {
+      const validation = this.getValidationError();
       const html = this.getHtmlError();
       return {
         isValid: html.isValid && validation.isValid,
         message: validation.message || html.message,
       };
     },
-    getValidationError(input) {
-      const state = this.validator(input);
+    getValidationError() {
+      const state = this.validator(this.value);
       const isValid = state === true;
       const message = typeof state === "string" ? state : undefined;
       return { isValid, message };
@@ -182,18 +207,14 @@ export default {
     update() {
       this.$emit("update:modelValue", this.output);
     },
-    // getInputElement() {
-    //   return this.type === "date"
-    //     ? this.$refs.input.$el.children[0].children[0].children[0]
-    //     : this.$refs.input;
-    // },
   },
   computed: {
     rootAttrs,
     element: (vm) => sntInputElements[vm.type],
-    inputAttrs: (vm) => {
-      const attrs = elementAttrs(vm);
-      if (vm.element.component === "input") attrs.type = vm.type;
+    inputAttrs() {
+      let attrs = elementAttrs(this);
+      if (this.element.component === "input") attrs.type = this.type;
+      if (this.element.attrs) attrs = { ...attrs, ...this.element.attrs };
       return attrs;
     },
     normalizedOptions,
@@ -216,12 +237,12 @@ export default {
         : isCheckbox
         ? "inline end"
         : "block start";
-      return {
-        block: !pos.includes("inline"),
-        inline: pos.includes("inline"),
-        start: !pos.includes("end"),
-        end: pos.includes("end"),
-      };
+      const block = !pos.includes("inline");
+      const start = !pos.includes("end");
+      return { block, inline: !block, start, end: !start };
+    },
+    isDate() {
+      return this.element.datetimeParser;
     },
   },
 };

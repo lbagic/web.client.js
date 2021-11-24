@@ -1,12 +1,5 @@
-import Datepicker from "vue3-date-time-picker";
+// import Datepicker from "vue3-date-time-picker";
 import "vue3-date-time-picker/dist/main.css";
-
-const dateComponent = {
-  // component: "input",
-  component: Datepicker,
-  defaultValue: "",
-  targetValueProperty: "value",
-};
 
 export const rootAttributeSplitter = (attributeMap = {}) => {
   const _attributeMap = Object.entries(attributeMap);
@@ -27,6 +20,8 @@ export const rootAttributeSplitter = (attributeMap = {}) => {
 
 let uniqueIdCounter = 0;
 export const getUniqueId = (string) => `${string}-${uniqueIdCounter++}`;
+
+const twoDigitFormat = (num) => ("0" + num).slice(-2);
 
 export const htmlErrors = {
   // customError: false,
@@ -126,8 +121,31 @@ export const sntInputElements = {
     defaultValue: "",
     targetValueProperty: "value",
   },
-  date: dateComponent,
-  // time: dateComponent,
+  date: {
+    component: "input",
+    datetimeParser: (val) => val.toISOString().slice(0, 10),
+    defaultValue: "",
+    targetValueProperty: "value",
+  },
+  time: {
+    component: "input",
+    datetimeParser: (val) =>
+      `${twoDigitFormat(val.hours)}:${twoDigitFormat(val.minutes)}`,
+    defaultValue: "",
+    targetValueProperty: "value",
+    attrs: {
+      timePicker: true,
+    },
+  },
+  month: {
+    component: "input",
+    datetimeParser: (val) => `${val.year}-${twoDigitFormat(val.month + 1)}`,
+    defaultValue: "",
+    targetValueProperty: "value",
+    attrs: {
+      monthPicker: true,
+    },
+  },
 };
 
 export const sntInputTypes = Object.keys(sntInputElements);

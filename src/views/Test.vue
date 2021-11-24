@@ -1,7 +1,8 @@
 <template>
   <div>
-    <datepicker v-model="date" @cleared="trigger" />
-    <pre>{{ actual }}</pre>
+    <input v-model="my.basic" type="time" />
+    <datepicker v-model="my.custom" teleport="#mmm" />
+    <pre>values: {{ my }}</pre>
   </div>
 </template>
 
@@ -14,20 +15,11 @@ export default {
   components: { Datepicker },
   data() {
     return {
-      date: undefined,
+      my: {
+        basic: undefined,
+        custom: undefined,
+      },
     };
-  },
-  computed: {
-    actual() {
-      return {
-        date: this.date,
-      };
-    },
-  },
-  methods: {
-    trigger(x) {
-      console.log("triggered", x);
-    },
   },
 };
 </script>

@@ -1,5 +1,14 @@
 <template>
   <div class="test-wrapper">
+    <!-- date -->
+    <p>input-date</p>
+    <snt-input type="date" required label="input-date" @blur="$log" />
+    <!-- time -->
+    <p>input-time</p>
+    <snt-input type="time" :is24="false" @blur="$log" />
+    <!-- month -->
+    <p>input-month</p>
+    <snt-input type="month" @blur="$log" />
     <!-- text -->
     <p>input-text</p>
     <snt-input
@@ -10,16 +19,16 @@
       ]"
       required
       label="Que?"
-      :validator="(val) => (val === '' ? 'KHM, REQUIRED!' : true)"
-      error="Whaaat?"
       placeholder="Things"
       help="I am here to help"
+      @blur="$log"
     />
     <!-- email -->
     <p>input-email</p>
     <snt-input
+      v-model="mojemail"
       type="email"
-      value="qweqwe"
+      required
       label="Enter email"
       placeholder="WEMAIL"
     />
@@ -31,26 +40,26 @@
     <snt-input type="search" required />
     <!-- number -->
     <p>input-number</p>
-    <snt-input type="number" />
+    <snt-input required type="number" />
     <!-- tel -->
     <p>input-tel</p>
-    <snt-input type="tel" />
+    <snt-input required type="tel" />
     <!-- color -->
     <p>input-color</p>
-    <snt-input type="color" />
+    <snt-input required type="color" />
     <!-- url -->
     <p>input-url</p>
-    <snt-input type="url" />
+    <snt-input required type="url" />
     <!-- checkbox -->
     <p>input-checkbox</p>
-    <snt-input type="checkbox" labelPosition="inline end">
+    <snt-input type="checkbox" labelPosition="inline end" required>
       <template #label>
         <p>Im a <a href="/" class="snt-animate-underline">LINK</a></p>
       </template>
     </snt-input>
     <!-- radio -->
     <p>input-radio</p>
-    <snt-input type="radio" label="Im radio label">
+    <snt-input type="radio" label="Im radio label" required>
       <!-- <template #label>
         <p>
           Radio input <a href="/" class="snt-animate-underline">link to go</a>
@@ -62,22 +71,17 @@
     <snt-input type="range" />
     <!-- file -->
     <p>input-file</p>
-    <snt-input type="file" />
+    <snt-input type="file" required />
     <!-- textarea -->
     <p>textarea</p>
-    <textarea id="" name="" cols="30" rows="5"></textarea>
-    <snt-input type="textarea" />
+    <snt-input type="textarea" required />
     <!-- select -->
     <p>select</p>
-    <select id="" name="">
-      <option>Asdf</option>
-      <option>Qwe</option>
-      <option>Rty</option>
-    </select>
     <snt-input
       type="select"
       optionsLabelPath="value"
       optionsValuePath="id"
+      required
       :options="[
         { id: 1, value: 'New York' },
         { id: 2, value: 'Vivaldi' },
@@ -85,13 +89,6 @@
         { id: 4, value: 'Bruxelles' },
       ]"
     />
-    <!-- date -->
-    <!-- <p>input-date</p>
-    <snt-input v-model="val" type="date" required label="qwe" />
-    <p>value: {{ val }}</p> -->
-    <!-- time -->
-    <!-- <p>input-time</p>
-    <snt-input type="time" /> -->
   </div>
 </template>
 
@@ -103,7 +100,7 @@ export default {
   name: "TestInputs",
   mounted() {},
   data() {
-    return { val: "" };
+    return { mojemail: "", val: "" };
   },
 };
 </script>

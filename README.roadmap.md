@@ -37,6 +37,7 @@ low prio:
 
 ## Integrations - 9/10
 
+- forms plugin
 - i18n ✅
 - store implementation ✅
   - cleanup store.factory ✅

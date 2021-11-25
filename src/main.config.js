@@ -8,6 +8,7 @@ import { store } from "./store/store.js";
 export const mainConfig = () => {
   const app = createApp(App);
 
+  // global properties
   const global = app.config.globalProperties;
   global.$log = console.log;
   global.$isLoggedIn = store.getters["AccountModule/isLoggedIn"];

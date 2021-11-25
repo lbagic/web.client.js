@@ -71,19 +71,23 @@ export default {
   & > * {
     transition: all 0.2s ease-in-out;
   }
-  &-color > *[stroke]:not([stroke="white"]) {
+  // &-color > *[stroke]:not([stroke="white"]) {
+  &-color > *[stroke] {
     stroke: v-bind(colorValue);
   }
 
-  &-color > *[fill]:not([fill="white"]) {
+  // &-color > *[fill]:not([fill="white"]) {
+  &-color > *[fill] {
     fill: v-bind(colorValue);
   }
 
-  &-hover-color:hover > *[stroke]:not([stroke="white"]) {
+  // &-hover-color:hover > *[stroke]:not([stroke="white"]) {
+  &-hover-color:hover > *[stroke] {
     stroke: v-bind(hoverColorValue);
   }
 
-  &-hover-color:hover > *[fill]:not([fill="white"]) {
+  // &-hover-color:hover > *[fill]:not([fill="white"]) {
+  &-hover-color:hover > *[fill] {
     fill: v-bind(hoverColorValue);
   }
 }

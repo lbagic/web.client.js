@@ -1,6 +1,6 @@
 <template>
   <div v-bind="rootAttrs" class="snt-input-info-delimiter">
-    <label :class="labelClass">
+    <label ref="inputWrapper" :class="labelClass">
       <!-- label slot #before -->
       <slot v-if="hasLabel && labelPlacement.start" name="label">
         <p>{{ label }}</p>
@@ -8,14 +8,14 @@
       <component
         :is="element.component"
         ref="input"
-        :list="`${uniqueId}-list`"
+        :list="listId"
         :value="value"
         v-bind="inputAttrs"
-        @blur.stop="onBlur"
+        :class="isDatetime && 'snt-datepicker-input'"
+        @blur.stop="onBlur('input')"
         @focus="onFocus"
         @input="onInput"
       >
-        <!-- @blur="onBlur" -->
         <option
           v-for="(opt, index) in normalizedOptions"
           :key="index"
@@ -29,19 +29,22 @@
         <p>{{ label }}</p>
       </slot>
       <!-- datalis for text input with options -->
-      <datalist v-if="type === 'text' && hasOptions" :id="`${uniqueId}-list`">
+      <datalist v-if="type === 'text' && hasOptions" :id="listId">
         <option v-for="(opt, index) in normalizedOptions" :key="index">
           {{ resolveLabel(opt) }}
         </option>
       </datalist>
-      <datepicker
+      <!-- datepicker component -->
+      <component
+        :is="datepicker"
         v-show="false"
-        v-if="isDate"
+        v-if="isDatetime"
         ref="datepicker"
-        v-bind="inputAttrs"
+        v-bind="datetimeAttrs"
         v-model="dateInput"
         style="position: absolute"
-        @closed="onBlur('datetime')"
+        @update:modelValue="this.$refs.input.focus()"
+        @closed="onBlur('datepicker')"
       />
     </label>
     <p v-if="help" class="snt-input-help">{{ help }}</p>
@@ -50,7 +53,6 @@
         {{ errorMessage }}
       </p>
     </transition>
-    <p>{{ value }}</p>
   </div>
 </template>
 <script>
@@ -62,8 +64,9 @@ import {
   htmlErrors,
   htmlErrorKeys,
   getUniqueId,
+  sntInputRefs,
 } from "./SntInput.util.js";
-import Datepicker from "vue3-date-time-picker";
+import { defineAsyncComponent } from "@vue/runtime-core";
 
 const { rootAttrs, elementAttrs } = rootAttributeSplitter({
   rootclass: "class",
@@ -73,8 +76,7 @@ const { rootAttrs, elementAttrs } = rootAttributeSplitter({
 export default {
   name: "TestInput",
   inheritAttrs: false,
-  emits: ["valid", "update:modelValue", "blur"],
-  components: { Datepicker },
+  emits: ["valid", "update:modelValue", "blur", "focus"],
   props: {
     type: {
       type: String,
@@ -93,10 +95,14 @@ export default {
         return params.every((param) => allowed.includes(param));
       },
     },
+    datetimeOptions: Object,
     hideErrors: Boolean,
     optionsValuePath: { type: String, default: "value" },
     optionsLabelPath: { type: String, default: "label" },
     options: [Array, Object],
+  },
+  created() {
+    if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
   },
   mounted() {
     this.uniqueId = getUniqueId(this.$options.__scopeId);
@@ -116,7 +122,7 @@ export default {
       lastError: "",
       errorMessage: "",
       dateInput: "",
-      parsedDateInput: "",
+      formattedDateInput: "",
     };
   },
   watch: {
@@ -129,8 +135,17 @@ export default {
         this.errorMessage = this.lastError = this.error;
       },
     },
+    value() {
+      if (this.isDatetime) setTimeout(this.errorHandler);
+      else this.errorHandler();
+    },
     dateInput(val) {
-      this.$refs.input.value = this.element.datetimeParser(val);
+      const formatter =
+        this.datetimeOptions?.format || this.element.datetimeFormat;
+      if (this.type === "month") val.month = val.month + 1;
+      this.formattedDateInput = this.value =
+        formatter?.(val, this.datetimeAttrs?.locale) ?? val;
+      this.$refs.datepicker?.closeMenu();
       this.onInput();
     },
   },
@@ -138,14 +153,18 @@ export default {
     onInput() {
       if (this.lastError === this.errorMessage) this.lastError = "";
 
-      const value = this.$refs.input[this.element.targetValueProperty];
-      console.log({ el: this.$refs.input });
-
-      this.value = this.output =
-        // case: number and range NaN edgecase
-        (this.type === "range" || this.type === "number") && isNaN(value)
-          ? undefined
-          : value;
+      if (this.isDatetime) {
+        // case: datetime
+        this.value = this.formattedDateInput;
+        this.output = this.dateInput;
+      } else {
+        const value = this.$refs.input[this.element.targetValueProperty];
+        this.value = this.output =
+          // case: number and range
+          (this.type === "range" || this.type === "number") && isNaN(value)
+            ? undefined
+            : value;
+      }
 
       // case: text with options
       if (this.type === "text" && this.hasOptions) {
@@ -154,22 +173,30 @@ export default {
         );
         if (selected) {
           this.output = this.resolveValue(selected);
-          this.update();
+          this.$emit("update:modelValue", this.output);
         }
 
         // case: default
-      } else this.update();
-      this.errorHandler();
+      } else this.$emit("update:modelValue", this.output);
     },
     onFocus() {
-      if (!this.isDate) return;
-      this.$refs.datepicker.openMenu();
+      this.$emit("focus");
+      if (!this.isDatetime) return;
+      this.$refs.datepicker?.openMenu();
     },
-    onBlur(el) {
-      if (this.isDate && el !== "datetime") return;
-      this.$emit("blur", undefined);
+    onBlur(from) {
+      if (this.isDatetime && from === "input") {
+        setTimeout(() => {
+          const focusEl = sntInputRefs.focusElement;
+          const inputWrapper = this.$refs.inputWrapper;
+          const dpFocused = inputWrapper.contains(focusEl);
+          if (!dpFocused) this.$refs.datepicker?.closeMenu();
+        });
+        return;
+      }
+      this.$refs.datepicker?.closeMenu();
       this.wasBlurred = true;
-      this.errorHandler();
+      this.$emit("blur", undefined);
     },
     errorHandler() {
       const err = this.getError();
@@ -204,26 +231,25 @@ export default {
     resolveValue(object) {
       return this.optionsValuePath.split(".").reduce((a, c) => a[c], object);
     },
-    update() {
-      this.$emit("update:modelValue", this.output);
-    },
   },
   computed: {
     rootAttrs,
-    element: (vm) => sntInputElements[vm.type],
+    element: (vm) => sntInputElements[vm.type] || "text",
     inputAttrs() {
       let attrs = elementAttrs(this);
       if (this.element.component === "input") attrs.type = this.element.type;
-      if (this.element.attrs) attrs = { ...attrs, ...this.element.attrs };
       return attrs;
     },
+    datetimeAttrs() {
+      const dtAttrs = {
+        ...this.element.attrs,
+        ...this.$props.datetimeOptions,
+      };
+      return dtAttrs;
+    },
     normalizedOptions,
-    hasOptions() {
-      return !!this.normalizedOptions.length;
-    },
-    hasLabel() {
-      return this.$slots.label || this.label;
-    },
+    hasOptions: (vm) => !!vm.normalizedOptions.length,
+    hasLabel: (vm) => vm.$slots.label || vm.label,
     labelClass() {
       if (!this.hasLabel) return;
       return this.labelPlacement.inline
@@ -241,14 +267,22 @@ export default {
       const start = !pos.includes("end");
       return { block, inline: !block, start, end: !start };
     },
-    isDate() {
-      return this.element.datetimeParser;
+    isDatetime: (vm) => ["date", "time", "month"].includes(vm.type),
+    listId: (vm) => `snt-list-${vm.uniqueId}`,
+    datepicker() {
+      if (!this.isDatetime) return;
+      return defineAsyncComponent({
+        loader: () => import("vue3-date-time-picker"),
+      });
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
+.snt-datepicker-input {
+  caret-color: transparent;
+}
 .snt-input-label__block {
   &:deep() > * + * {
     margin-block-start: var(--snt-input-label-block-margin);

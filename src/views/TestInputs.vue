@@ -2,36 +2,38 @@
   <div class="test-wrapper">
     <!-- date -->
     <p>input-date</p>
-    <snt-input type="date" required label="input-date" @blur="$log" />
+    <snt-input
+      v-model="dateModel"
+      type="date"
+      :datetimeOptions="{ locale: 'hr' }"
+      required
+    />
+    <p>{{ dateModel }}</p>
+    <p>input-date2</p>
+    <snt-input v-model="dateModel2" type="date" required />
+    <p>{{ dateModel2 }}</p>
     <!-- time -->
     <p>input-time</p>
-    <snt-input type="time" :is24="false" @blur="$log" />
+    <snt-input type="time" required />
     <!-- month -->
     <p>input-month</p>
-    <snt-input type="month" @blur="$log" />
+    <snt-input type="month" required />
     <!-- text -->
-    <p>input-text</p>
+    <!-- <p>input-text</p> -->
+    <p>random text input</p>
     <snt-input
       type="text"
       :options="[
         { value: 1, label: 'aaa' },
-        { value: 22222222222222, label: 'bbb' },
+        { value: 2, label: 'bbb' },
       ]"
       required
-      label="Que?"
       placeholder="Things"
       help="I am here to help"
-      @blur="$log"
     />
     <!-- email -->
     <p>input-email</p>
-    <snt-input
-      v-model="mojemail"
-      type="email"
-      required
-      label="Enter email"
-      placeholder="WEMAIL"
-    />
+    <snt-input type="email" required label="Enter email" placeholder="WEMAIL" />
     <!-- password -->
     <p>input-password</p>
     <snt-input type="password" />
@@ -94,13 +96,20 @@
 
 <script>
 import SntInput from "../components/utils/SntInput.vue";
+import { formatDate } from "../utils/datetime.js";
 
 export default {
   components: { SntInput },
   name: "TestInputs",
   mounted() {},
   data() {
-    return { mojemail: "", val: "" };
+    return { dateModel: "", dateModel2: "" };
+  },
+  methods: {
+    dateFormatter(date) {
+      const fmt = formatDate(date, { locale: "hr" });
+      return `${fmt.dayLong}, ${fmt.month}`;
+    },
   },
 };
 </script>

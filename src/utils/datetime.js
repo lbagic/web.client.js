@@ -4,7 +4,7 @@ Date.prototype.toTemporalInstant = toTemporalInstant;
 
 export const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-const getTwoDigitFormat = (num) => ("0" + num).slice(-2);
+export const getTwoDigitFormat = (num) => ("0" + num).slice(-2);
 const get12HourFormat = (hour) => hour % 12 || 12;
 const getDayPeriod = (hour) => (hour < 12 || hour === 24 ? "AM" : "PM");
 const getIntlObject = (date, type, options) =>

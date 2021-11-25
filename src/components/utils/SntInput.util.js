@@ -1,5 +1,4 @@
-// import Datepicker from "vue3-date-time-picker";
-import "vue3-date-time-picker/dist/main.css";
+import { formatDate, getTwoDigitFormat } from "../../utils/datetime";
 
 export const rootAttributeSplitter = (attributeMap = {}) => {
   const _attributeMap = Object.entries(attributeMap);
@@ -20,8 +19,16 @@ export const rootAttributeSplitter = (attributeMap = {}) => {
 
 let uniqueIdCounter = 0;
 export const getUniqueId = (string) => `${string}-${uniqueIdCounter++}`;
+export const sntInputRefs = {
+  focusElement: undefined,
+};
 
-const twoDigitFormat = (num) => ("0" + num).slice(-2);
+let eventListener;
+if (!eventListener)
+  eventListener = document.addEventListener(
+    "focusin",
+    (e) => (sntInputRefs.focusElement = e.target)
+  );
 
 export const htmlErrors = {
   // customError: false,
@@ -35,7 +42,6 @@ export const htmlErrors = {
   typeMismatch: "Value is of wrong type.",
   valueMissing: "Value is missing.",
 };
-
 export const htmlErrorKeys = Object.keys(htmlErrors);
 
 export const normalizedOptions = (vm) =>
@@ -138,29 +144,43 @@ export const sntInputElements = {
   date: {
     type: "text",
     component: "input",
-    datetimeParser: (val) => val.toISOString().slice(0, 10),
+    datetimeFormat: (val, locale) => {
+      const { dayShort, day, monthShort, year } = formatDate(val, {
+        locale: locale ?? "en",
+      });
+      return `${dayShort}, ${day} ${monthShort} ${year}`;
+    },
     defaultValue: "",
     targetValueProperty: "value",
+    attrs: {
+      locale: "en",
+      autoApply: true,
+      maxlength: 0,
+      enableTimePicker: false,
+    },
   },
   time: {
     type: "text",
     component: "input",
-    datetimeParser: (val) =>
-      `${twoDigitFormat(val.hours)}:${twoDigitFormat(val.minutes)}`,
+    datetimeFormat: (val) =>
+      `${getTwoDigitFormat(val.hours)}:${getTwoDigitFormat(val.minutes)}`,
     defaultValue: "",
     targetValueProperty: "value",
     attrs: {
       timePicker: true,
+      maxlength: 0,
     },
   },
   month: {
     type: "text",
     component: "input",
-    datetimeParser: (val) => `${val.year}-${twoDigitFormat(val.month + 1)}`,
+    datetimeFormat: (val) => `${val.year}-${getTwoDigitFormat(val.month)}`,
     defaultValue: "",
     targetValueProperty: "value",
     attrs: {
+      autoApply: true,
       monthPicker: true,
+      maxlength: 0,
     },
   },
 };

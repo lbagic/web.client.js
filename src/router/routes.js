@@ -33,13 +33,19 @@ export const routes = [
 
 if (process.env.NODE_ENV === "development") {
   routes.push({
-    path: "/test",
-    name: "Test",
-    component: () => import("../views/Test.vue"),
-  });
-  routes.push({
-    path: "/test-inputs",
-    name: "TestInputs",
-    component: () => import("../views/TestInputs.vue"),
+    path: "/development",
+    component: () => import("../views/_development/DevelopmentHome.vue"),
+    children: [
+      {
+        path: "",
+        name: "Test",
+        component: () => import("../views/_development/Test.vue"),
+      },
+      {
+        path: "documentation",
+        name: "Documentation",
+        component: () => import("../views/_development/Documentation.vue"),
+      },
+    ],
   });
 }

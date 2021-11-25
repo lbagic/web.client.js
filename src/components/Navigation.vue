@@ -55,14 +55,6 @@ export default {
             { name: "Register", $attrs: { class: linkClass } },
           ];
 
-      if (process.env.NODE_ENV !== "production") {
-        const testRoutes = [
-          { name: "Test", $attrs: { class: linkClass } },
-          { name: "TestInputs", $attrs: { class: linkClass } },
-        ];
-        routes.push(...testRoutes);
-      }
-
       return routes.map((el) => {
         const route = routerRoutes.find((route) => el.name === route.name);
         if (!route) throw new Error(`Can't find route with name "${el.name}"`);

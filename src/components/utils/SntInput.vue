@@ -270,10 +270,9 @@ export default {
     isDatetime: (vm) => ["date", "time", "month"].includes(vm.type),
     listId: (vm) => `snt-list-${vm.uniqueId}`,
     datepicker() {
-      if (!this.isDatetime) return;
-      return defineAsyncComponent({
-        loader: () => import("vue3-date-time-picker"),
-      });
+      return this.isDatetime
+        ? defineAsyncComponent(() => import("vue3-date-time-picker"))
+        : undefined;
     },
   },
 };

@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import SntInput from "../components/utils/SntInput.vue";
-import { formatDate } from "../utils/datetime.js";
+import SntInput from "../../components/utils/SntInput.vue";
+import { formatDate } from "../../utils/datetime.js";
 
 export default {
   components: { SntInput },

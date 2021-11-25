@@ -1,20 +1,23 @@
 # ROADMAP
 
-## Styles - 4/5
+## Styles - 4/7
 
 - variables & utility classes ✅
 - fonts ✅
 - cards ✅
 - breakpoints ✅
 - buttons & links - define data-state - initial, loading, hover, active, disabled
+- focus styles
+- normalized styles
 
-## Components - 7/10
+## Components - 7/11
 
 - button component (links included? for example link that looks like a button)
 - revisit icon component (properties) ✅
 - modal (details summary?), overlay, popup, notification, (toasts?)
 - inputs:
   - datetime input (datepicker component) ✅
+  - date range input
   - input styling
   - validation ✅
   - error/help ✅

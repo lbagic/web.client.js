@@ -12,17 +12,16 @@
 
 ## Components - 9/13
 
-- slideout navigation
+- slideout navigation -- slots for 'top' 'slide' 'top-when-slide'
 - slideout component
+- slider/carousel component
+- button component ✅
+- revisit icon component (properties) ✅
 - overlays
   - modals - (hijack back button)
   - lightbox (modal with background; hijack back button)
   - notifications (goes away when interacting)
   - toasts (goes away automatically)
-- modal (details summary?), overlay, popup, notification, (toasts?)
-- slider component
-- button component ✅
-- revisit icon component (properties) ✅
 - inputs:
   - datetime input (datepicker component) ✅
   - input styling ✅

@@ -8,9 +8,8 @@
 - focus styles ✅
 - normalized styles ✅
 
-## Components - 9/12
+## Components - 9/11
 
-- documentation
 - modal (details summary?), overlay, popup, notification, (toasts?)
 - slider component
 - button component ✅
@@ -26,9 +25,9 @@
 
 low prio:
 
+- documentation
 - date range input
 - topbar loading state
-- component list/test page (list all custom components)
 - inputs:
   - accessibility
   - icon support (+ default icons for some input types)
@@ -37,8 +36,8 @@ low prio:
 
 ## Integrations - 9/12
 
-- grpc
 - forms plugin
+- api integration with popups
 - i18n ✅
 - store implementation ✅
   - cleanup store.factory ✅
@@ -53,8 +52,8 @@ low prio:
 
 low prio:
 
+- grpc
 - stylelint
-- api integration with popups
 - api integrations via call config
   - isLoading: true, // show loading
   - isAutoMsg: true, // show err msg

@@ -14,6 +14,7 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  router.referrer = from.fullPath;
   document.title = to.meta?.title ?? config.appTitle;
 
   const isLoggedIn = store.getters["AccountModule/isLoggedIn"];

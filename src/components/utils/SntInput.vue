@@ -30,7 +30,7 @@
         <p>{{ label }}</p>
       </slot>
       <!-- datalis for text input with options -->
-      <datalist v-if="type === 'text' && hasOptions" :id="listId">
+      <datalist v-if="isInputWithOptions" :id="listId">
         <option v-for="(opt, index) in normalizedOptions" :key="index">
           {{ resolveLabel(opt) }}
         </option>
@@ -166,7 +166,7 @@ export default {
       }
 
       // case: text with options
-      if (this.type === "text" && this.hasOptions) {
+      if (this.isInputWithOptions) {
         const selected = this.normalizedOptions.find(
           (el) => this.resolveLabel(el) === this.value
         );
@@ -180,8 +180,7 @@ export default {
     },
     onFocus() {
       this.$emit("focus");
-      if (!this.isDatetime) return;
-      this.$refs.datepicker?.openMenu();
+      if (this.isDatetime) this.$refs.datepicker?.openMenu();
     },
     onBlur(from) {
       if (this.isDatetime && from === "input") {
@@ -197,8 +196,7 @@ export default {
       this.$emit("blur", undefined);
     },
     onKeydown(e) {
-      if (!this.isDatetime) return;
-      if (e.keyCode != 9) e.preventDefault();
+      if (this.isDatetime && e.keyCode != 9) e.preventDefault();
     },
     errorHandler() {
       const err = this.getError();
@@ -280,6 +278,8 @@ export default {
       return { block, inline: !block, start, end: !start };
     },
     isDatetime: (vm) => ["date", "time", "month"].includes(vm.type),
+    isInputWithOptions: (vm) =>
+      vm.type === "input" && vm.normalizedOptions.length,
     listId: (vm) => `snt-list-${vm.uniqueId}`,
     datepicker() {
       return this.isDatetime

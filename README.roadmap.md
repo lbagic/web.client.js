@@ -1,5 +1,7 @@
 # ROADMAP
 
+- project documentation (plugins etc)
+
 ## Styles - 5/5
 
 - variables & utility classes ✅
@@ -8,8 +10,10 @@
 - focus styles ✅
 - normalized styles ✅
 
-## Components - 9/11
+## Components - 9/13
 
+- slide out navigation
+- slideout component
 - modal (details summary?), overlay, popup, notification, (toasts?)
 - slider component
 - button component ✅
@@ -25,7 +29,7 @@
 
 low prio:
 
-- documentation
+- component documentation
 - date range input
 - topbar loading state
 - inputs:

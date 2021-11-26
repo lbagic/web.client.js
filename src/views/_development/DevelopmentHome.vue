@@ -2,11 +2,9 @@
   <div>
     <router-view></router-view>
     <development-popup>
-      <router-link
-        :to="link.to"
-        class="dev-home-nav-link snt-animate-underline"
-        >{{ link.text }}</router-link
-      >
+      <router-link :to="link.to" class="dev-home-nav-link">{{
+        link.text
+      }}</router-link>
     </development-popup>
   </div>
 </template>

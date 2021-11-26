@@ -1,24 +1,25 @@
 # ROADMAP
 
-## Styles - 4/7
+## Styles - 6/6
 
 - variables & utility classes ✅
 - fonts ✅
-- cards ✅
+- cards
 - breakpoints ✅
-- buttons & links - define data-state - initial, loading, hover, active, disabled
-- focus styles
-- normalized styles
+- focus styles ✅
+- normalized styles ✅
+- card styles
 
-## Components - 7/11
+## Components - 9/12
 
-- button component (links included? for example link that looks like a button)
+- button component ✅
 - revisit icon component (properties) ✅
 - modal (details summary?), overlay, popup, notification, (toasts?)
+- slider component
 - inputs:
   - datetime input (datepicker component) ✅
   - date range input
-  - input styling
+  - input styling ✅
   - validation ✅
   - error/help ✅
   - generic inputs ✅
@@ -35,8 +36,9 @@ low prio:
   - snt-fieldset - generate whole forms (scope to replace elements)
   - support errors from api calls (current_password field gets current_password error)
 
-## Integrations - 9/10
+## Integrations - 9/12
 
+- grpc
 - forms plugin
 - i18n ✅
 - store implementation ✅

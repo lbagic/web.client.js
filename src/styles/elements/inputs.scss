@@ -1,27 +1,19 @@
 :root {
-  --snt-field-height: 55px;
-  --snt-field-padding: 1rem;
-  --snt-field-border: 1px solid var(--snt-color-muted);
-  --snt-field-border-focus: 1px solid var(--snt-color-grey);
+  --snt-inputfield-height: 55px;
+  --snt-inputfield-padding: 1rem;
+  --snt-inputfield-border: 1px solid var(--snt-color-muted);
+  --snt-inputfield-border-focus: 1px solid var(--snt-color-grey);
 }
 
-.snt-fieldset {
-  display: block;
-  border: none;
-  margin: 0;
-  padding: 0;
-  // display: grid;
-  // gap: var(--el-fieldset-spacing);
-  // align-items: flex-start;
-}
+// input styles
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
-textarea,
-select {
-  min-height: var(--snt-field-height);
-  padding: var(--snt-field-padding);
-  border: var(--snt-field-border);
+select,
+textarea {
+  min-height: 55px;
+  padding: 6px 12px;
+  border: 1px solid var(--snt-color-muted);
   &:focus {
-    border: var(--snt-field-border-focus);
+    border: 1px solid var(--snt-color-grey);
   }
 }
 

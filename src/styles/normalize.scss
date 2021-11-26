@@ -13,9 +13,13 @@ body {
   margin: 0;
 }
 a {
-  color: inherit;
-  outline: none;
   text-decoration: none;
+  color: #007bff;
+  transition: color 0.15s ease-in-out;
+  &:hover {
+    color: #0056b3;
+  }
+  border-radius: 0.1rem;
 }
 p {
   margin: 0;
@@ -70,6 +74,7 @@ li {
 }
 fieldset {
   border-width: 1px;
+  display: block;
   padding: 0;
   margin: 0;
 }
@@ -78,7 +83,6 @@ fieldset {
 }
 label {
   display: block;
-  cursor: pointer;
 }
 textarea {
   overflow: auto;
@@ -89,4 +93,73 @@ input[type="checkbox"],
 input[type="radio"],
 input[type="range"] {
   margin: 0;
+  padding: 0;
 }
+button,
+[type="checkbox"],
+[type="radio"],
+label {
+  cursor: pointer;
+}
+input,
+select,
+textarea {
+  background: #f4f4f4;
+  border-style: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.25;
+  margin: 0;
+  padding: 0;
+  text-transform: none;
+  outline: none;
+}
+fieldset[disabled] input,
+fieldset[disabled] select,
+fieldset[disabled] textarea,
+fieldset[disabled] button,
+a[disabled],
+button[disabled],
+input[disabled],
+select[disabled],
+textarea[disabled] {
+  cursor: default !important;
+  pointer-events: none !important;
+}
+
+// Focus styles
+*[tabindex],
+a,
+input:not([type="radio"]):not([type="checkbox"]),
+select,
+textarea,
+button {
+  outline: none;
+  transition: box-shadow 0.15s ease-in-out;
+  &:focus {
+    box-shadow: 0 0 0 0.15rem rgb(108 117 125 / 50%);
+  }
+}
+input[type="radio"],
+input[type="checkbox"] {
+  outline: none;
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: box-shadow 0.15s ease-in-out;
+  }
+  &:focus::after {
+    box-shadow: 0 0 0 0.15rem rgb(108 117 125 / 50%) !important;
+  }
+}
+input[type="radio"]::after {
+  border-radius: 100%;
+}
+input[type="checkbox"]::after {
+  border-radius: 2px;
+}
+// Focus styles end

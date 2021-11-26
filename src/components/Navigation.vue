@@ -93,8 +93,11 @@ export default {
   display: flex;
   color: var(--snt-color-light);
   & > * {
+    box-shadow: none;
     // scroll-snap-align: start end;
     padding: 1rem;
+    color: inherit;
+    outline: none;
   }
 }
 </style>

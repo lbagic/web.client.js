@@ -13,6 +13,7 @@
         v-bind="inputAttrs"
         :class="isDatetime && 'snt-datepicker-input'"
         @blur.stop="onBlur('input')"
+        @keydown="onKeydown"
         @focus="onFocus"
         @input="onInput"
       >
@@ -197,6 +198,10 @@ export default {
       this.$refs.datepicker?.closeMenu();
       this.wasBlurred = true;
       this.$emit("blur", undefined);
+    },
+    onKeydown(e) {
+      if (!this.isDatetime) return;
+      if (e.keyCode != 9) e.preventDefault();
     },
     errorHandler() {
       const err = this.getError();

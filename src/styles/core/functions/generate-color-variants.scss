@@ -4,7 +4,7 @@
     $colors: map-merge(
       $colors,
       (
-        "color-#{$colorName}": $colorHex,
+        "#{$colorName}": $colorHex,
       )
     );
     @each $variantHex, $variantMap in $variants {
@@ -12,7 +12,7 @@
         $colors: map-merge(
           $colors,
           (
-            "color-#{$colorName}-#{$variantName}":
+            "#{$colorName}-#{$variantName}":
               mix($variantHex, $colorHex, $mixPercentage),
           )
         );

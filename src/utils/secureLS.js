@@ -8,7 +8,7 @@
 //   encryptionSecret: storageEncryptionKey,
 // });
 
-// export const secureLocalStorage = {
+// export const secureLS = {
 //   getItem: (key) => storage.get(key),
 //   setItem: (key, data) => storage.set(key, data),
 //   removeItem: (key) => storage.remove(key),

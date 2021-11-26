@@ -4,9 +4,6 @@
 
   --snt-nav-height: 50px;
 
-  --snt-input-label-block-margin: 2px;
-  --snt-input-label-inline-margin: 4px;
-
   --snt-z-index-modal: 9000;
   --snt-z-index-overlay: 8000;
   --snt-z-index-dropdown: 7000;
@@ -16,4 +13,18 @@
   --snt-box-shadow-1: "0 0 8px #00000011";
   --snt-box-shadow-2: "0 0 8px #00000018";
   --snt-box-shadow-3: "0 0 8px #00000022";
+}
+
+.snt-grid-fill {
+  --snt-grid-fill: 200px;
+  --snt-grid-fill-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--snt-grid-fill), 1fr));
+  gap: var(--snt-grid-fill-gap);
+}
+
+.snt-card {
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: var(--snt-box-shadow-1);
 }

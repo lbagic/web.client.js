@@ -1,24 +1,22 @@
 # ROADMAP
 
-## Styles - 6/6
+## Styles - 5/5
 
 - variables & utility classes ✅
 - fonts ✅
-- cards
 - breakpoints ✅
 - focus styles ✅
 - normalized styles ✅
-- card styles
 
 ## Components - 9/12
 
-- button component ✅
-- revisit icon component (properties) ✅
+- documentation
 - modal (details summary?), overlay, popup, notification, (toasts?)
 - slider component
+- button component ✅
+- revisit icon component (properties) ✅
 - inputs:
   - datetime input (datepicker component) ✅
-  - date range input
   - input styling ✅
   - validation ✅
   - error/help ✅
@@ -28,6 +26,7 @@
 
 low prio:
 
+- date range input
 - topbar loading state
 - component list/test page (list all custom components)
 - inputs:

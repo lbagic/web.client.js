@@ -1,8 +1,6 @@
 :root {
-  --snt-inputfield-height: 55px;
-  --snt-inputfield-padding: 1rem;
-  --snt-inputfield-border: 1px solid var(--snt-color-muted);
-  --snt-inputfield-border-focus: 1px solid var(--snt-color-grey);
+  --snt-inputfield-label-block-margin: 2px;
+  --snt-inputfield-label-inline-margin: 4px;
 }
 
 // input styles

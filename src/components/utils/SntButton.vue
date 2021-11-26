@@ -67,7 +67,7 @@ export default {
   user-select: none;
   border: var(--snt-button-border-width) solid transparent;
   padding: var(--snt-button-padding);
-  font-size: 1rem;
+  font-size: 16px;
   line-height: 1.5;
   border-radius: var(--snt-button-border-radius);
   transition-timing-function: ease-in-out;

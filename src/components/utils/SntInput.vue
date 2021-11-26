@@ -289,14 +289,14 @@ export default {
 }
 .snt-input-label__block {
   &:deep() > * + * {
-    margin-block-start: var(--snt-input-label-block-margin);
+    margin-block-start: var(--snt-inputfield-label-block-margin);
   }
 }
 .snt-input-label__inline {
   display: inline-flex;
   align-items: center;
   &:deep() > * + * {
-    margin-inline-start: var(--snt-input-label-inline-margin);
+    margin-inline-start: var(--snt-inputfield-label-inline-margin);
   }
 }
 .snt-input-info-delimiter {

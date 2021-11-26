@@ -12,8 +12,13 @@
 
 ## Components - 9/13
 
-- slide out navigation
+- slideout navigation
 - slideout component
+- overlays
+  - modals - (hijack back button)
+  - lightbox (modal with background; hijack back button)
+  - notifications (goes away when interacting)
+  - toasts (goes away automatically)
 - modal (details summary?), overlay, popup, notification, (toasts?)
 - slider component
 - button component ✅

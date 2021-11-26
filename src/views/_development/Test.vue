@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <snt-button href="/development">anchor</snt-button>
-    <snt-button to="/development" text>router-link</snt-button>
+    <snt-button to="/development/inputs" text>router-link</snt-button>
     <snt-button outline>button</snt-button>
     <snt-button outline large>button</snt-button>
     <snt-button outline>button</snt-button>

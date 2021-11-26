@@ -58,21 +58,16 @@
 </template>
 <script>
 import {
+  htmlErrorKeys,
+  htmlErrors,
   sntInputElements,
   sntInputTypes,
-  normalizedOptions,
-  rootAttributeSplitter,
-  htmlErrors,
-  htmlErrorKeys,
-  getUniqueId,
-  sntInputRefs,
 } from "./SntInput.util.js";
-import { defineAsyncComponent } from "@vue/runtime-core";
+import { defineAsyncComponent, ref } from "@vue/runtime-core";
 
-const { rootAttrs, elementAttrs } = rootAttributeSplitter({
-  rootclass: "class",
-  rootstyle: "style",
-});
+const uniqueIndex = ref(0);
+let focusElement = undefined;
+document.addEventListener("focusin", (e) => (focusElement = e.target));
 
 export default {
   name: "TestInput",
@@ -101,12 +96,14 @@ export default {
     optionsValuePath: { type: String, default: "value" },
     optionsLabelPath: { type: String, default: "label" },
     options: [Array, Object],
+    rootAttrs: Object,
   },
   created() {
     if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
   },
   mounted() {
-    this.uniqueId = getUniqueId(this.$options.__scopeId);
+    this.uniqueId = `${this.$options.__scopeId}-${this.uniqueIndex}`;
+    this.uniqueIndex += 1;
     this.isValid = this.errorHandler(this.$refs.input.value);
     this.value = this.output =
       this.inputAttrs.value ??
@@ -124,6 +121,7 @@ export default {
       errorMessage: "",
       dateInput: "",
       formattedDateInput: "",
+      uniqueIndex,
     };
   },
   watch: {
@@ -188,9 +186,8 @@ export default {
     onBlur(from) {
       if (this.isDatetime && from === "input") {
         setTimeout(() => {
-          const focusEl = sntInputRefs.focusElement;
           const inputWrapper = this.$refs.inputWrapper;
-          const dpFocused = inputWrapper.contains(focusEl);
+          const dpFocused = inputWrapper.contains(focusElement);
           if (!dpFocused) this.$refs.datepicker?.closeMenu();
         });
         return;
@@ -238,10 +235,9 @@ export default {
     },
   },
   computed: {
-    rootAttrs,
     element: (vm) => sntInputElements[vm.type] || "text",
     inputAttrs() {
-      let attrs = elementAttrs(this);
+      let attrs = { ...this.$attrs };
       if (this.element.component === "input") attrs.type = this.element.type;
       return attrs;
     },
@@ -252,7 +248,18 @@ export default {
       };
       return dtAttrs;
     },
-    normalizedOptions,
+    normalizedOptions() {
+      return !this.options
+        ? []
+        : Array.isArray(this.options)
+        ? this.options
+        : typeof this.options === "object"
+        ? Object.entries(this.options).reduce((a, [value, label]) => {
+            a.push({ label, value });
+            return a;
+          }, [])
+        : [];
+    },
     hasOptions: (vm) => !!vm.normalizedOptions.length,
     hasLabel: (vm) => vm.$slots.label || vm.label,
     labelClass() {

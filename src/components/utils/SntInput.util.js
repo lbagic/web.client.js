@@ -1,35 +1,5 @@
 import { formatDate, getTwoDigitFormat } from "../../utils/datetime";
 
-export const rootAttributeSplitter = (attributeMap = {}) => {
-  const _attributeMap = Object.entries(attributeMap);
-  return {
-    rootAttrs: (vm) =>
-      _attributeMap.reduce((a, [prop, mappedProp]) => {
-        const value = vm.$attrs[prop];
-        if (value) a[mappedProp] = value;
-        return a;
-      }, {}),
-    elementAttrs: (vm) => {
-      const attributes = { ...vm.$attrs };
-      _attributeMap.forEach(([prop]) => delete attributes[prop]);
-      return attributes;
-    },
-  };
-};
-
-let uniqueIdCounter = 0;
-export const getUniqueId = (string) => `${string}-${uniqueIdCounter++}`;
-export const sntInputRefs = {
-  focusElement: undefined,
-};
-
-let eventListener;
-if (!eventListener)
-  eventListener = document.addEventListener(
-    "focusin",
-    (e) => (sntInputRefs.focusElement = e.target)
-  );
-
 export const htmlErrors = {
   // customError: false,
   badInput: "Bad input value.",

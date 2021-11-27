@@ -28,22 +28,23 @@ export const createApi = (
   };
 
   // attach default logging interceptors
-  instance.interceptors.response.use(
-    (res) => {
-      const { method, url } = res.config;
-      console.log(method.toUpperCase(), url, res.status, res);
-      return res;
-    },
-    (err) => {
-      if (err.config) {
-        const { method, url } = err.config;
-        console.error(method.toUpperCase(), url, err?.response?.status, {
-          ...err,
-        });
+  if (this.process.env !== "production")
+    instance.interceptors.response.use(
+      (res) => {
+        const { method, url } = res.config;
+        console.log(method.toUpperCase(), url, res.status, res);
+        return res;
+      },
+      (err) => {
+        if (err.config) {
+          const { method, url } = err.config;
+          console.error(method.toUpperCase(), url, err?.response?.status, {
+            ...err,
+          });
+        }
+        throw err;
       }
-      throw err;
-    }
-  );
+    );
 
   // attach customly configured interceptors
   if (requestHandler || getToken)

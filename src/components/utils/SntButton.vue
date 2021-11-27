@@ -1,6 +1,7 @@
 <script>
 import { h, mergeProps } from "@vue/runtime-core";
 import { RouterLink } from "vue-router";
+import { getColor } from "../../utils/getColor.js";
 
 export default {
   name: "SntButton",
@@ -8,23 +9,17 @@ export default {
     color: { type: String, default: "primary" },
     expand: Boolean,
     large: Boolean,
-    lighter: Boolean,
+    lighterVariant: Boolean,
     outline: Boolean,
     text: Boolean,
   },
-  methods: {
-    getColor: (name) =>
-      getComputedStyle(document.documentElement).getPropertyValue(
-        `--snt-color-${name}`
-      ),
-  },
   computed: {
     colors() {
-      const variant = this.lighter ? "lighter" : "darker";
+      const variant = this.lighterVariant ? "lighter" : "darker";
       return {
-        default: this.getColor(this.color),
-        variant: this.getColor(`${this.color}-${variant}`),
-        on: this.getColor(`on-${this.color}`),
+        default: getColor(this.color),
+        variant: getColor(`${this.color}-${variant}`),
+        on: getColor(`on-${this.color}`),
       };
     },
     classes() {

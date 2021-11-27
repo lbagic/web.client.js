@@ -1,18 +1,19 @@
-export function deepFreeze(o) {
-  Object.freeze(o);
-  if (o === undefined) {
-    return o;
+export function deepFreeze(object) {
+  Object.freeze(object);
+  if (object === undefined) {
+    return object;
   }
 
-  Object.getOwnPropertyNames(o).forEach(function (prop) {
+  Object.getOwnPropertyNames(object).forEach(function (prop) {
     if (
-      o[prop] !== null &&
-      (typeof o[prop] === "object" || typeof o[prop] === "function") &&
-      !Object.isFrozen(o[prop])
+      object[prop] !== null &&
+      (typeof object[prop] === "object" ||
+        typeof object[prop] === "function") &&
+      !Object.isFrozen(object[prop])
     ) {
-      deepFreeze(o[prop]);
+      deepFreeze(object[prop]);
     }
   });
 
-  return o;
+  return object;
 }

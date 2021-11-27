@@ -102,8 +102,6 @@ export default {
     if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
   },
   mounted() {
-    this.uniqueId = `${this.$options.__scopeId}-${this.uniqueIndex}`;
-    this.uniqueIndex += 1;
     this.isValid = this.errorHandler(this.$refs.input.value);
     this.value = this.output =
       this.inputAttrs.value ??
@@ -112,7 +110,7 @@ export default {
   },
   data() {
     return {
-      uniqueId: undefined,
+      uniqueId: `${this.$options.__scopeId}-${uniqueIndex.value++}`,
       value: "",
       output: "",
       wasBlurred: false,
@@ -121,7 +119,6 @@ export default {
       errorMessage: "",
       dateInput: "",
       formattedDateInput: "",
-      uniqueIndex,
     };
   },
   watch: {

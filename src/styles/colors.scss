@@ -1,4 +1,4 @@
-$base-colors: (
+$snt-base-colors: (
   "color-primary": #4267b2,
   "color-secondary": #fdb73b,
   "color-ternary": #76bfc2,
@@ -12,7 +12,7 @@ $base-colors: (
   "color-black": #000,
   "color-transparent": #0000,
 );
-$on-colors: (
+$snt-on-colors: (
   "color-on-primary": white,
   "color-on-secondary": black,
   "color-on-ternary": black,
@@ -27,7 +27,7 @@ $on-colors: (
   "color-on-transparent": black,
 );
 
-$color-variants: (
+$snt-color-variants: (
   white: (
     "light": 15%,
     "lighter": 20%,
@@ -42,7 +42,7 @@ $color-variants: (
 
 :root {
   @include generate-css-variables(
-    generate-color-variants($base-colors, $color-variants)
+    generate-color-variants($snt-base-colors, $snt-color-variants)
   );
-  @include generate-css-variables($on-colors);
+  @include generate-css-variables($snt-on-colors);
 }

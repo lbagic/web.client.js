@@ -47,6 +47,9 @@ const inject =
     names.forEach(replaceMethod(target, aspect, advice));
   };
 
+// Concepts from aspect oriented programming
+// Enables injecting functions before or after target functions
+// Usefull for cross cutting concerns such as logging
 export const aop = {
   injectBefore: inject("before"),
   injectAfter: inject("after"),

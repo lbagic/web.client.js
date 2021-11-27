@@ -3,6 +3,7 @@
     <component
       :is="component"
       :class="classes"
+      :style="styles"
       class="snt-icon"
       @click="button && $emit('click')"
     />
@@ -11,6 +12,7 @@
 
 <script>
 import { defineAsyncComponent } from "@vue/runtime-core";
+import { getColor } from "../../utils/getColor.js";
 
 export default {
   name: "SntIcon",
@@ -18,7 +20,6 @@ export default {
     icon: {
       type: String,
       required: true,
-      default: "Google",
     },
     button: Boolean,
     color: {
@@ -29,38 +30,37 @@ export default {
       type: String,
       default: "primary-darker",
     },
+    scale: String,
   },
   data() {
     return {
-      colorValue: this.getColor(this.color),
-      hoverColorValue: this.getColor(this.hoverColor),
+      colorValue: getColor(this.color, "#000"),
+      hoverColorValue: getColor(this.hoverColor, "#333"),
     };
   },
-  methods: {
-    getColor(value) {
-      if (value && value[0] === "#") return value;
-      const cssColor = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue(`--snt-color-${value}`);
-      if (cssColor) return cssColor;
-      return "#000";
-    },
-  },
   computed: {
-    component: (vm) =>
-      defineAsyncComponent({
+    component: (vm) => {
+      const loaderConfig = {
         loader: () => import(`./icons/${vm.icon}.vue`),
-        onError: () =>
+      };
+      if (process.env !== "production")
+        loaderConfig.onError = () =>
           console.warn(
             `Invalid prop: <icon /> failed to resolve where icon="${vm.icon}". This is most likely due to a typo or missing icon component.`
-          ),
-      }),
+          );
+      return defineAsyncComponent(loaderConfig);
+    },
     classes() {
       const classes = [];
       this.button && classes.push("pointer");
       this.color && classes.push("snt-icon-color");
       this.hoverColor && this.button && classes.push("snt-icon-hover-color");
       return classes;
+    },
+    styles() {
+      const styles = {};
+      if (this.scale) styles.transform = `scale(${this.scale})`;
+      return styles;
     },
   },
 };

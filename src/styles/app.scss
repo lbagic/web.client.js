@@ -4,7 +4,9 @@
 
   --snt-nav-height: 50px;
 
-  --snt-z-index-modal: 9000;
+  --snt-overlay-backdrop-filter: blur(1px);
+  --snt-overlay-border-radius: 4px;
+
   --snt-z-index-overlay: 8000;
   --snt-z-index-dropdown: 7000;
   --snt-z-index-header: 6000;

@@ -10,7 +10,7 @@ export const mainConfig = () => {
 
   // global properties
   const global = app.config.globalProperties;
-  global.$log = console.log;
+  global.$log = process.env !== "production" ? console.log : () => {};
   global.$isLoggedIn = store.getters["AccountModule/isLoggedIn"];
 
   return {

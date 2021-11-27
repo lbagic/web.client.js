@@ -31,6 +31,16 @@
       placeholder="Things"
       help="I am here to help"
     />
+    <snt-input
+      type="text"
+      :options="[
+        { value: 1, label: 'aaa' },
+        { value: 2, label: 'bbb' },
+      ]"
+      required
+      placeholder="Things"
+      help="I am here to help"
+    />
     <!-- email -->
     <p>input-email</p>
     <snt-input type="email" required label="Enter email" placeholder="WEMAIL" />

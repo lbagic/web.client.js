@@ -1,7 +1,9 @@
-import { env } from "../config/env";
-
 export const hashPassword = async (string) => {
-  const secret = env.VUE_APP_SNT_PASSWORD_ENCRYPTION_KEY;
+  const secret = process.env.VUE_APP_SNT_PASSWORD_ENCRYPTION_KEY;
+  if (!secret)
+    throw new Error(
+      "[hash password] missing env VUE_APP_SNT_PASSWORD_ENCRYPTION_KEY"
+    );
   const enc = new TextEncoder("utf-8");
   const algorithm = { name: "HMAC", hash: "SHA-256" };
 

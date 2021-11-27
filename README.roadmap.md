@@ -10,16 +10,13 @@
 - focus styles ✅
 - normalized styles ✅
 
-## Components - 9/13
+## Components - 11/13
 
-- slideout navigation -- slots for 'top' 'slide' 'top-when-slide'
-- slideout component
-- slider/carousel component
 - button component ✅
 - revisit icon component (properties) ✅
 - overlays
-  - modals - (hijack back button)
-  - lightbox (modal with background; hijack back button)
+  - modals - (hijack back button) ✅
+  - overlay (modal with background; hijack back button) ✅
   - notifications (goes away when interacting)
   - toasts (goes away automatically)
 - inputs:
@@ -33,6 +30,11 @@
 
 low prio:
 
+- input type file - dropdown area
+- table component
+- slider/carousel component
+- slideout navigation -- slots for 'top' 'slide' 'top-when-slide'
+- slideout component
 - component documentation
 - date range input
 - topbar loading state

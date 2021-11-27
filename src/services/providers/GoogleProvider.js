@@ -38,8 +38,9 @@ export const GoogleAuth = {
         GoogleAuth.isInit = true;
         GoogleAuth.isAuthorized = GoogleAuth.instance.isSignedIn.get();
       })
-      // eslint-disable-next-line no-console
-      .catch(console.error),
+      .catch((e) => {
+        if (process.env !== "productin") console.error(e);
+      }),
 
   signIn: () =>
     new Promise((resolve, reject) => {

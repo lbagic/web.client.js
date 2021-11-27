@@ -39,10 +39,13 @@ low prio:
 - date range input
 - topbar loading state
 - inputs:
-  - accessibility
   - icon support (+ default icons for some input types)
   - snt-fieldset - generate whole forms (scope to replace elements)
   - support errors from api calls (current_password field gets current_password error)
+- a11y:
+  - inputs
+  - overlays
+  - buttons
 
 ## Integrations - 9/12
 

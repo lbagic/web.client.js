@@ -23,6 +23,8 @@ const getDateType = (date) =>
     ? "number"
     : date instanceof Date
     ? "date"
+    : typeof date === "string"
+    ? "iso"
     : Object.prototype.toString.call(date).includes("Temporal")
     ? "temporal"
     : undefined;
@@ -36,10 +38,14 @@ const getDateType = (date) =>
  */
 
 export function convertToTemporal(input, timeZone = undefined) {
-  const dateType = getDateType(input);
-  if (dateType === "temporal") return input;
-  const dateObject = dateType === "number" ? new Date(input) : input;
-  return Temporal.Instant.from(dateObject.toISOString()).toZonedDateTimeISO(
+  const type = getDateType(input);
+  if (type === "temporal") return input;
+  let iso = "";
+  if (type === "iso") iso = input;
+  else if (type === "number") iso = new Date(input).toISOString();
+  else if (type === "date") iso = input.toISOString();
+  if (!iso) throw new Error("Undefined date type");
+  return Temporal.Instant.from(iso).toZonedDateTimeISO(
     timeZone || userTimeZone
   );
 }
@@ -52,16 +58,17 @@ export function convertToTemporal(input, timeZone = undefined) {
  */
 
 export function convertToDate(input) {
-  const dateType = getDateType(input);
-  if (dateType === "date") return input;
-  if (dateType === "number") return new Date(input);
+  const type = getDateType(input);
+  if (type === "date") return input;
+  if (type === "number") return new Date(input);
+  if (type === "iso") return new Date(input);
   return new Date(input.toString());
 }
 
 /**
  * Description.
  *
- * @param {number | Date | Temporal.ZonedDateTimeLike} date Date like input.
+ * @param {number | Date | Temporal.ZonedDateTimeLike} input Date like input.
  * @param {{locale?: string, timeZone?: string | Temporal.TimeZoneProtocol}} options Date like input.
  * @return { Temporal.ZonedDateTimeLike & {
  *    calendar: Temporal.CalendarProtocol,
@@ -110,28 +117,28 @@ export function convertToDate(input) {
  */
 
 export function formatDate(
-  date,
+  input,
   options = { locale: undefined, timeZone: undefined }
 ) {
-  const temporalObject = convertToTemporal(date, options.timeZone);
-  const dateObject = convertToDate(date);
+  const temporal = convertToTemporal(input, options.timeZone);
+  const date = convertToDate(input);
 
-  const intlLong = getIntlObject(dateObject, "long", options);
-  const intlShort = getIntlObject(dateObject, "short", options);
+  const intlLong = getIntlObject(date, "long", options);
+  const intlShort = getIntlObject(date, "short", options);
 
-  temporalObject.dayLong = intlLong.weekday;
-  temporalObject.dayPeriod = getDayPeriod(temporalObject.hour);
-  temporalObject.dayShort = intlShort.weekday;
-  temporalObject.dayTwoDigit = getTwoDigitFormat(temporalObject.day);
-  temporalObject.hour12 = get12HourFormat(temporalObject.hour);
-  temporalObject.hour12TwoDigit = getTwoDigitFormat(temporalObject.hour12);
-  temporalObject.hourTwoDigit = getTwoDigitFormat(temporalObject.hour);
-  temporalObject.minuteTwoDigit = getTwoDigitFormat(temporalObject.minute);
-  temporalObject.monthLong = intlLong.month;
-  temporalObject.monthShort = intlShort.month;
-  temporalObject.monthTwoDigit = getTwoDigitFormat(temporalObject.month);
-  temporalObject.secondTwoDigit = getTwoDigitFormat(temporalObject.second);
-  temporalObject.yearTwoDigit = getTwoDigitFormat(temporalObject.year);
+  temporal.dayLong = intlLong.weekday;
+  temporal.dayPeriod = getDayPeriod(temporal.hour);
+  temporal.dayShort = intlShort.weekday;
+  temporal.dayTwoDigit = getTwoDigitFormat(temporal.day);
+  temporal.hour12 = get12HourFormat(temporal.hour);
+  temporal.hour12TwoDigit = getTwoDigitFormat(temporal.hour12);
+  temporal.hourTwoDigit = getTwoDigitFormat(temporal.hour);
+  temporal.minuteTwoDigit = getTwoDigitFormat(temporal.minute);
+  temporal.monthLong = intlLong.month;
+  temporal.monthShort = intlShort.month;
+  temporal.monthTwoDigit = getTwoDigitFormat(temporal.month);
+  temporal.secondTwoDigit = getTwoDigitFormat(temporal.second);
+  temporal.yearTwoDigit = getTwoDigitFormat(temporal.year);
 
-  return temporalObject;
+  return temporal;
 }

@@ -1,7 +1,7 @@
 <template>
   <navigation />
   <router-view />
-  <component :is="developmentPopup" v-if="developmentPopup" />
+  <component :is="developmentPopup" />
 </template>
 
 <script>

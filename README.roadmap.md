@@ -49,6 +49,7 @@ low prio:
 
 ## Integrations - 9/12
 
+- grpc
 - forms plugin
 - api integration with popups
 - i18n ✅
@@ -65,7 +66,6 @@ low prio:
 
 low prio:
 
-- grpc
 - stylelint
 - api integrations via call config
   - isLoading: true, // show loading

@@ -28,7 +28,7 @@ export const createApi = (
   };
 
   // attach default logging interceptors
-  if (this.process.env !== "production")
+  if (process.env.NODE_ENV !== "production")
     instance.interceptors.response.use(
       (res) => {
         const { method, url } = res.config;

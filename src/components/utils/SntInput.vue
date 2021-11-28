@@ -3,7 +3,7 @@
   For a complete list of properties (datetimeOptions), refer to https://vue3datepicker.com/api/props
  -->
 <template>
-  <div v-bind="rootAttrs" class="snt-input-info-delimiter">
+  <div v-bind="rootAttrs" class="snt-input-wrapper">
     <label ref="inputWrapper" :class="labelClass">
       <!-- label slot #before -->
       <slot v-if="hasLabel && labelPlacement.start" name="label">
@@ -296,6 +296,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.snt-input-wrapper {
+  & > *:nth-child(2) {
+    margin-top: 3px;
+  }
+  & > *:nth-child(3) {
+    margin-top: 2px;
+  }
+}
 .snt-datepicker-input {
   caret-color: transparent;
 }
@@ -309,14 +317,6 @@ export default {
   align-items: center;
   &:deep() > * + * {
     margin-inline-start: var(--snt-inputfield-label-inline-margin);
-  }
-}
-.snt-input-info-delimiter {
-  & > *:nth-child(2) {
-    margin-top: 3px;
-  }
-  & > *:nth-child(3) {
-    margin-top: 2px;
   }
 }
 .snt-input-help {

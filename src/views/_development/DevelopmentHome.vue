@@ -18,7 +18,7 @@ const route = useRoute();
 const isTestRoute = computed(() => route.path === "/development");
 const link = computed(() => ({
   to: isTestRoute.value ? "/development/documentation" : "/development",
-  text: isTestRoute.value ? "Go to documentation" : "Go to test page",
+  text: isTestRoute.value ? "Go to documentation" : "Go to development",
 }));
 </script>
 

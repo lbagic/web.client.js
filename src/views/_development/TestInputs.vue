@@ -91,10 +91,10 @@ export default {
     return {
       basic: {
         text: "asdf",
-        email: "",
+        email: "igor@mail.com",
         password: "",
         search: "",
-        number: "",
+        number: 123,
         tel: "",
         url: "",
         textarea: "",
@@ -107,7 +107,7 @@ export default {
         month: "",
         color: "",
         checkbox: false,
-        radio: "",
+        radio: true,
         range: "",
         file: "",
         select: 2,

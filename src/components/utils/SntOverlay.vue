@@ -40,6 +40,7 @@ export default {
   components: { SntIcon },
   mixins: [overlayMixin],
   props: {
+    ...overlayMixin.props,
     fill: {
       type: [String, Boolean],
       default: defaultColor,

@@ -24,7 +24,13 @@ watch(
 
 export const overlayMixin = {
   props: {
-    hash: String,
+    hash: {
+      type: String,
+      validator: (value) =>
+        value[0] !== "#"
+          ? console.warn("Hash should start with '#' character.")
+          : true,
+    },
     query: String,
   },
   created() {

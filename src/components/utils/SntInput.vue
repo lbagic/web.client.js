@@ -1,3 +1,7 @@
+<!-- 
+  Types date, month & time are implemented via external plugin ("vue3-date-time-picker": "^2.3.6").
+  For a complete list of properties (datetimeOptions), refer to https://vue3datepicker.com/api/props
+ -->
 <template>
   <div v-bind="rootAttrs" class="snt-input-info-delimiter">
     <label ref="inputWrapper" :class="labelClass">
@@ -29,7 +33,7 @@
       <slot v-if="hasLabel && labelPlacement.end" name="label">
         <p>{{ label }}</p>
       </slot>
-      <!-- datalis for text input with options -->
+      <!-- datalist for text input with options -->
       <datalist v-if="isInputWithOptions" :id="listId">
         <option v-for="(opt, index) in normalizedOptions" :key="index">
           {{ resolveLabel(opt) }}
@@ -152,7 +156,11 @@ export default {
       if (this.isDatetime) {
         // case: datetime
         this.value = this.formattedDateInput;
-        this.output = this.dateInput;
+        if (this.type === "date")
+          this.output = Array.isArray(this.dateInput)
+            ? [...this.dateInput].map((el) => el.toISOString())
+            : this.dateInput.toISOString();
+        else this.output = this.dateInput;
       } else {
         const value = this.$refs.input[this.element.targetValueProperty];
         this.value = this.output =
@@ -276,7 +284,7 @@ export default {
     },
     isDatetime: (vm) => ["date", "time", "month"].includes(vm.type),
     isInputWithOptions: (vm) =>
-      vm.type === "input" && vm.normalizedOptions.length,
+      vm.type === "text" && vm.normalizedOptions.length,
     listId: (vm) => `snt-list-${vm.uniqueId}`,
     datepicker() {
       return this.isDatetime

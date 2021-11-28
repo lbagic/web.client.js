@@ -115,10 +115,15 @@ export const sntInputElements = {
     type: "text",
     component: "input",
     datetimeFormat: (val, locale) => {
-      const { dayShort, day, monthShort, year } = formatDate(val, {
-        locale: locale ?? "en",
-      });
-      return `${dayShort}, ${day} ${monthShort} ${year}`;
+      const isRange = Array.isArray(val);
+      const formatter = (input) => {
+        const fmt = formatDate(input, locale);
+        return `${fmt.dayShort}, ${fmt.day} ${fmt.monthShort} ${fmt.year}`;
+      };
+
+      return isRange
+        ? [...val].map((el) => formatter(el)).join(" - ")
+        : formatter(val);
     },
     defaultValue: "",
     targetValueProperty: "value",

@@ -68,8 +68,8 @@
         type="select"
         label="Select"
         required
-        optionsLabelPath="value"
-        optionsValuePath="id"
+        option-label-by="value"
+        option-value-by="id"
         :options="[
           { id: 1, value: 'New York' },
           { id: 2, value: 'Vivaldi' },

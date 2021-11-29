@@ -100,8 +100,8 @@ export default {
     },
     datetimeOptions: Object,
     hideErrors: Boolean,
-    optionsValuePath: { type: String, default: "value" },
-    optionsLabelPath: { type: String, default: "label" },
+    optionValueBy: { type: String, default: "value" },
+    optionLabelBy: { type: String, default: "label" },
     options: [Array, Object],
     rootAttrs: Object,
   },
@@ -268,10 +268,10 @@ export default {
       };
     },
     resolveLabel(object) {
-      return this.optionsLabelPath.split(".").reduce((a, c) => a[c], object);
+      return this.optionLabelBy.split(".").reduce((a, c) => a[c], object);
     },
     resolveValue(object) {
-      return this.optionsValuePath.split(".").reduce((a, c) => a[c], object);
+      return this.optionValueBy.split(".").reduce((a, c) => a[c], object);
     },
     calculateValueFromModel(model) {
       let value = "";

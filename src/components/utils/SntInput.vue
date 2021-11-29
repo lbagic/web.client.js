@@ -4,7 +4,7 @@
  -->
 <template>
   <div v-bind="rootAttrs" class="snt-input-wrapper">
-    <label ref="inputWrapper" :class="labelClass">
+    <label ref="inputWrapper" :class="labelClass" tabindex="-1">
       <!-- label slot #before -->
       <slot v-if="hasLabel && labelPlacement.start" name="label">
         <p>{{ label }}</p>
@@ -14,12 +14,13 @@
         ref="input"
         :list="listId"
         :value="value"
+        :checked="!!value"
         v-bind="inputAttrs"
         :class="isDatetime && 'snt-datepicker-input'"
-        @blur.stop="onBlur('input')"
+        @blur.stop="(e) => onBlur('input', e)"
         @keydown="onKeydown"
         @focus="onFocus"
-        @input="onInput"
+        @input="(e) => onInternalChange(e.target.value)"
       >
         <option
           v-for="(opt, index) in normalizedOptions"
@@ -34,7 +35,7 @@
         <p>{{ label }}</p>
       </slot>
       <!-- datalist for text input with options -->
-      <datalist v-if="isInputWithOptions" :id="listId">
+      <datalist v-if="isTextWithOptions" :id="listId">
         <option v-for="(opt, index) in normalizedOptions" :key="index">
           {{ resolveLabel(opt) }}
         </option>
@@ -46,15 +47,15 @@
         v-if="isDatetime"
         ref="datepicker"
         v-bind="datetimeAttrs"
-        v-model="dateInput"
+        v-model="dateValue"
         style="position: absolute"
         @update:modelValue="this.$refs.input.focus()"
         @closed="onBlur('datepicker')"
       />
     </label>
     <p v-if="help" class="snt-input-help">{{ help }}</p>
-    <transition v-if="!hideErrors" name="snt-drop">
-      <p v-if="wasBlurred && errorMessage" class="snt-input-error">
+    <transition v-if="!hideErrors && wasBlurred" name="snt-drop">
+      <p v-if="errorMessage" class="snt-input-error">
         {{ errorMessage }}
       </p>
     </transition>
@@ -78,6 +79,7 @@ export default {
   inheritAttrs: false,
   emits: ["valid", "update:modelValue", "blur", "focus"],
   props: {
+    modelValue: {},
     type: {
       type: String,
       required: true,
@@ -106,23 +108,25 @@ export default {
     if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
   },
   mounted() {
-    this.isValid = this.errorHandler(this.$refs.input.value);
-    this.value = this.output =
-      this.inputAttrs.value ??
-      this.$refs.input.value ??
-      this.element.defaultValue;
+    this.$watch(
+      "modelValue",
+      (model) => {
+        if (this.output !== this.modelValue) this.onExternalChange(model);
+        this.errorHandler(model);
+      },
+      { immediate: true }
+    );
   },
   data() {
     return {
-      uniqueId: `${this.$options.__scopeId}-${uniqueIndex.value++}`,
       value: "",
+      dateValue: "",
       output: "",
+      uniqueId: `${this.$options.__scopeId}-${uniqueIndex.value++}`,
       wasBlurred: false,
       isValid: false,
       lastError: "",
       errorMessage: "",
-      dateInput: "",
-      formattedDateInput: "",
     };
   },
   watch: {
@@ -135,67 +139,87 @@ export default {
         this.errorMessage = this.lastError = this.error;
       },
     },
-    value() {
-      if (this.isDatetime) setTimeout(this.errorHandler);
-      else this.errorHandler();
-    },
-    dateInput(val) {
-      const formatter =
-        this.datetimeOptions?.format || this.element.datetimeFormat;
-      if (this.type === "month") val.month = val.month + 1;
-      this.formattedDateInput = this.value =
-        formatter?.(val, this.datetimeAttrs?.locale) ?? val;
+    dateValue() {
+      const value =
+        this.type !== "date"
+          ? this.dateValue
+          : Array.isArray(this.dateValue)
+          ? [...this.dateValue].map((el) => el.toISOString())
+          : this.dateValue.toISOString();
+
       this.$refs.datepicker?.closeMenu();
-      this.onInput();
+
+      this.onInternalChange(value);
     },
   },
   methods: {
-    onInput() {
+    onInternalChange(value) {
       if (this.lastError === this.errorMessage) this.lastError = "";
 
-      if (this.isDatetime) {
-        // case: datetime
-        this.value = this.formattedDateInput;
-        if (this.type === "date")
-          this.output = Array.isArray(this.dateInput)
-            ? [...this.dateInput].map((el) => el.toISOString())
-            : this.dateInput.toISOString();
-        else this.output = this.dateInput;
-      } else {
-        const value = this.$refs.input[this.element.targetValueProperty];
-        this.value = this.output =
-          // case: number and range
-          (this.type === "range" || this.type === "number") && isNaN(value)
-            ? undefined
-            : value;
-      }
+      this.value = value;
 
-      // case: text with options
-      if (this.isInputWithOptions) {
+      if (this.isDatetime) {
+        this.value = this.formatDate(value);
+        this.output = value;
+      } else if (this.isNumber) {
+        this.output = isNaN(Number(this.value))
+          ? undefined
+          : Number(this.value);
+      } else if (this.type === "select") {
+        this.output = Number(this.value);
+      } else if (this.isTextWithOptions) {
         const selected = this.normalizedOptions.find(
           (el) => this.resolveLabel(el) === this.value
         );
         if (selected) {
           this.output = this.resolveValue(selected);
-          this.$emit("update:modelValue", this.output);
-        }
+        } else return;
+      } else if (this.isCheckbox) {
+        this.output = this.$refs.input.checked;
+      } else this.output = this.value;
 
-        // case: default
-      } else this.$emit("update:modelValue", this.output);
+      this.$emit("update:modelValue", this.output);
+    },
+    onExternalChange(model) {
+      if (this.isDatetime) {
+        this.value = this.formatDate(model);
+        this.dateValue = this.type === "date" ? new Date(model) : model;
+      } else if (this.isTextWithOptions) {
+        const selected = this.normalizedOptions.find(
+          (el) => this.resolveValue(el) === model
+        );
+        if (selected) this.value = this.resolveLabel(selected);
+      } else if (this.isCheckbox) {
+        this.value = model;
+        this.$refs.input.checked = model;
+      } else this.value = model;
+
+      this.$refs.input.value = this.value;
+    },
+    formatDate(value) {
+      const formatter = this.datetimeOptions?.format || this.element.format;
+      return formatter?.(value, this.datetimeAttrs?.locale) ?? value;
     },
     onFocus() {
       this.$emit("focus");
       if (this.isDatetime) this.$refs.datepicker?.openMenu();
     },
-    onBlur(from) {
+    onBlur(from, e) {
+      console.log("blur", from);
       if (this.isDatetime && from === "input") {
         setTimeout(() => {
+          console.log(focusElement);
           const inputWrapper = this.$refs.inputWrapper;
           const dpFocused = inputWrapper.contains(focusElement);
-          if (!dpFocused) this.$refs.datepicker?.closeMenu();
+          if (!dpFocused) {
+            this.wasBlurred = true;
+            this.$refs.datepicker?.closeMenu();
+          }
         });
         return;
-      }
+      } else if (this.isCheckbox && e.relatedTarget === this.$refs.inputWrapper)
+        return;
+
       this.$refs.datepicker?.closeMenu();
       this.wasBlurred = true;
       this.$emit("blur", undefined);
@@ -210,31 +234,43 @@ export default {
         this.errorMessage = err.message;
     },
     getError() {
-      const validation = this.getValidationError();
-      const html = this.getHtmlError();
+      const validation = (() => {
+        const state = this.validator(this.modelValue);
+        const isValid = state === true;
+        const message = typeof state === "string" ? state : undefined;
+        return { isValid, message };
+      })();
+      const html = (() => {
+        const validity = this.$refs.input.validity;
+        const isValid = validity.valid;
+        const key = htmlErrorKeys.find((key) => validity[key]);
+        const message = key ? htmlErrors[key] : undefined;
+        return { isValid, message };
+      })();
       return {
-        isValid: html.isValid && validation.isValid,
+        isValid: validation.isValid && html.isValid,
         message: validation.message || html.message,
       };
-    },
-    getValidationError() {
-      const state = this.validator(this.value);
-      const isValid = state === true;
-      const message = typeof state === "string" ? state : undefined;
-      return { isValid, message };
-    },
-    getHtmlError() {
-      const validity = this.$refs.input.validity;
-      const isValid = validity.valid;
-      const key = htmlErrorKeys.find((key) => validity[key]);
-      const message = key ? htmlErrors[key] : undefined;
-      return { isValid, message };
     },
     resolveLabel(object) {
       return this.optionsLabelPath.split(".").reduce((a, c) => a[c], object);
     },
     resolveValue(object) {
       return this.optionsValuePath.split(".").reduce((a, c) => a[c], object);
+    },
+    calculateValueFromModel(model) {
+      let value = "";
+      if (this.isDatetime) value = this.formatDate(model);
+      else if (this.isTextWithOptions) {
+        const selected = this.options.find(
+          (el) => this.resolveValue(el) === model
+        );
+        if (selected) value = this.resolveLabel(selected);
+      } else {
+        value = model;
+      }
+
+      return value;
     },
   },
   computed: {
@@ -272,18 +308,20 @@ export default {
         : "snt-input-label__block";
     },
     labelPlacement() {
-      const isCheckbox = this.type === "checkbox" || this.type === "radio";
       const pos = this.labelPosition
         ? this.labelPosition
-        : isCheckbox
+        : this.isCheckbox
         ? "inline end"
         : "block start";
       const block = !pos.includes("inline");
       const start = !pos.includes("end");
       return { block, inline: !block, start, end: !start };
     },
-    isDatetime: (vm) => ["date", "time", "month"].includes(vm.type),
-    isInputWithOptions: (vm) =>
+    isNumber: (vm) => vm.type === "range" || vm.type === "number",
+    isDatetime: (vm) =>
+      vm.type === "date" || vm.type === "month" || vm.type === "time",
+    isCheckbox: (vm) => vm.type === "checkbox" || vm.type === "radio",
+    isTextWithOptions: (vm) =>
       vm.type === "text" && vm.normalizedOptions.length,
     listId: (vm) => `snt-list-${vm.uniqueId}`,
     datepicker() {

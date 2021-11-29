@@ -21,11 +21,12 @@
         required
       />
     </div>
-    <button @click="basic.text = basic.text === 'asdf' ? 'qwe' : 'asdf'">
-      change model
-    </button>
+    <button @click="basic.text = 'asdf'">asdf</button>
+    <button @click="basic.text = 'qwe'">qwe</button>
     <pre>{{ basic }}</pre>
     <p>Other inputs</p>
+    <button @click="select1">One</button>
+    <button @click="select2">Two</button>
     <div class="test-wrapper">
       <snt-input
         v-model="other.textOptions"
@@ -38,13 +39,13 @@
         required
       />
       <snt-input v-model="other.date" type="date" label="Date" required />
-      <snt-input
+      <!-- <snt-input
         v-model="other.dateRange"
         type="date"
         label="Date (range)"
         required
         :datetimeOptions="{ range: true }"
-      />
+      /> -->
       <snt-input v-model="other.time" type="time" label="Time" required />
       <snt-input v-model="other.month" type="month" label="Month" required />
       <snt-input v-model="other.color" type="color" label="Color" required />
@@ -78,11 +79,39 @@
       />
     </div>
     <pre>{{ other }}</pre>
+    <pre>BOO</pre>
   </div>
 </template>
 
 <script>
 import SntInput from "../../components/utils/SntInput.vue";
+
+const o1 = {
+  textOptions: 2,
+  date: "2021-11-04T19:01:00.000Z",
+  dateRange: ["2021-11-04T19:01:00.000Z", "2022-11-04T19:01:00.000Z"],
+  time: { hours: 6, minutes: 25 },
+  month: { month: 5, year: 1990 },
+  color: "#ff0000",
+  checkbox: true,
+  radio: false,
+  range: 90,
+  file: "",
+  select: 2,
+};
+const o2 = {
+  textOptions: 1,
+  date: "2020-11-04T19:01:00.000Z",
+  dateRange: ["2020-11-04T19:01:00.000Z", "2022-11-04T19:01:00.000Z"],
+  time: { hours: 5, minutes: 1 },
+  month: { month: 1, year: 2000 },
+  color: "#00ff00",
+  checkbox: false,
+  radio: true,
+  range: 50,
+  file: "",
+  select: 1,
+};
 
 export default {
   components: { SntInput },
@@ -92,27 +121,23 @@ export default {
       basic: {
         text: "asdf",
         email: "igor@mail.com",
-        password: "",
-        search: "",
+        password: "qweqwe",
+        search: "asdsad",
         number: 123,
-        tel: "",
-        url: "",
-        textarea: "",
+        tel: "123123",
+        url: "https",
+        textarea: "asdf",
       },
-      other: {
-        textOptions: "",
-        date: "2021-11-04T19:01:00.000Z",
-        dateRange: "",
-        time: "",
-        month: "",
-        color: "",
-        checkbox: false,
-        radio: true,
-        range: "",
-        file: "",
-        select: 2,
-      },
+      other: o1,
     };
+  },
+  methods: {
+    select1() {
+      this.other = o1;
+    },
+    select2() {
+      this.other = o2;
+    },
   },
 };
 </script>

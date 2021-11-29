@@ -10,15 +10,15 @@
 - focus styles ✅
 - normalized styles ✅
 
-## Components - 12/14
+## Components - 14/14
 
 - button component ✅
 - revisit icon component (properties) ✅
 - overlays
   - modals - (hijack back button) ✅
   - overlay (modal with background; hijack back button) ✅
-  - notifications (goes away when interacting)
-  - toasts (goes away automatically)
+  - notifications (goes away when interacting) ✅
+  - toasts (goes away automatically) ✅
 - inputs:
   - datetime input (datepicker component) ✅
   - date range input ✅
@@ -31,9 +31,10 @@
 
 low prio:
 
+- styling components
 - input type file - dropdown area
 - table component
-- slider/carousel component
+- slider/carousel component (not sure if worth the bundle size, swiperjs seems like an okay plugin)
 - slideout navigation -- slots for 'top' 'slide' 'top-when-slide'
 - slideout component
 - component documentation

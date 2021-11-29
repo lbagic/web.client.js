@@ -20,6 +20,7 @@
         @blur.stop="(e) => onBlur('input', e)"
         @keydown="onKeydown"
         @focus="onFocus"
+        @click="onClick"
         @input="(e) => onInternalChange(e.target.value)"
       >
         <option
@@ -171,13 +172,12 @@ export default {
         const selected = this.normalizedOptions.find(
           (el) => this.resolveLabel(el) === this.value
         );
-        if (selected) {
-          this.output = this.resolveValue(selected);
-        } else return;
+        this.output = selected ? this.resolveValue(selected) : value;
       } else if (this.isCheckbox) {
         this.output = this.$refs.input.checked;
       } else this.output = this.value;
 
+      // this.isDatepickerOpen = false;
       this.$emit("update:modelValue", this.output);
     },
     onExternalChange(model) {
@@ -205,9 +205,12 @@ export default {
       const formatter = this.datetimeOptions?.format || this.element.format;
       return formatter?.(value, this.datetimeAttrs?.locale) ?? value;
     },
+    onClick() {
+      this.openDatepicker();
+    },
     onFocus() {
       this.$emit("focus");
-      if (this.isDatetime) this.$refs.datepicker?.openMenu();
+      if (this.isDatetime) this.openDatepicker();
     },
     onBlur(from, e) {
       if (this.isDatetime && from === "input") {
@@ -216,16 +219,25 @@ export default {
           const dpFocused = inputWrapper.contains(focusElement);
           if (!dpFocused) {
             this.wasBlurred = true;
-            this.$refs.datepicker?.closeMenu();
+            this.closeDatepicker();
           }
         });
         return;
       } else if (this.isCheckbox && e.relatedTarget === this.$refs.inputWrapper)
         return;
 
-      this.$refs.datepicker?.closeMenu();
+      this.closeDatepicker();
       this.wasBlurred = true;
       this.$emit("blur", undefined);
+    },
+    openDatepicker() {
+      if (this.isDatepickerOpen) return;
+      this.isDatepickerOpen = true;
+      this.$refs.datepicker?.openMenu();
+    },
+    closeDatepicker() {
+      this.isDatepickerOpen = false;
+      this.$refs.datepicker?.closeMenu();
     },
     onKeydown(e) {
       if (this.isDatetime && e.keyCode != 9) e.preventDefault();

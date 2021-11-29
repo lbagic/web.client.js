@@ -39,13 +39,13 @@
         required
       />
       <snt-input v-model="other.date" type="date" label="Date" required />
-      <!-- <snt-input
+      <snt-input
         v-model="other.dateRange"
         type="date"
         label="Date (range)"
         required
         :datetimeOptions="{ range: true }"
-      /> -->
+      />
       <snt-input v-model="other.time" type="time" label="Time" required />
       <snt-input v-model="other.month" type="month" label="Month" required />
       <snt-input v-model="other.color" type="color" label="Color" required />

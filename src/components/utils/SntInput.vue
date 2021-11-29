@@ -183,7 +183,12 @@ export default {
     onExternalChange(model) {
       if (this.isDatetime) {
         this.value = this.formatDate(model);
-        this.dateValue = this.type === "date" ? new Date(model) : model;
+        this.dateValue =
+          this.type === "date"
+            ? Array.isArray(model)
+              ? [...model].map((el) => new Date(el))
+              : new Date(model)
+            : model;
       } else if (this.isTextWithOptions) {
         const selected = this.normalizedOptions.find(
           (el) => this.resolveValue(el) === model
@@ -205,10 +210,8 @@ export default {
       if (this.isDatetime) this.$refs.datepicker?.openMenu();
     },
     onBlur(from, e) {
-      console.log("blur", from);
       if (this.isDatetime && from === "input") {
         setTimeout(() => {
-          console.log(focusElement);
           const inputWrapper = this.$refs.inputWrapper;
           const dpFocused = inputWrapper.contains(focusElement);
           if (!dpFocused) {

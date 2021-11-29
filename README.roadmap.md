@@ -10,7 +10,7 @@
 - focus styles ✅
 - normalized styles ✅
 
-## Components - 11/13
+## Components - 12/14
 
 - button component ✅
 - revisit icon component (properties) ✅
@@ -21,6 +21,7 @@
   - toasts (goes away automatically)
 - inputs:
   - datetime input (datepicker component) ✅
+  - date range input ✅
   - input styling ✅
   - validation ✅
   - error/help ✅
@@ -36,7 +37,6 @@ low prio:
 - slideout navigation -- slots for 'top' 'slide' 'top-when-slide'
 - slideout component
 - component documentation
-- date range input
 - topbar loading state
 - inputs:
   - icon support (+ default icons for some input types)

@@ -2,6 +2,25 @@
 
 - project documentation (plugins etc)
 
+## Documentation
+
+- quick start
+  - husky (+ monorepo config)
+  - vscode plugins
+- plugins
+  - i18n
+  - breakpoint
+- components
+  - snt-button
+  - snt-icon
+  - snt-input
+  - snt-modal
+  - snt-overlay
+  - snt-toast
+- styles
+  - variables
+  - breakpoints
+
 ## Styles - 5/5
 
 - variables & utility classes ✅

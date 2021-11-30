@@ -11,7 +11,7 @@
           <slot name="close">
             <snt-icon
               v-if="showCloseIcon"
-              icon="Close"
+              icon="SntClose"
               class="snt-overlay-close"
               scale="1.5"
               button

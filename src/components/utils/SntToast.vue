@@ -10,7 +10,7 @@
       <div v-for="el in all" :key="el.id" :class="elementClasses(el)">
         <snt-icon
           v-if="el.type === 'notification'"
-          icon="Close"
+          icon="SntClose"
           color="error-lightest"
           hoverColor="error-lighter"
           button
@@ -42,7 +42,7 @@
       <div v-for="el in notifications" :key="el.id" :class="elementClasses(el)">
         <snt-icon
           v-if="el.type === 'notification'"
-          icon="Close"
+          icon="SntClose"
           color="error-lightest"
           hoverColor="error-lighter"
           button

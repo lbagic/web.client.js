@@ -98,7 +98,7 @@ export default {
     modelValue: {},
     type: {
       type: String,
-      required: true,
+      default: "text",
       validator: (value) => sntInputTypes.includes(value),
     },
     validator: { type: Function, default: () => true },
@@ -407,7 +407,7 @@ export default {
 input:not([type="checkbox"]):not([type="radio"]),
 select,
 textarea {
-  background: #0001;
+  background: #e9e9e9;
   width: 100%;
 }
 </style>

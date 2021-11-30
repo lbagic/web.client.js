@@ -29,7 +29,6 @@ export default {
 #app {
   min-height: 100%;
   display: grid;
-  align-content: start;
   grid-template-rows: auto 1fr;
   background: var(--snt-app-background);
   color: var(--snt-app-color);

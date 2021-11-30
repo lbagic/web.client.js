@@ -33,8 +33,8 @@
         type="text"
         label="Text (options)"
         :options="[
-          { value: 1, label: 'aaa' },
-          { value: 2, label: 'bbb' },
+          { id: 1, name: 'aaa' },
+          { id: 2, name: 'bbb' },
         ]"
         required
       />
@@ -68,13 +68,13 @@
         type="select"
         label="Select"
         required
-        option-label-by="value"
-        option-value-by="id"
+        option-label-by="city"
+        :option-value-by="(el) => el.cityId"
         :options="[
-          { id: 1, value: 'New York' },
-          { id: 2, value: 'Vivaldi' },
-          { id: 3, value: 'Antoa' },
-          { id: 4, value: 'Bruxelles' },
+          { cityId: 1, city: 'New York' },
+          { cityId: 2, city: 'Vivaldi' },
+          { cityId: 3, city: 'Antoa' },
+          { cityId: 4, city: 'Bruxelles' },
         ]"
       />
     </div>

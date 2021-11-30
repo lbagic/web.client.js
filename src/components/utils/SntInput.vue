@@ -74,11 +74,26 @@ import { defineAsyncComponent, ref } from "@vue/runtime-core";
 const uniqueIndex = ref(0);
 let focusElement = undefined;
 document.addEventListener("focusin", (e) => (focusElement = e.target));
+const resolvePath = (path, object) =>
+  path.split(".").reduce((a, c) => {
+    if (a[c] === undefined)
+      throw new Error(
+        `[SntInput] Failed to resolve path '${path}' for input option element.`
+      );
+    return a[c];
+  }, object);
 
 export default {
   name: "TestInput",
   inheritAttrs: false,
-  emits: ["valid", "update:modelValue", "blur", "focus"],
+  emits: [
+    "valid",
+    "update:modelValue",
+    "blur",
+    "focus",
+    "select",
+    "inputValue",
+  ],
   props: {
     modelValue: {},
     type: {
@@ -100,8 +115,8 @@ export default {
     },
     datetimeOptions: Object,
     hideErrors: Boolean,
-    optionValueBy: { type: String, default: "value" },
-    optionLabelBy: { type: String, default: "label" },
+    optionValueBy: { type: [String, Function], default: "id" },
+    optionLabelBy: { type: [String, Function], default: "name" },
     options: [Array, Object],
     rootAttrs: Object,
   },
@@ -172,13 +187,16 @@ export default {
         const selected = this.normalizedOptions.find(
           (el) => this.resolveLabel(el) === this.value
         );
+        if (selected) this.$emit("select", selected);
         this.output = selected ? this.resolveValue(selected) : value;
       } else if (this.isCheckbox) {
         this.output = this.$refs.input.checked;
       } else this.output = this.value;
 
-      // this.isDatepickerOpen = false;
+      if (this.type === "select") this.$emit("select", this.output);
       this.$emit("update:modelValue", this.output);
+      this.$emit("inputValue", this.value);
+      if (!this.isTextWithOptions) this.$emit("select", this.output);
     },
     onExternalChange(model) {
       if (this.isDatetime) {
@@ -268,10 +286,14 @@ export default {
       };
     },
     resolveLabel(object) {
-      return this.optionLabelBy.split(".").reduce((a, c) => a[c], object);
+      return typeof this.optionLabelBy === "function"
+        ? this.optionLabelBy(object)
+        : resolvePath(this.optionLabelBy, object);
     },
     resolveValue(object) {
-      return this.optionValueBy.split(".").reduce((a, c) => a[c], object);
+      return typeof this.optionValueBy === "function"
+        ? this.optionValueBy(object)
+        : resolvePath(this.optionValueBy, object);
     },
     calculateValueFromModel(model) {
       let value = "";

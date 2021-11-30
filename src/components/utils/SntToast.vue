@@ -84,7 +84,6 @@ export default {
     position() {
       const toast = this.getPosition(this.toastPosition);
       const notification = this.getPosition(this.notificationPosition);
-      console.log(toast);
       return {
         toast,
         notification,

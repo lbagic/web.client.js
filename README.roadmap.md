@@ -48,8 +48,9 @@ low prio:
   - overlays
   - buttons
 
-## Integrations - 9/12
+## Integrations - 9/13
 
+- husky hooks
 - grpc
 - forms plugin
 - api integration with popups

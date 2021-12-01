@@ -1,9 +1,10 @@
 .snt-table {
   --snt-table-padding: 0.5rem;
-  --snt-table-color: var(--snt-color-primary-lighter);
+  --snt-table-color: var(--snt-color-primary);
+  --snt-table-on-color: var(--snt-color-on-primary);
   --snt-table-background-color: var(--snt-color-light);
   --snt-table-alt-color: var(--snt-color-primary-lightest);
-  --snt-table-border-color: black;
+  --snt-table-border-color: var(--snt-color-primary-darker);
 
   border-spacing: 0px;
   position: relative;
@@ -34,6 +35,7 @@
 
 .snt-table th {
   background: var(--snt-table-color);
+  color: var(--snt-table-on-color);
 }
 .snt-table > tr:nth-child(2n-1) > td,
 .snt-table > tbody > tr:nth-child(2n-1) > td {

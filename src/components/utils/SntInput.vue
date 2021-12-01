@@ -23,6 +23,9 @@
         @click="onClick"
         @input="(e) => onInternalChange(e.target.value)"
       >
+        <option v-if="inputAttrs.placeholder" value="" selected disabled hidden>
+          {{ inputAttrs.placeholder }}
+        </option>
         <option
           v-for="(opt, index) in normalizedOptions"
           :key="index"
@@ -215,7 +218,11 @@ export default {
       } else if (this.isCheckbox) {
         this.value = model;
         this.$refs.input.checked = model;
-      } else this.value = model;
+      } else if (this.type === "select") {
+        if (this.model !== undefined && this.model !== "") this.value = model;
+      } else {
+        this.value = model;
+      }
 
       this.$refs.input.value = this.value;
     },
@@ -328,10 +335,12 @@ export default {
       return !this.options
         ? []
         : Array.isArray(this.options)
-        ? this.options
+        ? typeof this.options[0] !== "object"
+          ? this.options.map((el) => ({ id: el, name: el }))
+          : this.options
         : typeof this.options === "object"
-        ? Object.entries(this.options).reduce((a, [value, label]) => {
-            a.push({ label, value });
+        ? Object.entries(this.options).reduce((a, [name, id]) => {
+            a.push({ id, name });
             return a;
           }, [])
         : [];
@@ -407,7 +416,7 @@ export default {
 input:not([type="checkbox"]):not([type="radio"]),
 select,
 textarea {
-  background: #e9e9e9;
+  background: #f8f8f8;
   width: 100%;
 }
 </style>

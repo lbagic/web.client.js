@@ -1,7 +1,7 @@
 $snt-base-colors: (
   "color-primary": #4267b2,
   "color-secondary": #fdb73b,
-  "color-ternary": #76bfc2,
+  "color-ternary": #2dce8b,
   "color-success": #6cb76f,
   "color-error": #da5552,
   "color-white": #fff,
@@ -15,9 +15,9 @@ $snt-base-colors: (
 $snt-on-colors: (
   "color-on-primary": white,
   "color-on-secondary": black,
-  "color-on-ternary": black,
+  "color-on-ternary": white,
   "color-on-success": black,
-  "color-on-error": black,
+  "color-on-error": white,
   "color-on-white": black,
   "color-on-light": black,
   "color-on-muted": black,
@@ -32,11 +32,13 @@ $snt-color-variants: (
     "light": 15%,
     "lighter": 20%,
     "lightest": 75%,
+    "tint": 95%,
   ),
   black: (
     "dark": 10%,
     "darker": 15%,
     "darkest": 75%,
+    "shade": 90%,
   ),
 );
 

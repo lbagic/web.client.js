@@ -24,7 +24,7 @@ export default {
     button: Boolean,
     color: {
       type: String,
-      default: "primary-lighter",
+      default: "primary",
     },
     hoverColor: {
       type: String,
@@ -45,9 +45,7 @@ export default {
       };
       if (process.env !== "production")
         loaderConfig.onError = () =>
-          console.warn(
-            `Invalid prop: <icon /> failed to resolve where icon="${vm.icon}". This is most likely due to a typo or missing icon component.`
-          );
+          console.warn(`[SntIcon] Missing icon '${vm.icon}'.`);
       return defineAsyncComponent(loaderConfig);
     },
     classes() {
@@ -71,23 +69,12 @@ export default {
   & > * {
     transition: all 0.2s ease-in-out;
   }
-  // &-color > *[stroke]:not([stroke="white"]) {
-  &-color > *[stroke] {
-    stroke: v-bind(colorValue);
-  }
 
-  // &-color > *[fill]:not([fill="white"]) {
-  &-color > *[fill] {
+  &-color > path:not([fill="none"]) {
     fill: v-bind(colorValue);
   }
 
-  // &-hover-color:hover > *[stroke]:not([stroke="white"]) {
-  &-hover-color:hover > *[stroke] {
-    stroke: v-bind(hoverColorValue);
-  }
-
-  // &-hover-color:hover > *[fill]:not([fill="white"]) {
-  &-hover-color:hover > *[fill] {
+  &-hover-color:hover > path:not([fill="none"]) {
     fill: v-bind(hoverColorValue);
   }
 }

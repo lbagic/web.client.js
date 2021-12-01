@@ -54,7 +54,6 @@ export default {
   --snt-button-large-padding: 12px 24px;
 
   cursor: pointer;
-  display: inline-block;
   font-weight: 400;
   text-align: center;
   white-space: nowrap;

@@ -219,7 +219,7 @@ export default {
         this.value = model;
         this.$refs.input.checked = model;
       } else if (this.type === "select") {
-        if (this.model !== undefined && this.model !== "") this.value = model;
+        if (model !== undefined && model !== "") this.value = model;
       } else {
         this.value = model;
       }

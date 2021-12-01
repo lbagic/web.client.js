@@ -47,32 +47,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.snt-button-base {
-  --snt-button-border-width: 1.5px;
-  --snt-button-border-radius: 2px;
-  --snt-button-padding: 6px 12px;
-  --snt-button-large-padding: 12px 24px;
-
-  cursor: pointer;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  user-select: none;
-  border: var(--snt-button-border-width) solid transparent;
-  padding: var(--snt-button-padding);
-  font-size: 16px;
-  line-height: 1.5;
-  border-radius: var(--snt-button-border-radius);
-  transition-timing-function: ease-in-out;
-  transition-duration: 0.15s;
-  transition-property: color, background-color, border-color, box-shadow;
-}
-.snt-button-base[disabled] {
-  opacity: 0.66 !important;
-  cursor: default !important;
-  pointer-events: none !important;
-}
 .snt-button-default {
   background: v-bind("colors.default");
   color: v-bind("colors.on");

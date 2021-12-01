@@ -21,13 +21,14 @@
   - variables
   - breakpoints
 
-## Styles - 5/5
+## Styles - 5/6
 
 - variables & utility classes ✅
 - fonts ✅
 - breakpoints ✅
 - focus styles ✅
 - normalized styles ✅
+- make component styles more usable
 
 ## Components - 14/14
 

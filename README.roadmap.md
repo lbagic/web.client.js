@@ -1,7 +1,5 @@
 # ROADMAP
 
-- project documentation (plugins etc)
-
 ## Documentation
 
 - quick start
@@ -21,14 +19,13 @@
   - variables
   - breakpoints
 
-## Styles - 5/6
+## Styles - 5/5
 
 - variables & utility classes ✅
 - fonts ✅
 - breakpoints ✅
 - focus styles ✅
 - normalized styles ✅
-- make component styles more usable
 
 ## Components - 14/14
 
@@ -57,7 +54,6 @@ low prio:
 - slider/carousel component (not sure if worth the bundle size, swiperjs seems like an okay plugin)
 - slideout navigation -- slots for 'top' 'slide' 'top-when-slide'
 - slideout component
-- component documentation
 - topbar loading state
 - inputs:
   - icon support (+ default icons for some input types)

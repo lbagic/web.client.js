@@ -122,6 +122,7 @@ export default {
     optionLabelBy: { type: [String, Function], default: "name" },
     options: [Array, Object],
     rootAttrs: Object,
+    model: Object,
   },
   created() {
     if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
@@ -302,23 +303,11 @@ export default {
         ? this.optionValueBy(object)
         : resolvePath(this.optionValueBy, object);
     },
-    calculateValueFromModel(model) {
-      let value = "";
-      if (this.isDatetime) value = this.formatDate(model);
-      else if (this.isTextWithOptions) {
-        const selected = this.options.find(
-          (el) => this.resolveValue(el) === model
-        );
-        if (selected) value = this.resolveLabel(selected);
-      } else {
-        value = model;
-      }
-
-      return value;
-    },
   },
   computed: {
-    element: (vm) => sntInputElements[vm.type] || "text",
+    element() {
+      return sntInputElements[this.type];
+    },
     inputAttrs() {
       let attrs = { ...this.$attrs };
       if (this.element.component === "input") attrs.type = this.element.type;

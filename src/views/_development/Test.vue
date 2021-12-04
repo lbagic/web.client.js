@@ -1,7 +1,8 @@
 <template>
-  <div class="wrapper">
+  <div class="snt-flex-gap">
     <router-link to="/development/documentation">Documentation</router-link>
     <router-link to="/development/inputs">Test inputs</router-link>
+    <router-link to="/development/playground">Playground</router-link>
   </div>
 </template>
 
@@ -11,11 +12,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.wrapper {
-  padding: 1rem;
-  & > * + * {
-    margin-left: 1rem;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

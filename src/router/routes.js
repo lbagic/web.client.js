@@ -42,6 +42,11 @@ if (process.env.NODE_ENV === "development") {
         component: () => import("../views/_development/Test.vue"),
       },
       {
+        path: "playground",
+        name: "Playground",
+        component: () => import("../views/_development/Playground.vue"),
+      },
+      {
         path: "inputs",
         name: "TestInputs",
         component: () => import("../views/_development/TestInputs.vue"),

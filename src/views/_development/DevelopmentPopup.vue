@@ -22,5 +22,10 @@
   background: #111d;
   color: white;
   cursor: pointer;
+  opacity: 0.3;
+  transition: opacity 0.3s ease-in-out;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 </style>

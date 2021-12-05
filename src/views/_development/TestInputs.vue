@@ -2,7 +2,13 @@
   <div>
     <p>Basic inputs</p>
     <div class="test-wrapper">
-      <snt-input v-model="basic.text" type="text" label="Text" required />
+      <snt-input
+        v-model="basic.text"
+        type="text"
+        label="Text"
+        required
+        error="Woopsie daisy"
+      />
       <snt-input v-model="basic.email" type="email" label="Email" required />
       <snt-input
         v-model="basic.password"
@@ -33,8 +39,8 @@
         type="text"
         label="Text (options)"
         :options="[
-          { id: 1, name: 'aaa' },
-          { id: 2, name: 'bbb' },
+          { id: 1, label: 'aaa' },
+          { id: 2, label: 'bbb' },
         ]"
         required
       />
@@ -69,17 +75,17 @@
         label="Select"
         required
         option-label-by="city"
-        :option-value-by="(el) => el.cityId"
+        :option-id-by="(el) => el.cityId"
         :options="[
           { cityId: 1, city: 'New York' },
           { cityId: 2, city: 'Vivaldi' },
           { cityId: 3, city: 'Antoa' },
-          { cityId: 4, city: 'Bruxelles' },
+          { cityId: '4', city: 'Bruxelles' },
         ]"
       />
     </div>
     <pre>{{ other }}</pre>
-    <pre>BOO</pre>
+    <pre>{{ typeof other.select }}</pre>
   </div>
 </template>
 

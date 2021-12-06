@@ -108,7 +108,6 @@ export default {
   props: {
     /**
      * Advanced way to bind a model. Ex. :model="{ field: form }" where form.field is defined in data.
-     * Form field should be an object that can define validator, type, value and other SntInput attributes.
      */
     model: Object,
     /**
@@ -185,13 +184,19 @@ export default {
   },
   mounted() {
     this.$watch(
-      this.extModel?.object ? "extModel.object.value" : "modelValue",
-      (model) => this.onExternalChange(model),
+      this.extModel ? `extModel.form.${this.extModel.prop}` : "modelValue",
+      (model) => {
+        this.onExternalChange(model);
+        if (this.extModel) this.output = model;
+      },
       { immediate: true }
     );
 
-    if (this.extModel?.object)
-      this.$watch("output", (output) => (this.extModel.object.value = output));
+    if (this.extModel)
+      this.$watch(
+        "output",
+        (output) => (this.extModel.form[this.extModel.prop] = output)
+      );
   },
   data() {
     return {
@@ -236,24 +241,14 @@ export default {
       return err.isValid;
     },
     getError() {
-      const isExt = !!this.extModel;
-      const val = isExt ? this.extModel.object.value : this.output;
       const propV = this.validator;
-      const modelV = this.extModel?.object?.validator;
       const htmlV = this.$refs?.input?.validity;
 
       let isValid = true;
       let message = undefined;
 
       if (propV && typeof propV === "function") {
-        const state = propV(val);
-        isValid = state === true;
-        message = typeof state === "string" ? state : undefined;
-        if (!isValid) return { isValid, message };
-      }
-
-      if (modelV && typeof modelV === "function") {
-        const state = modelV(this.extModel.form, val);
+        const state = propV(this.output);
         isValid = state === true;
         message = typeof state === "string" ? state : undefined;
         if (!isValid) return { isValid, message };
@@ -329,33 +324,24 @@ export default {
       return isValid;
     },
     config() {
-      const type = this.extModel?.object?.type ?? this.type ?? "text";
-      return sntInputElements[type];
+      return sntInputElements[this.type ?? "text"];
     },
     extModel() {
       if (!this.model || typeof this.model !== "object") return;
       const entries = Object.entries(this.model);
       if (entries.length > 1)
         throw new Error(
-          "[SntInput] model object should have only one key - value pair."
+          "[SntInput] model object should have only one key-value pair."
         );
       const [prop, form] = entries[0];
-      if (typeof form[prop] !== "object")
-        throw new Error(
-          "[SntInput] model should point to an object ex. { email: form }; where form.email = { value: '', ... }"
-        );
-      return { form, object: form[prop], prop };
+      return {
+        form,
+        prop,
+      };
     },
     inputAttrs() {
       let attrs = { ...this.$attrs };
       if (this.config.component === "input") attrs.type = this.config.type;
-      if (typeof this.extModel?.object === "object") {
-        const modelAttrs = { ...this.extModel.object };
-        delete modelAttrs.value;
-        delete modelAttrs.type;
-        delete modelAttrs.validator;
-        attrs = { ...attrs, ...modelAttrs };
-      }
       return attrs;
     },
     datetimeAttrs() {

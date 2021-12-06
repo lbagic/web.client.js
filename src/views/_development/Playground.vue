@@ -1,16 +1,11 @@
 <template>
   <div>
+    <snt-input :model="{ password: form }" label="PASS" required />
     <snt-input
-      :model="{ password: form }"
-      :validator="
-        (val) => {
-          $log({ val });
-          return val === form.confirm.value ? true : 'woops';
-        }
-      "
-      label="PASS"
+      :model="{ confirm: form }"
+      :validator="(val) => (val === form.password ? true : 'not quite right')"
+      label="CONFIRM"
     />
-    <snt-input :model="{ confirm: form }" label="CONFIRM" />
     <snt-button :disabled="!$formValid(form)">Submit</snt-button>
     <pre>{{ form }}</pre>
   </div>
@@ -24,16 +19,9 @@ export default {
   name: "Playground",
   data() {
     return {
-      number: "",
       form: {
-        password: {
-          value: "qweqwe",
-        },
-        confirm: {
-          value: "",
-          validator: (ctx, value) =>
-            value === ctx.password.value ? true : "passwords do not match",
-        },
+        password: "qweqwe",
+        confirm: "",
       },
     };
   },

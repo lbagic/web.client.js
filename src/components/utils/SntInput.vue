@@ -202,7 +202,6 @@ export default {
       wasBlurred: false,
       lastError: "",
       errorMessage: "",
-      counter: 0,
     };
   },
   watch: {
@@ -273,7 +272,6 @@ export default {
     errorHandler() {
       const err = this.getError();
       this.errorMessage = err.message;
-      this.counter += 1;
       return err.isValid;
     },
     getError() {
@@ -288,7 +286,6 @@ export default {
         const state = propV(this.output);
         isValid = state === true;
         message = typeof state === "string" ? state : undefined;
-        console.log(this.label, "propV", isValid);
         if (!isValid) return { isValid, message };
       }
 
@@ -296,7 +293,6 @@ export default {
         const state = modelV(this.modelForm, this.output);
         isValid = state === true;
         message = typeof state === "string" ? state : undefined;
-        console.log(this.label, "modelV", isValid, this.output);
         if (!isValid) return { isValid, message };
       }
 
@@ -304,7 +300,6 @@ export default {
         isValid = htmlV.valid;
         const key = htmlErrorKeys.find((key) => htmlV[key]);
         const message = key ? htmlErrors[key] : undefined;
-        console.log(this.label, "htmlV", isValid);
         if (!isValid) return { isValid, message };
       }
 
@@ -323,9 +318,7 @@ export default {
   },
   computed: {
     isValid() {
-      // console.log(this.output);
       const isValid = this.errorHandler(this.output);
-      // console.log(this.label, this.output, isValid);
       return isValid;
     },
     config() {

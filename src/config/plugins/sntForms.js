@@ -3,7 +3,6 @@ export const forms = {
     app.mixin({
       created() {
         if (!this.forms || typeof this.forms !== "object") return;
-        console.log("HEREEE");
         const vget = {};
         const vset = {};
         Object.entries(this.forms).forEach(([name, fields]) => {

@@ -25,7 +25,6 @@ export const sntInputElements = {
         vm.output = selected ? selected.id : vm.value;
         if (selected) vm.$emit("select", vm.output);
       } else {
-        console.log("HEREEE");
         vm.output = e.target.value;
       }
     },

@@ -27,7 +27,7 @@
 - focus styles ✅
 - normalized styles ✅
 
-## Components - 14/14
+## Components - 15/15
 
 - button component ✅
 - revisit icon component (properties) ✅
@@ -37,6 +37,7 @@
   - notifications (goes away when interacting) ✅
   - toasts (goes away automatically) ✅
 - inputs:
+  - model binding ✅
   - datetime input (datepicker component) ✅
   - date range input ✅
   - input styling ✅
@@ -64,11 +65,10 @@ low prio:
   - overlays
   - buttons
 
-## Integrations - 9/13
+## Integrations - 9/12
 
 - husky hooks
 - grpc
-- forms plugin
 - api integration with popups
 - i18n ✅
 - store implementation ✅

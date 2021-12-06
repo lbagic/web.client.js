@@ -15,8 +15,6 @@ export default {
     return {
       number: "",
       form: {
-        // _valid: true,
-        // _fieldsValid: { email: true },
         password: {
           value: "",
           validator: (ctx, value) =>

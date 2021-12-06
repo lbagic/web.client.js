@@ -125,19 +125,19 @@ export default {
      * [false] - field is invalid;
      * [string] - field is invalid, shows string as error.
      */
-    validator: { type: Function, default: () => true },
+    validator: { type: Function },
     /**
-     * Input help text.
+     * Input field label text.
+     */
+    label: String,
+    /**
+     * Input field help text.
      */
     help: String,
     /**
-     * Input error text.
+     * Custom error message.
      */
     error: String,
-    /**
-     * Input label text.
-     */
-    label: String,
     /**
      * Space delimited string defining direction and placement of label.
      * Valid values: block/inline, start/end. Ex. 'block end'
@@ -184,40 +184,14 @@ export default {
     if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
   },
   mounted() {
-    // console.log({ o: this.modelObject });
-    // this.$watch(
-    //   "modelObject",
-    //   (model) => {
-    //     if (this.modelObject && this.output !== this.modelObject.value) {
-
-    //     }
-    //     console.log(model);
-    //   },
-    //   { immediate: true, deep: true }
-    // );
-
-    const isModel = this.modelObject;
-
     this.$watch(
-      isModel ? "modelObject.value" : "modelValue",
-      (model) => {
-        this.onExternalChange(model);
-        this.errorHandler(this.output);
-      },
+      this.modelObject?.value ? "modelObject.value" : "modelValue",
+      (model) => this.onExternalChange(model),
       { immediate: true }
     );
 
-    if (isModel)
+    if (this.modelObject)
       this.$watch("output", (output) => (this.modelObject.value = output));
-
-    // this.$watch(
-    //   "modelValue",
-    //   (model) => {
-    //     if (this.output !== this.modelValue) this.onExternalChange(model);
-    //     this.errorHandler(model);
-    //   },
-    //   { immediate: true }
-    // );
   },
   data() {
     return {
@@ -226,9 +200,9 @@ export default {
       output: "",
       uniqueId: `${this.$options.__scopeId}-${uniqueIndex.value++}`,
       wasBlurred: false,
-      isValid: false,
       lastError: "",
       errorMessage: "",
+      counter: 0,
     };
   },
   watch: {
@@ -298,40 +272,43 @@ export default {
     },
     errorHandler() {
       const err = this.getError();
-      this.isValid = err.isValid;
-      if (!this.lastError || this.lastError !== this.errorMessage)
-        this.errorMessage = err.message;
+      this.errorMessage = err.message;
+      this.counter += 1;
+      return err.isValid;
     },
     getError() {
-      const validation = (() => {
-        const state = this.validator?.(this.modelValue);
-        const isValid = state === true;
-        const message = typeof state === "string" ? state : undefined;
-        return { isValid, message };
-      })();
-      const modelValidation = (() => {
-        if (!this.modelObject?.validator)
-          return { isValid: true, message: undefined };
-        const state = this.modelObject?.validator?.(
-          this.modelForm,
-          this.modelObject.value
-        );
-        const isValid = state === true;
-        const message = typeof state === "string" ? state : undefined;
-        return { isValid, message };
-      })();
-      const html = (() => {
-        const validity = this.$refs.input.validity;
-        const isValid = validity.valid;
-        const key = htmlErrorKeys.find((key) => validity[key]);
+      const propV = this.validator;
+      const modelV = this.modelObject?.validator;
+      const htmlV = this.$refs?.input?.validity;
+
+      let isValid = true;
+      let message = undefined;
+
+      if (propV && typeof propV === "function") {
+        const state = propV(this.output);
+        isValid = state === true;
+        message = typeof state === "string" ? state : undefined;
+        console.log(this.label, "propV", isValid);
+        if (!isValid) return { isValid, message };
+      }
+
+      if (modelV && typeof modelV === "function") {
+        const state = modelV(this.modelForm, this.output);
+        isValid = state === true;
+        message = typeof state === "string" ? state : undefined;
+        console.log(this.label, "modelV", isValid, this.output);
+        if (!isValid) return { isValid, message };
+      }
+
+      if (htmlV) {
+        isValid = htmlV.valid;
+        const key = htmlErrorKeys.find((key) => htmlV[key]);
         const message = key ? htmlErrors[key] : undefined;
-        return { isValid, message };
-      })();
-      const err = [validation, modelValidation, html].find((el) => !el.isValid);
-      return {
-        isValid: err ? false : true,
-        message: err ? err.message : undefined,
-      };
+        console.log(this.label, "htmlV", isValid);
+        if (!isValid) return { isValid, message };
+      }
+
+      return { isValid: true, message: undefined };
     },
     resolveBy: (object, by) =>
       typeof by === "function" ? by(object) : resolvePath(object, by),
@@ -345,6 +322,12 @@ export default {
     },
   },
   computed: {
+    isValid() {
+      // console.log(this.output);
+      const isValid = this.errorHandler(this.output);
+      // console.log(this.label, this.output, isValid);
+      return isValid;
+    },
     config() {
       const type = this.modelObject?.type ?? this.type ?? "text";
       return sntInputElements[type];

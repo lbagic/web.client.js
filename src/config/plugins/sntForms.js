@@ -1,8 +1,9 @@
-export const FormsPlugin = {
-  install(Vue) {
-    Vue.mixin({
+export const forms = {
+  install(app) {
+    app.mixin({
       created() {
         if (!this.forms || typeof this.forms !== "object") return;
+        console.log("HEREEE");
         const vget = {};
         const vset = {};
         Object.entries(this.forms).forEach(([name, fields]) => {
@@ -20,8 +21,8 @@ export const FormsPlugin = {
             };
           });
         });
-        this.$set(this.forms, "vget", vget);
-        this.$set(this.forms, "vset", vset);
+        this.forms.vget = vget;
+        this.forms.vset = vset;
       },
     });
   },

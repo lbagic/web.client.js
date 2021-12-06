@@ -21,7 +21,9 @@
   border-radius: var(--snt-button-border-radius);
   transition-timing-function: ease-in-out;
   transition-duration: 0.15s;
-  transition-property: color, background-color, border-color, box-shadow;
+  transition-property: color, background-color, border-color, box-shadow,
+    opacity;
+  opacity: 1;
 }
 .snt-button-base[disabled] {
   opacity: 0.66 !important;

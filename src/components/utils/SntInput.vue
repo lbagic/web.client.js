@@ -185,13 +185,13 @@ export default {
   },
   mounted() {
     this.$watch(
-      this.modelObject?.value ? "modelObject.value" : "modelValue",
+      this.extModel?.object ? "extModel.object.value" : "modelValue",
       (model) => this.onExternalChange(model),
       { immediate: true }
     );
 
-    if (this.modelObject)
-      this.$watch("output", (output) => (this.modelObject.value = output));
+    if (this.extModel?.object)
+      this.$watch("output", (output) => (this.extModel.object.value = output));
   },
   data() {
     return {
@@ -225,6 +225,48 @@ export default {
     onExternalChange(model) {
       this.config.onExternal(this, model);
       this.$refs.input.value = this.value;
+    },
+    errorHandler() {
+      const err = this.getError();
+      this.errorMessage = err.message;
+      if (this.extModel) {
+        if (!this.extModel.form._valid) this.extModel.form._valid = {};
+        this.extModel.form._valid[this.extModel.prop] = err.isValid;
+      }
+      return err.isValid;
+    },
+    getError() {
+      const isExt = !!this.extModel;
+      const val = isExt ? this.extModel.object.value : this.output;
+      const propV = this.validator;
+      const modelV = this.extModel?.object?.validator;
+      const htmlV = this.$refs?.input?.validity;
+
+      let isValid = true;
+      let message = undefined;
+
+      if (propV && typeof propV === "function") {
+        const state = propV(val);
+        isValid = state === true;
+        message = typeof state === "string" ? state : undefined;
+        if (!isValid) return { isValid, message };
+      }
+
+      if (modelV && typeof modelV === "function") {
+        const state = modelV(this.extModel.form, val);
+        isValid = state === true;
+        message = typeof state === "string" ? state : undefined;
+        if (!isValid) return { isValid, message };
+      }
+
+      if (htmlV) {
+        isValid = htmlV.valid;
+        const key = htmlErrorKeys.find((key) => htmlV[key]);
+        const message = key ? htmlErrors[key] : undefined;
+        if (!isValid) return { isValid, message };
+      }
+
+      return { isValid: true, message: undefined };
     },
     formatDate(value) {
       const formatter = this.datetimeOptions?.format || this.config.format;
@@ -269,42 +311,7 @@ export default {
     onKeydown(e) {
       if (this.isDatetime && e.keyCode != 9) e.preventDefault();
     },
-    errorHandler() {
-      const err = this.getError();
-      this.errorMessage = err.message;
-      return err.isValid;
-    },
-    getError() {
-      const propV = this.validator;
-      const modelV = this.modelObject?.validator;
-      const htmlV = this.$refs?.input?.validity;
 
-      let isValid = true;
-      let message = undefined;
-
-      if (propV && typeof propV === "function") {
-        const state = propV(this.output);
-        isValid = state === true;
-        message = typeof state === "string" ? state : undefined;
-        if (!isValid) return { isValid, message };
-      }
-
-      if (modelV && typeof modelV === "function") {
-        const state = modelV(this.modelForm, this.output);
-        isValid = state === true;
-        message = typeof state === "string" ? state : undefined;
-        if (!isValid) return { isValid, message };
-      }
-
-      if (htmlV) {
-        isValid = htmlV.valid;
-        const key = htmlErrorKeys.find((key) => htmlV[key]);
-        const message = key ? htmlErrors[key] : undefined;
-        if (!isValid) return { isValid, message };
-      }
-
-      return { isValid: true, message: undefined };
-    },
     resolveBy: (object, by) =>
       typeof by === "function" ? by(object) : resolvePath(object, by),
     resolveOption(object) {
@@ -318,14 +325,14 @@ export default {
   },
   computed: {
     isValid() {
-      const isValid = this.errorHandler(this.output);
+      const isValid = this.errorHandler();
       return isValid;
     },
     config() {
-      const type = this.modelObject?.type ?? this.type ?? "text";
+      const type = this.extModel?.object?.type ?? this.type ?? "text";
       return sntInputElements[type];
     },
-    modelConfig() {
+    extModel() {
       if (!this.model || typeof this.model !== "object") return;
       const entries = Object.entries(this.model);
       if (entries.length > 1)
@@ -335,21 +342,15 @@ export default {
       const [prop, form] = entries[0];
       if (typeof form[prop] !== "object")
         throw new Error(
-          "[SntInput] model should point to an object ex. { email: form }"
+          "[SntInput] model should point to an object ex. { email: form }; where form.email = { value: '', ... }"
         );
-      return { form, object: form[prop] };
-    },
-    modelObject() {
-      return this.modelConfig?.object;
-    },
-    modelForm() {
-      return this.modelConfig?.form;
+      return { form, object: form[prop], prop };
     },
     inputAttrs() {
       let attrs = { ...this.$attrs };
       if (this.config.component === "input") attrs.type = this.config.type;
-      if (typeof this.modelObject === "object") {
-        const modelAttrs = { ...this.modelObject };
+      if (typeof this.extModel?.object === "object") {
+        const modelAttrs = { ...this.extModel.object };
         delete modelAttrs.value;
         delete modelAttrs.type;
         delete modelAttrs.validator;

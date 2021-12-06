@@ -14,96 +14,149 @@ export const htmlErrors = {
 };
 export const htmlErrorKeys = Object.keys(htmlErrors);
 
-export const normalizedOptions = (vm) =>
-  !vm.options
-    ? []
-    : Array.isArray(vm.options)
-    ? vm.options
-    : typeof vm.options === "object"
-    ? Object.entries(vm.options).reduce((a, [value, label]) => {
-        a.push({ label, value });
-        return a;
-      }, [])
-    : [];
-
 export const sntInputElements = {
   text: {
     type: "text",
     component: "input",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      if (vm.options?.length) {
+        const selected = vm.parsedOptions.find((el) => el.label === vm.value);
+        vm.output = selected ? selected.id : vm.value;
+        if (selected) vm.$emit("select", vm.output);
+      } else {
+        vm.output = e.target.value;
+      }
+    },
+    onExternal: (vm, model) => {
+      const selected = vm.parsedOptions.find((el) => el.id === model);
+      vm.value = selected ? selected.label : model;
+    },
   },
   email: {
     type: "email",
     component: "input",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = e.target.value;
+    },
+    onExternal: (vm, model) => (vm.value = model),
   },
   password: {
     type: "password",
     component: "input",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = e.target.value;
+    },
+    onExternal: (vm, model) => (vm.value = model),
   },
   search: {
     type: "search",
     component: "input",
-    defaultValue: "",
-  },
-  number: {
-    type: "number",
-    component: "input",
-    defaultValue: undefined,
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = e.target.value;
+    },
+    onExternal: (vm, model) => (vm.value = model),
   },
   tel: {
     type: "tel",
     component: "input",
-    defaultValue: "",
-  },
-  color: {
-    type: "color",
-    component: "input",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = e.target.value;
+    },
+    onExternal: (vm, model) => (vm.value = model),
   },
   url: {
     type: "url",
     component: "input",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = e.target.value;
+    },
+    onExternal: (vm, model) => (vm.value = model),
   },
-  checkbox: {
-    type: "checkbox",
+  color: {
+    type: "color",
     component: "input",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = e.target.value;
+    },
+    onExternal: (vm, model) => (vm.value = model),
   },
-  radio: {
-    type: "radio",
+  number: {
+    type: "number",
     component: "input",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = Number(e.target.value);
+    },
+    onExternal: (vm, model) => (vm.value = model),
   },
   range: {
     type: "range",
     component: "input",
-    defaultValue: undefined,
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = Number(e.target.value);
+    },
+    onExternal: (vm, model) => (vm.value = model),
+  },
+  checkbox: {
+    type: "checkbox",
+    component: "input",
+    onInternal: (vm, e) => (vm.output = e.target.checked),
+    onExternal: (vm, model) => (vm.$refs.input.checked = model),
+  },
+  radio: {
+    type: "radio",
+    component: "input",
+    onInternal: (vm, e) => (vm.output = e.target.checked),
+    onExternal: (vm, model) => (vm.$refs.input.checked = model),
   },
   file: {
     type: "file",
     component: "input",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.value = e.target.value;
+      vm.output = e.target.value;
+    },
+    onExternal: (vm, model) => (vm.value = model),
   },
   textarea: {
     type: "textarea",
     component: "textarea",
-    defaultValue: "",
+    onInternal: (vm, e) => (vm.output = e.target.value),
+    onExternal: (vm, model) => (vm.value = model),
   },
   select: {
     type: "select",
     component: "select",
-    defaultValue: "",
+    onInternal: (vm, e) => {
+      vm.output = vm.parsedOptions[e.target.selectedIndex].id;
+      vm.value = e.target.value;
+    },
+    onExternal: (vm, model) => {
+      const selected = vm.parsedOptions.find((el) => el.id === model);
+      if (selected) vm.value = selected.label;
+    },
   },
   date: {
     type: "text",
     component: "input",
-    format: (model, locale) => {
+    datetimeOptions: {
+      locale: "en",
+      autoApply: true,
+      maxlength: 0,
+      enableTimePicker: false,
+    },
+    format: (model) => {
       const isRange = Array.isArray(model);
       const formatter = (input) => {
-        const fmt = formatDate(input, locale);
+        const fmt = formatDate(input);
         return `${fmt.dayShort}, ${fmt.day} ${fmt.monthShort} ${fmt.year}`;
       };
 
@@ -111,12 +164,21 @@ export const sntInputElements = {
         ? [...model].map((el) => formatter(el)).join(" - ")
         : formatter(model);
     },
-    defaultValue: "",
-    attrs: {
-      locale: "en",
-      autoApply: true,
-      maxlength: 0,
-      enableTimePicker: false,
+    onInternal: (vm, dateValue) => {
+      const model = Array.isArray(dateValue)
+        ? [...dateValue].map((el) => el.toISOString())
+        : dateValue.toISOString();
+      vm.value = vm.formatDate(model);
+      vm.output = model;
+    },
+    onExternal: (vm, model) => {
+      const isArray = Array.isArray(model);
+      vm.value = isArray
+        ? [...model].map((el) => vm.formatDate(el)).join(" - ")
+        : vm.formatDate(model);
+      vm.dateValue = isArray
+        ? [...model].map((el) => new Date(el))
+        : new Date(model);
     },
   },
   time: {
@@ -124,21 +186,35 @@ export const sntInputElements = {
     component: "input",
     format: (model) =>
       `${getTwoDigitFormat(model.hours)}:${getTwoDigitFormat(model.minutes)}`,
-    defaultValue: "",
-    attrs: {
+    datetimeOptions: {
       timePicker: true,
       maxlength: 0,
+    },
+    onInternal: (vm, dateValue) => {
+      vm.value = vm.formatDate(dateValue);
+      vm.output = dateValue;
+    },
+    onExternal: (vm, model) => {
+      vm.dateValue = model;
+      vm.value = vm.formatDate(model);
     },
   },
   month: {
     type: "text",
     component: "input",
     format: (model) => `${model.year}-${getTwoDigitFormat(model.month + 1)}`,
-    defaultValue: "",
-    attrs: {
+    datetimeOptions: {
       autoApply: true,
       monthPicker: true,
       maxlength: 0,
+    },
+    onInternal: (vm, dateValue) => {
+      vm.value = vm.formatDate(dateValue);
+      vm.output = dateValue;
+    },
+    onExternal: (vm, model) => {
+      vm.dateValue = model;
+      vm.value = vm.formatDate(model);
     },
   },
 };

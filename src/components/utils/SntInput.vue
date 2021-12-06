@@ -1,7 +1,3 @@
-<!-- 
-  Types date, month & time are implemented via external plugin ("vue3-date-time-picker": "^2.3.6").
-  For a complete list of properties (datetimeOptions), refer to https://vue3datepicker.com/api/props
- -->
 <template>
   <div v-bind="rootAttrs" class="snt-input-wrapper">
     <label ref="inputWrapper" :class="labelClass" tabindex="-1">
@@ -10,28 +6,28 @@
         <p>{{ label }}</p>
       </slot>
       <component
-        :is="element.component"
+        :is="config.component"
         ref="input"
-        :list="listId"
-        :value="value"
         :checked="!!value"
-        v-bind="inputAttrs"
         :class="isDatetime && 'snt-datepicker-input'"
+        :list="`snt-list-${uniqueId}`"
+        :value="value"
+        v-bind="inputAttrs"
         @blur.stop="(e) => onBlur('input', e)"
-        @keydown="onKeydown"
-        @focus="onFocus"
         @click="onClick"
-        @input="(e) => onInternalChange(e.target.value)"
+        @focus="onFocus"
+        @input="(e) => onInternalChange(e)"
+        @keydown="onKeydown"
       >
         <option v-if="inputAttrs.placeholder" value="" selected disabled hidden>
           {{ inputAttrs.placeholder }}
         </option>
         <option
-          v-for="(opt, index) in normalizedOptions"
-          :key="index"
-          :value="resolveValue(opt)"
+          v-for="{ label, value } in parsedOptions"
+          :key="value"
+          :value="value"
         >
-          {{ resolveLabel(opt) }}
+          {{ label }}
         </option>
       </component>
       <!-- label slot #after -->
@@ -39,32 +35,44 @@
         <p>{{ label }}</p>
       </slot>
       <!-- datalist for text input with options -->
-      <datalist v-if="isTextWithOptions" :id="listId">
-        <option v-for="(opt, index) in normalizedOptions" :key="index">
-          {{ resolveLabel(opt) }}
+      <datalist
+        v-if="type === 'text' && parsedOptions.length"
+        :id="`snt-list-${uniqueId}`"
+      >
+        <option v-for="{ label, value } in parsedOptions" :key="value">
+          {{ label }}
         </option>
       </datalist>
       <!-- datepicker component -->
       <component
-        :is="datepicker"
+        :is="datepickerComponent"
         v-show="false"
         v-if="isDatetime"
         ref="datepicker"
         v-bind="datetimeAttrs"
         v-model="dateValue"
         style="position: absolute"
-        @update:modelValue="this.$refs.input.focus()"
+        @update:modelValue="
+          (v) => {
+            onInternalChange(v);
+            $refs.input.focus();
+          }
+        "
         @closed="onBlur('datepicker')"
       />
     </label>
     <p v-if="help" class="snt-input-help">{{ help }}</p>
-    <transition v-if="!hideErrors && wasBlurred" name="snt-drop">
-      <p v-if="errorMessage" class="snt-input-error">
+    <transition v-if="!disableErrors" name="snt-drop">
+      <p
+        v-if="!disableErrors && wasBlurred && errorMessage"
+        class="snt-input-error"
+      >
         {{ errorMessage }}
       </p>
     </transition>
   </div>
 </template>
+
 <script>
 import {
   htmlErrorKeys,
@@ -77,7 +85,7 @@ import { defineAsyncComponent, ref } from "@vue/runtime-core";
 const uniqueIndex = ref(0);
 let focusElement = undefined;
 document.addEventListener("focusin", (e) => (focusElement = e.target));
-const resolvePath = (path, object) =>
+const resolvePath = (object, path) =>
   path.split(".").reduce((a, c) => {
     if (a[c] === undefined)
       throw new Error(
@@ -98,16 +106,42 @@ export default {
     "inputValue",
   ],
   props: {
-    modelValue: {},
+    /**
+     * Advanced way to bind a model. Ex. :model="{ field: form }" where form.field is defined in data.
+     * Form field should be an object that can define validator, type, value and other SntInput attributes.
+     */
+    model: Object,
+    /**
+     * Input type - defaults to text.
+     */
     type: {
       type: String,
       default: "text",
       validator: (value) => sntInputTypes.includes(value),
     },
+    /**
+     * Input validation function. Should return:
+     * [true] - field is valid;
+     * [false] - field is invalid;
+     * [string] - field is invalid, shows string as error.
+     */
     validator: { type: Function, default: () => true },
+    /**
+     * Input help text.
+     */
     help: String,
+    /**
+     * Input error text.
+     */
     error: String,
+    /**
+     * Input label text.
+     */
     label: String,
+    /**
+     * Space delimited string defining direction and placement of label.
+     * Valid values: block/inline, start/end. Ex. 'block end'
+     */
     labelPosition: {
       type: String,
       validator: (value) => {
@@ -116,26 +150,74 @@ export default {
         return params.every((param) => allowed.includes(param));
       },
     },
+    /**
+     * Options passed to datetime component ("vue3-date-time-picker": "^2.3.6").
+     * Please refer to https://vue3datepicker.com/api/props for available options.
+     */
     datetimeOptions: Object,
-    hideErrors: Boolean,
-    optionValueBy: { type: [String, Function], default: "id" },
-    optionLabelBy: { type: [String, Function], default: "name" },
+    /**
+     * Disable showing errors.
+     */
+    disableErrors: Boolean,
+    /**
+     * Dot delimited path to id, or function that resolves object id.
+     */
+    optionIdBy: { type: [String, Function], default: "id" },
+    /**
+     * Dot delimited path to label, or function that resolves object label.
+     */
+    optionLabelBy: { type: [String, Function], default: "label" },
+    /**
+     * A list of options for text or select inputs. Don't forget to set optionIdBy and optionLabelBy.
+     */
     options: [Array, Object],
+    /**
+     * Attributes that will be applied affect the root element of snt-input component.
+     */
     rootAttrs: Object,
-    model: Object,
+    /**
+     * **IS USED INTERNALLY. Prefer using 'v-model' instead of modelValue.
+     */
+    modelValue: {},
   },
   created() {
     if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
   },
   mounted() {
+    // console.log({ o: this.modelObject });
+    // this.$watch(
+    //   "modelObject",
+    //   (model) => {
+    //     if (this.modelObject && this.output !== this.modelObject.value) {
+
+    //     }
+    //     console.log(model);
+    //   },
+    //   { immediate: true, deep: true }
+    // );
+
+    const isModel = this.modelObject;
+
     this.$watch(
-      "modelValue",
+      isModel ? "modelObject.value" : "modelValue",
       (model) => {
-        if (this.output !== this.modelValue) this.onExternalChange(model);
-        this.errorHandler(model);
+        this.onExternalChange(model);
+        this.errorHandler(this.output);
       },
       { immediate: true }
     );
+
+    if (isModel)
+      this.$watch("output", (output) => (this.modelObject.value = output));
+
+    // this.$watch(
+    //   "modelValue",
+    //   (model) => {
+    //     if (this.output !== this.modelValue) this.onExternalChange(model);
+    //     this.errorHandler(model);
+    //   },
+    //   { immediate: true }
+    // );
   },
   data() {
     return {
@@ -159,77 +241,23 @@ export default {
         this.errorMessage = this.lastError = this.error;
       },
     },
-    dateValue() {
-      const value =
-        this.type !== "date"
-          ? this.dateValue
-          : Array.isArray(this.dateValue)
-          ? [...this.dateValue].map((el) => el.toISOString())
-          : this.dateValue.toISOString();
-
-      this.$refs.datepicker?.closeMenu();
-
-      this.onInternalChange(value);
-    },
   },
   methods: {
-    onInternalChange(value) {
+    onInternalChange(input) {
       if (this.lastError === this.errorMessage) this.lastError = "";
-
-      this.value = value;
-
-      if (this.isDatetime) {
-        this.value = this.formatDate(value);
-        this.output = value;
-      } else if (this.isNumber) {
-        this.output = isNaN(Number(this.value))
-          ? undefined
-          : Number(this.value);
-      } else if (this.type === "select") {
-        this.output = Number(this.value);
-      } else if (this.isTextWithOptions) {
-        const selected = this.normalizedOptions.find(
-          (el) => this.resolveLabel(el) === this.value
-        );
-        if (selected) this.$emit("select", selected);
-        this.output = selected ? this.resolveValue(selected) : value;
-      } else if (this.isCheckbox) {
-        this.output = this.$refs.input.checked;
-      } else this.output = this.value;
-
-      if (this.type === "select") this.$emit("select", this.output);
+      this.config.onInternal(this, input);
       this.$emit("update:modelValue", this.output);
       this.$emit("inputValue", this.value);
-      if (!this.isTextWithOptions) this.$emit("select", this.output);
     },
     onExternalChange(model) {
-      if (this.isDatetime) {
-        this.value = this.formatDate(model);
-        this.dateValue =
-          this.type === "date"
-            ? Array.isArray(model)
-              ? [...model].map((el) => new Date(el))
-              : new Date(model)
-            : model;
-      } else if (this.isTextWithOptions) {
-        const selected = this.normalizedOptions.find(
-          (el) => this.resolveValue(el) === model
-        );
-        if (selected) this.value = this.resolveLabel(selected);
-      } else if (this.isCheckbox) {
-        this.value = model;
-        this.$refs.input.checked = model;
-      } else if (this.type === "select") {
-        if (model !== undefined && model !== "") this.value = model;
-      } else {
-        this.value = model;
-      }
-
+      this.config.onExternal(this, model);
       this.$refs.input.value = this.value;
     },
     formatDate(value) {
-      const formatter = this.datetimeOptions?.format || this.element.format;
-      return formatter?.(value, this.datetimeAttrs?.locale) ?? value;
+      const formatter = this.datetimeOptions?.format || this.config.format;
+      return (
+        formatter?.(value, { locale: this.datetimeAttrs?.locale }) ?? value
+      );
     },
     onClick() {
       this.openDatepicker();
@@ -276,7 +304,18 @@ export default {
     },
     getError() {
       const validation = (() => {
-        const state = this.validator(this.modelValue);
+        const state = this.validator?.(this.modelValue);
+        const isValid = state === true;
+        const message = typeof state === "string" ? state : undefined;
+        return { isValid, message };
+      })();
+      const modelValidation = (() => {
+        if (!this.modelObject?.validator)
+          return { isValid: true, message: undefined };
+        const state = this.modelObject?.validator?.(
+          this.modelForm,
+          this.modelObject.value
+        );
         const isValid = state === true;
         const message = typeof state === "string" ? state : undefined;
         return { isValid, message };
@@ -288,53 +327,79 @@ export default {
         const message = key ? htmlErrors[key] : undefined;
         return { isValid, message };
       })();
+      const err = [validation, modelValidation, html].find((el) => !el.isValid);
       return {
-        isValid: validation.isValid && html.isValid,
-        message: validation.message || html.message,
+        isValid: err ? false : true,
+        message: err ? err.message : undefined,
       };
     },
-    resolveLabel(object) {
-      return typeof this.optionLabelBy === "function"
-        ? this.optionLabelBy(object)
-        : resolvePath(this.optionLabelBy, object);
-    },
-    resolveValue(object) {
-      return typeof this.optionValueBy === "function"
-        ? this.optionValueBy(object)
-        : resolvePath(this.optionValueBy, object);
+    resolveBy: (object, by) =>
+      typeof by === "function" ? by(object) : resolvePath(object, by),
+    resolveOption(object) {
+      return typeof object !== "object"
+        ? { id: object, label: object }
+        : {
+            id: this.resolveBy(object, this.optionIdBy),
+            label: this.resolveBy(object, this.optionLabelBy),
+          };
     },
   },
   computed: {
-    element() {
-      return sntInputElements[this.type];
+    config() {
+      const type = this.modelObject?.type ?? this.type ?? "text";
+      return sntInputElements[type];
+    },
+    modelConfig() {
+      if (!this.model || typeof this.model !== "object") return;
+      const entries = Object.entries(this.model);
+      if (entries.length > 1)
+        throw new Error(
+          "[SntInput] model object should have only one key - value pair."
+        );
+      const [prop, form] = entries[0];
+      if (typeof form[prop] !== "object")
+        throw new Error(
+          "[SntInput] model should point to an object ex. { email: form }"
+        );
+      return { form, object: form[prop] };
+    },
+    modelObject() {
+      return this.modelConfig?.object;
+    },
+    modelForm() {
+      return this.modelConfig?.form;
     },
     inputAttrs() {
       let attrs = { ...this.$attrs };
-      if (this.element.component === "input") attrs.type = this.element.type;
+      if (this.config.component === "input") attrs.type = this.config.type;
+      if (typeof this.modelObject === "object") {
+        const modelAttrs = { ...this.modelObject };
+        delete modelAttrs.value;
+        delete modelAttrs.type;
+        delete modelAttrs.validator;
+        attrs = { ...attrs, ...modelAttrs };
+      }
       return attrs;
     },
     datetimeAttrs() {
       const dtAttrs = {
-        ...this.element.attrs,
+        ...this.config.datetimeOptions,
         ...this.$props.datetimeOptions,
       };
       return dtAttrs;
     },
-    normalizedOptions() {
-      return !this.options
+    parsedOptions() {
+      return !this.options && (this.type !== "search" || this.type !== "text")
         ? []
         : Array.isArray(this.options)
-        ? typeof this.options[0] !== "object"
-          ? this.options.map((el) => ({ id: el, name: el }))
-          : this.options
+        ? this.options.map((el) => this.resolveOption(el))
         : typeof this.options === "object"
-        ? Object.entries(this.options).reduce((a, [name, id]) => {
-            a.push({ id, name });
-            return a;
-          }, [])
+        ? Object.entries(this.options).reduce(
+            (a, [label, id]) => [...a, { label, id }],
+            []
+          )
         : [];
     },
-    hasOptions: (vm) => !!vm.normalizedOptions.length,
     hasLabel: (vm) => vm.$slots.label || vm.label,
     labelClass() {
       if (!this.hasLabel) return;
@@ -352,14 +417,10 @@ export default {
       const start = !pos.includes("end");
       return { block, inline: !block, start, end: !start };
     },
-    isNumber: (vm) => vm.type === "range" || vm.type === "number",
     isDatetime: (vm) =>
       vm.type === "date" || vm.type === "month" || vm.type === "time",
     isCheckbox: (vm) => vm.type === "checkbox" || vm.type === "radio",
-    isTextWithOptions: (vm) =>
-      vm.type === "text" && vm.normalizedOptions.length,
-    listId: (vm) => `snt-list-${vm.uniqueId}`,
-    datepicker() {
+    datepickerComponent() {
       return this.isDatetime
         ? defineAsyncComponent(() => import("vue3-date-time-picker"))
         : undefined;

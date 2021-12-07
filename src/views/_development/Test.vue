@@ -1,5 +1,5 @@
 <template>
-  <div class="snt-flex-gap">
+  <div class="snt-flex">
     <router-link to="/development/documentation">Documentation</router-link>
     <router-link to="/development/inputs">Test inputs</router-link>
     <router-link to="/development/playground">Playground</router-link>

@@ -74,13 +74,13 @@
 </template>
 
 <script>
+import { defineAsyncComponent, ref } from "@vue/runtime-core";
 import {
   htmlErrorKeys,
   htmlErrors,
   sntInputElements,
   sntInputTypes,
 } from "./SntInput.util.js";
-import { defineAsyncComponent, ref } from "@vue/runtime-core";
 
 const uniqueIndex = ref(0);
 let focusElement = undefined;
@@ -107,7 +107,7 @@ export default {
   ],
   props: {
     /**
-     * Advanced way to bind a model. Ex. :model="{ field: form }" where form.field is defined in data.
+     * Preferred way to bind data. Ex. :model="{ field: form }" where form.field is defined in data. Will autogenerate validation flag under 'form._valid.field'.
      */
     model: Object,
     /**
@@ -175,7 +175,7 @@ export default {
      */
     rootAttrs: Object,
     /**
-     * **IS USED INTERNALLY. Prefer using 'v-model' instead of modelValue.
+     * Prefer using 'model' over 'v-bind' to bind data when you need to include validation.
      */
     modelValue: {},
   },
@@ -418,12 +418,12 @@ export default {
 }
 .snt-input-help {
   color: var(--snt-color-grey);
-  font-size: var(--snt-fs-1);
+  font-size: var(--snt-fs--1);
   line-height: 1.2;
 }
 .snt-input-error {
   color: var(--snt-color-error);
-  font-size: var(--snt-fs-1);
+  font-size: var(--snt-fs--1);
   line-height: 1.2;
 }
 input:not([type="checkbox"]):not([type="radio"]),

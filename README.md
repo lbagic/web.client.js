@@ -7,7 +7,7 @@ Install the following plugins:
 [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint),
 [Volar\*](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
-\* Volar is a drop-in replacement for Vetur when using vue 3. Disable Vetur to avoid problems.
+<small>\*Volar is a drop-in replacement for Vetur when using vue 3. <strong>Disable Vetur to avoid problems.</strong></small>
 
 ## Project setup
 

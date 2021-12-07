@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import SntIcon from "./utils/SntIcon.vue";
 import { routes as routerRoutes } from "../router/routes.js";
+import SntIcon from "./utils/SntIcon.vue";
 
 export default {
   components: { SntIcon },
@@ -34,8 +34,8 @@ export default {
   },
   computed: {
     routes() {
-      const logoClass = "flex align-items snt-f-2";
-      const linkClass = "flex align-items snt-animate-underline snt-fs-1";
+      const logoClass = "flex align-items snt-fs-2";
+      const linkClass = "flex align-items snt-animate-underline snt-fs--1";
 
       const routes = this.$isLoggedIn
         ? [

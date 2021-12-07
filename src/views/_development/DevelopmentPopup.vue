@@ -16,13 +16,13 @@
 .snt-dev-popup {
   position: fixed;
   bottom: 10px;
-  left: 10px;
+  right: 10px;
   font-size: 12px;
   padding: 4px 8px;
   background: #111d;
   color: white;
   cursor: pointer;
-  opacity: 0.3;
+  opacity: 0.5;
   transition: opacity 0.3s ease-in-out;
   &:hover {
     opacity: 0.7;

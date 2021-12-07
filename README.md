@@ -5,7 +5,9 @@
 Install the following plugins:
 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode),
 [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint),
-[Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
+[Volar\*](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+
+\* Volar is a drop-in replacement for Vetur when using vue 3. Disable Vetur to avoid problems.
 
 ## Project setup
 

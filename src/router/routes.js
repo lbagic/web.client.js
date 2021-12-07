@@ -1,3 +1,5 @@
+import { addDevelopmentRoutes } from "./routes.development";
+
 export const routes = [
   {
     path: "/login",
@@ -31,31 +33,4 @@ export const routes = [
   },
 ];
 
-if (process.env.NODE_ENV === "development") {
-  routes.push({
-    path: "/development",
-    component: () => import("../views/_development/DevelopmentHome.vue"),
-    children: [
-      {
-        path: "",
-        name: "Test",
-        component: () => import("../views/_development/Test.vue"),
-      },
-      {
-        path: "playground",
-        name: "Playground",
-        component: () => import("../views/_development/Playground.vue"),
-      },
-      {
-        path: "inputs",
-        name: "TestInputs",
-        component: () => import("../views/_development/TestInputs.vue"),
-      },
-      {
-        path: "documentation",
-        name: "Documentation",
-        component: () => import("../views/_development/Documentation.vue"),
-      },
-    ],
-  });
-}
+if (process.env.NODE_ENV === "development") addDevelopmentRoutes(routes);

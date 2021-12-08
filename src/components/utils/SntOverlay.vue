@@ -36,7 +36,6 @@ const defaultColor = getComputedStyle(
 
 export default {
   name: "SntOverlay",
-  inheritAttrs: false,
   components: { SntIcon },
   mixins: [overlayMixin],
   props: {
@@ -46,10 +45,6 @@ export default {
       default: defaultColor,
     },
     center: Boolean,
-    showCloseIcon: {
-      type: Boolean,
-      default: true,
-    },
   },
   computed: {
     overlayClasses() {
@@ -86,7 +81,7 @@ export default {
   top: 10px;
   right: 10px;
   float: right;
-  border-radius: 100%;
   padding: 5px;
+  overflow: hidden;
 }
 </style>

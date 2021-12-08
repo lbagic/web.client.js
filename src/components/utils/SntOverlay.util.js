@@ -23,6 +23,7 @@ watch(
 );
 
 export const overlayMixin = {
+  inheritAttrs: false,
   props: {
     hash: {
       type: String,
@@ -32,6 +33,10 @@ export const overlayMixin = {
           : true,
     },
     query: String,
+    showCloseIcon: {
+      type: Boolean,
+      default: true,
+    },
   },
   created() {
     const watcher = {

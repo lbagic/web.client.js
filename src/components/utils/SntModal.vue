@@ -34,8 +34,7 @@ import SntIcon from "./SntIcon.vue";
 import { hexToRGBA } from "../../utils/hexToRgba.js";
 
 export default {
-  name: "SntOverlay",
-  inheritAttrs: false,
+  name: "SntModal",
   components: { SntIcon },
   mixins: [overlayMixin],
   props: {
@@ -47,10 +46,6 @@ export default {
     opacity: {
       type: String,
       default: "0.3",
-    },
-    showCloseIcon: {
-      type: Boolean,
-      default: true,
     },
   },
   computed: {

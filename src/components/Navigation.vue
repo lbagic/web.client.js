@@ -14,7 +14,7 @@
         style="margin-left: auto"
         @click="$store.dispatch('AccountModule/logout')"
       >
-        <snt-icon icon="Off" color="light" />
+        <snt-icon icon="Power" color="light" />
       </button>
     </nav>
   </header>

@@ -9,7 +9,7 @@
       >
         <slot name="close" v-bind="close">
           <snt-icon
-            v-if="showCloseIcon"
+            v-if="!hideCloseIcon"
             icon="Close"
             class="snt-overlay-close"
             scale="1.5"
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { overlayMixin } from "./SntOverlay.util.js";
+import { overlayMixin } from "./SntOverlay.internals.js";
 import { getColor } from "../../utils/getColor.js";
 import SntIcon from "./SntIcon.vue";
 
@@ -40,10 +40,16 @@ export default {
   mixins: [overlayMixin],
   props: {
     ...overlayMixin.props,
+    /**
+     * Sets background fill color. Accepts hex or css variable name. Defaults to app background color.
+     */
     fill: {
       type: [String, Boolean],
       default: defaultColor,
     },
+    /**
+     * Toggles displaying overlay content in center.
+     */
     center: Boolean,
   },
   computed: {

@@ -49,6 +49,7 @@
 
 low prio:
 
+- support modals and overlays to be used in place
 - styling components
 - input type file - dropdown area
 - table component

@@ -80,7 +80,7 @@ import {
   htmlErrors,
   sntInputElements,
   sntInputTypes,
-} from "./SntInput.util.js";
+} from "./SntInput.internals.js";
 
 const uniqueIndex = ref(0);
 let focusElement = undefined;

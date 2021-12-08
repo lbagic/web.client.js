@@ -25,6 +25,9 @@ watch(
 export const overlayMixin = {
   inheritAttrs: false,
   props: {
+    /**
+     * Sets route hash that activates modal/overlay; should start with #.
+     */
     hash: {
       type: String,
       validator: (value) =>
@@ -32,11 +35,14 @@ export const overlayMixin = {
           ? console.warn("Hash should start with '#' character.")
           : true,
     },
+    /**
+     * Sets route query that activates modal/overlay.
+     */
     query: String,
-    showCloseIcon: {
-      type: Boolean,
-      default: true,
-    },
+    /**
+     * Toggles display of close icon.
+     */
+    hideCloseIcon: Boolean,
   },
   created() {
     const watcher = {

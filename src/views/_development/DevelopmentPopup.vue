@@ -10,8 +10,6 @@
   </transition>
 </template>
 
-<script setup></script>
-
 <style scoped lang="scss">
 .snt-dev-popup {
   position: fixed;

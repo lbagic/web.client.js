@@ -5,8 +5,9 @@
   --snt-button-border-radius: 2px;
   --snt-button-padding: 6px 12px;
   --snt-button-large-padding: 12px 24px;
-  --snt-button-heigt: 55px;
+  --snt-button-height: 55px;
 
+  min-height: var(--snt-button-height);
   display: inline-block;
   cursor: pointer;
   font-weight: 400;

@@ -1,5 +1,5 @@
 <template>
-  <teleport to="body">
+  <teleport to="body" :disabled="disableTeleport">
     <transition name="snt-drop" appear>
       <div
         v-if="isOpen"
@@ -59,7 +59,9 @@ export default {
       return classes;
     },
     overlayStyles() {
-      const styles = {};
+      const styles = {
+        position: this.disableTeleport ? "absolute" : "fixed",
+      };
       if (this.fill) styles.background = getColor(this.fill, this.fill);
       return styles;
     },
@@ -69,7 +71,6 @@ export default {
 
 <style scoped lang="scss">
 .snt-overlay {
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

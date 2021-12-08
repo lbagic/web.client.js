@@ -8,17 +8,27 @@
       <router-link to="/development#modal-boxed">Modal Boxed</router-link>
       <router-link to="/development#overlay">Overlay</router-link>
     </div>
-    <snt-modal hash="#modal">I am a modal</snt-modal>
-    <snt-overlay hash="#overlay">I am an overlay</snt-overlay>
-    <div style="position: relative; width: 700px; height: 200px">
-      <snt-modal hash="#modal-boxed">I am a boxed modal</snt-modal>
+
+    <snt-modal hash="#modal">
+      <p>I am a modal</p>
+      <pre v-for="n in 100" :key="n">Yes {{ n }}!</pre>
+    </snt-modal>
+
+    <snt-overlay hash="#overlay">
+      <p>I am an overlay</p>
+      <pre v-for="n in 100" :key="n">Yes {{ n }}!</pre>
+    </snt-overlay>
+
+    <div
+      style="position: relative; width: 700px; height: 200px; background: #ddd"
+    >
+      <snt-modal hash="#modal-boxed" disableTeleport>
+        <p>I am a boxed modal</p>
+        <pre v-for="n in 100" :key="n">Yes {{ n }}!</pre>
+      </snt-modal>
     </div>
-    <pre v-for="n in 100" :key="n">
-      Yes
-      I
-      AM
-      {{ n }}
-    </pre>
+
+    <pre v-for="n in 100" :key="n">Yes {{ n }}!</pre>
   </div>
 </template>
 

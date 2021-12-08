@@ -43,6 +43,10 @@ export const overlayMixin = {
      * Toggles display of close icon.
      */
     hideCloseIcon: Boolean,
+    /**
+     * Toggles use of teleport to html body.
+     */
+    disableTeleport: Boolean,
   },
   created() {
     const watcher = {

@@ -66,6 +66,7 @@ export const overlayMixin = {
     const isOpenWatcher = (flag) => {
       overlayShared.activeModals[this.uniqueId] = flag;
       this.$emit(flag ? "open" : "close");
+      this.$emit("toggle", flag);
       if (!flag && this.openMethod !== "default") {
         const route = { ...this.$router.currentRoute.value };
         const param = {
@@ -77,7 +78,6 @@ export const overlayMixin = {
     };
     this.$watch("isOpen", isOpenWatcher, { immediate: true });
   },
-  emits: ["open", "close"],
   data() {
     return {
       uniqueId: `${this.$options.__scopeId}-${overlayShared.uniqueIndex++}`,

@@ -37,6 +37,7 @@ export default {
   name: "SntModal",
   components: { SntIcon },
   mixins: [overlayMixin],
+  emits: ["open", "close", "toggle"],
   props: {
     ...overlayMixin.props,
     /**

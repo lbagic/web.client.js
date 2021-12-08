@@ -38,6 +38,7 @@ export default {
   name: "SntOverlay",
   components: { SntIcon },
   mixins: [overlayMixin],
+  emits: ["open", "close", "toggle"],
   props: {
     ...overlayMixin.props,
     /**

@@ -19,13 +19,14 @@
   - variables
   - breakpoints
 
-## Styles - 5/5
+## Styles - 5/6
 
 - variables & utility classes ✅
 - fonts ✅
 - breakpoints ✅
 - focus styles ✅
 - normalized styles ✅
+- component css variables that are encapsulated in class can be short?
 
 ## Components - 15/15
 

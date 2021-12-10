@@ -5,9 +5,7 @@
   --snt-button-border-radius: 2px;
   --snt-button-padding: 6px 12px;
   --snt-button-large-padding: 12px 24px;
-  --snt-button-height: 55px;
 
-  min-height: var(--snt-button-height);
   display: inline-block;
   cursor: pointer;
   font-weight: 400;
@@ -25,6 +23,13 @@
   transition-property: color, background-color, border-color, box-shadow,
     opacity;
   opacity: 1;
+}
+.snt-button-default,
+.snt-button-outline {
+  --snt-button-height: 55px;
+
+  min-height: var(--snt-button-height);
+  box-shadow: 0 0 4px #0008;
 }
 .snt-button-base[disabled] {
   opacity: 0.66 !important;

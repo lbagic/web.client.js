@@ -146,6 +146,7 @@ export default {
   display: flex;
   width: 250px;
   max-width: 90vw;
+  z-index: var(--snt-z-index-toast);
 }
 
 .snt-toast {

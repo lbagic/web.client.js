@@ -80,6 +80,7 @@ export default {
   align-items: center;
   justify-content: center;
   backdrop-filter: var(--snt-overlay-backdrop-filter);
+  z-index: var(--snt-z-index-modal);
 }
 .snt-modal {
   position: relative;

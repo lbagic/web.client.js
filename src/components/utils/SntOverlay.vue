@@ -78,6 +78,7 @@ export default {
   height: 100%;
   overflow-y: auto;
   backdrop-filter: var(--snt-overlay-backdrop-filter);
+  z-index: var(--snt-z-index-overlay);
 }
 .snt-overlay-center {
   display: flex;

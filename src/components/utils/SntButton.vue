@@ -7,39 +7,37 @@ export default {
   name: "SntButton",
   props: {
     color: { type: String, default: "primary" },
+    type: {
+      type: String,
+      default: "default",
+      validator: (input) => ["default", "text", "outline"].includes(input),
+    },
     expand: Boolean,
     large: Boolean,
     lighterVariant: Boolean,
-    outline: Boolean,
-    text: Boolean,
   },
   computed: {
     colors() {
-      const variant = this.lighterVariant ? "lighter" : "darker";
+      const accent = this.lighterVariant ? "lighter" : "darker";
       return {
         default: getColor(this.color),
-        variant: getColor(`${this.color}-${variant}`),
+        accent: getColor(`${this.color}-${accent}`),
         on: getColor(`on-${this.color}`),
       };
     },
     classes() {
-      const classes = ["snt-button-base"];
-      if (!(this.text || this.outline)) classes.push("snt-button-default");
+      const classes = ["snt-button"];
+      classes.push(`snt-button-type-${this.type}`);
       if (this.expand) classes.push("snt-button-expand");
       if (this.large) classes.push("snt-button-large");
-      if (this.outline) classes.push("snt-button-outline");
-      if (this.text) classes.push("snt-button-text");
 
       return classes;
     },
-    customAttrs: (vm) => ({
-      class: vm.classes,
-    }),
   },
   render() {
     const attrs = this.$attrs;
     const el = attrs.href ? "a" : attrs.to ? RouterLink : "button";
-    return h(el, mergeProps(this.customAttrs, attrs), {
+    return h(el, mergeProps({ class: this.classes }, attrs), {
       default: this.$slots.default,
     });
   },
@@ -47,33 +45,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.snt-button-default {
+.snt-button-type-default {
   background: v-bind("colors.default");
   color: v-bind("colors.on");
   &:active {
-    background: v-bind("colors.variant");
+    background: v-bind("colors.accent");
   }
 }
-.snt-button-outline {
+.snt-button-type-outline {
   background: transparent;
-  border: var(--snt-button-border-width) solid v-bind("colors.default");
+  border: var(--border-width) solid v-bind("colors.default");
   color: v-bind("colors.default");
   &:active {
-    border: var(--snt-button-border-width) solid v-bind("colors.variant");
-    color: v-bind("colors.variant");
+    border: var(--border-width) solid v-bind("colors.accent");
+    color: v-bind("colors.accent");
   }
 }
-.snt-button-text {
+.snt-button-type-text {
   background: transparent;
   color: v-bind("colors.default");
   &:active {
-    color: v-bind("colors.variant");
+    color: v-bind("colors.accent");
   }
-}
-.snt-button-large {
-  padding: var(--snt-button-large-padding);
-}
-.snt-button-expand {
-  width: 100%;
 }
 </style>

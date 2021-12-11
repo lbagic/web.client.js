@@ -8,8 +8,9 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
 select,
 textarea {
   min-width: 100px;
-  min-height: 55px;
-  padding: 6px 12px;
+  height: 50px;
+  min-height: 50px;
+  padding: 12px;
   border: 1px solid var(--snt-color-muted);
   &:focus {
     border: 1px solid var(--snt-color-grey);

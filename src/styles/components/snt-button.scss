@@ -1,0 +1,45 @@
+.snt-button {
+  --border-width: 1.5px;
+  --border-radius: 2px;
+  --padding: 6px 12px;
+  --snt-button-large-padding: 12px 24px;
+
+  display: inline-block;
+  cursor: pointer;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: var(--border-width) solid transparent;
+  padding: var(--padding);
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: var(--border-radius);
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.15s;
+  transition-property: color, background-color, border-color, box-shadow,
+    opacity;
+  opacity: 1;
+
+  &[disabled] {
+    opacity: 0.66 !important;
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+}
+
+.snt-button-type-default,
+.snt-button-type-outline {
+  --height: 55px;
+
+  min-height: var(--height);
+  box-shadow: 0 0 4px #0008;
+}
+
+.snt-button-large {
+  padding: var(--padding-large);
+}
+.snt-button-expand {
+  width: 100%;
+}

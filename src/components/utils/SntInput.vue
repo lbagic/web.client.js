@@ -14,6 +14,7 @@
         :list="`snt-list-${uniqueId}`"
         :value="value"
         v-bind="inputAttrs"
+        :readonly="isDatetime"
         @blur.stop="(e) => onBlur('input', e)"
         @click="onClick"
         @focus="onFocus"
@@ -184,6 +185,7 @@ export default {
       (model) => {
         this.onExternalChange(model);
         if (this.extModel) this.output = model;
+        this.errorHandler();
       },
       { immediate: true }
     );
@@ -238,7 +240,7 @@ export default {
     },
     getError() {
       const propV = this.validator;
-      const htmlV = this.$refs?.input?.validity;
+      let htmlV = this.$refs?.input?.validity;
 
       let isValid = true;
       let message = undefined;
@@ -251,6 +253,11 @@ export default {
       }
 
       if (htmlV) {
+        if (this.isDatetime && this.inputAttrs.required === "" && !this.value) {
+          htmlV = { ...htmlV };
+          htmlV.valid = false;
+          htmlV.valueMissing = true;
+        }
         isValid = htmlV.valid;
         const key = htmlErrorKeys.find((key) => htmlV[key]);
         const message = key ? htmlErrors[key] : undefined;
@@ -300,9 +307,9 @@ export default {
       this.$refs.datepicker?.closeMenu();
     },
     onKeydown(e) {
-      if (this.isDatetime && e.keyCode != 9) e.preventDefault();
+      if (this.isDatetime && (e.key === "Backspace" || e.key === "Delete"))
+        this.onInternalChange("");
     },
-
     resolveBy: (object, by) =>
       typeof by === "function" ? by(object) : resolvePath(object, by),
     resolveOption(object) {

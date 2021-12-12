@@ -7,6 +7,7 @@
       label="CONFIRM"
     />
     <snt-button :disabled="!$formValid(form)">Submit</snt-button>
+    <input v-model="form.password" type="text" />
     <pre>{{ form }}</pre>
   </div>
 </template>

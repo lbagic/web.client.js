@@ -92,7 +92,7 @@ export const sntInputElements = {
     component: "input",
     onInternal: (vm, e) => {
       vm.value = e.target.value;
-      vm.output = Number(e.target.value);
+      vm.output = e.target.value === "" ? "" : Number(e.target.value);
     },
     onExternal: (vm, model) => (vm.value = model),
   },
@@ -165,6 +165,11 @@ export const sntInputElements = {
         : formatter(model);
     },
     onInternal: (vm, dateValue) => {
+      if (!dateValue) {
+        vm.dateValue = undefined;
+        vm.value = vm.output = "";
+        return;
+      }
       const model = Array.isArray(dateValue)
         ? [...dateValue].map((el) => el.toISOString())
         : dateValue.toISOString();
@@ -172,6 +177,11 @@ export const sntInputElements = {
       vm.output = model;
     },
     onExternal: (vm, model) => {
+      if (!model) {
+        vm.dateValue = undefined;
+        vm.value = "";
+        return;
+      }
       const isArray = Array.isArray(model);
       vm.value = isArray
         ? [...model].map((el) => vm.formatDate(el)).join(" - ")
@@ -191,10 +201,20 @@ export const sntInputElements = {
       maxlength: 0,
     },
     onInternal: (vm, dateValue) => {
+      if (!dateValue) {
+        vm.dateValue = undefined;
+        vm.value = vm.output = "";
+        return;
+      }
       vm.value = vm.formatDate(dateValue);
       vm.output = dateValue;
     },
     onExternal: (vm, model) => {
+      if (!model) {
+        vm.dateValue = undefined;
+        vm.value = "";
+        return;
+      }
       vm.dateValue = model;
       vm.value = vm.formatDate(model);
     },
@@ -209,10 +229,20 @@ export const sntInputElements = {
       maxlength: 0,
     },
     onInternal: (vm, dateValue) => {
+      if (!dateValue) {
+        vm.dateValue = undefined;
+        vm.value = vm.output = "";
+        return;
+      }
       vm.value = vm.formatDate(dateValue);
       vm.output = dateValue;
     },
     onExternal: (vm, model) => {
+      if (!model) {
+        vm.dateValue = undefined;
+        vm.value = "";
+        return;
+      }
       vm.dateValue = model;
       vm.value = vm.formatDate(model);
     },

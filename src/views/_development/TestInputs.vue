@@ -1,5 +1,15 @@
 <template>
   <div>
+    <p>Example form</p>
+    <div class="snt-grid">
+      <snt-input label="Text label" required />
+      <snt-input type="checkbox" label="I am a label" help="Halp me" required />
+      <snt-input
+        type="radio"
+        label="I am radio with a really really really loooooooooooooong label"
+      />
+      <snt-input type="range" label="Range label" labelPosition="block end" />
+    </div>
     <p>Basic inputs</p>
     <div class="test-wrapper">
       <snt-input

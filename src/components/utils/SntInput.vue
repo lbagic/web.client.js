@@ -1,6 +1,6 @@
 <template>
-  <div v-bind="rootAttrs" class="snt-input-wrapper">
-    <label ref="inputWrapper" :class="labelClass" tabindex="-1">
+  <div v-bind="rootAttrs" class="snt-input-root">
+    <label ref="inputRoot" :class="labelClass" tabindex="-1">
       <!-- label slot #before -->
       <slot v-if="hasLabel && labelPlacement.start" name="label">
         <p>{{ label }}</p>
@@ -9,7 +9,8 @@
         :is="config.component"
         ref="input"
         :checked="!!value"
-        :class="isDatetime && 'snt-datepicker-input'"
+        class="snt-input"
+        :data-type="type"
         :list="`snt-list-${uniqueId}`"
         :value="value"
         v-bind="inputAttrs"
@@ -61,14 +62,9 @@
         @closed="onBlur('datepicker')"
       />
     </label>
-    <p v-if="help" class="snt-input-help">{{ help }}</p>
+    <p v-if="help" class="snt-input-info-help">{{ help }}</p>
     <transition v-if="!disableErrors" name="snt-drop">
-      <p
-        v-if="!disableErrors && wasBlurred && errorMessage"
-        class="snt-input-error"
-      >
-        {{ errorMessage }}
-      </p>
+      <p v-if="showError" class="snt-input-info-error">{{ errorMessage }}</p>
     </transition>
   </div>
 </template>
@@ -279,15 +275,15 @@ export default {
     onBlur(from, e) {
       if (this.isDatetime && from === "input") {
         setTimeout(() => {
-          const inputWrapper = this.$refs.inputWrapper;
-          const dpFocused = inputWrapper.contains(focusElement);
+          const inputRoot = this.$refs.inputRoot;
+          const dpFocused = inputRoot.contains(focusElement);
           if (!dpFocused) {
             this.wasBlurred = true;
             this.closeDatepicker();
           }
         });
         return;
-      } else if (this.isCheckbox && e.relatedTarget === this.$refs.inputWrapper)
+      } else if (this.isCheckbox && e.relatedTarget === this.$refs.inputRoot)
         return;
 
       this.closeDatepicker();
@@ -322,6 +318,9 @@ export default {
     isValid() {
       const isValid = this.errorHandler();
       return isValid;
+    },
+    showError() {
+      return !this.disableErrors && this.wasBlurred && this.errorMessage;
     },
     config() {
       return sntInputElements[this.type ?? "text"];
@@ -391,45 +390,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.snt-input-wrapper {
-  & > *:nth-child(2) {
-    margin-top: 3px;
-  }
-  & > *:nth-child(3) {
-    margin-top: 2px;
-  }
-}
-.snt-datepicker-input {
-  caret-color: transparent;
-}
-.snt-input-label__block {
-  &:deep() > * + * {
-    margin-block-start: var(--snt-inputfield-label-block-margin);
-  }
-}
-.snt-input-label__inline {
-  display: inline-flex;
-  align-items: center;
-  &:deep() > * + * {
-    margin-inline-start: var(--snt-inputfield-label-inline-margin);
-  }
-}
-.snt-input-help {
-  color: var(--snt-color-grey);
-  font-size: var(--snt-fs--1);
-  line-height: 1.2;
-}
-.snt-input-error {
-  color: var(--snt-color-error);
-  font-size: var(--snt-fs--1);
-  line-height: 1.2;
-}
-input:not([type="checkbox"]):not([type="radio"]),
-select,
-textarea {
-  background: #f8f8f8;
-  width: 100%;
-}
-</style>

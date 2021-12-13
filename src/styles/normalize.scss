@@ -73,6 +73,16 @@ li {
 *::after {
   box-sizing: border-box;
 }
+button,
+[type="checkbox"],
+[type="radio"],
+label {
+  cursor: pointer;
+}
+button {
+  background: transparent;
+  border: none;
+}
 fieldset {
   border-width: 1px;
   display: block;
@@ -95,12 +105,6 @@ input[type="radio"],
 input[type="range"] {
   margin: 0;
   padding: 0;
-}
-button,
-[type="checkbox"],
-[type="radio"],
-label {
-  cursor: pointer;
 }
 input,
 select,

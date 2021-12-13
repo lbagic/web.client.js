@@ -6,14 +6,29 @@ import { getColor } from "../../utils/getColor.js";
 export default {
   name: "SntButton",
   props: {
+    /**
+     * Sets button color scheme - accepts hex values or css variable names (i.e. primary).
+     */
     color: { type: String, default: "primary" },
+    /**
+     * Sets button type - default, text, outline.
+     */
     type: {
       type: String,
       default: "default",
       validator: (input) => ["default", "text", "outline"].includes(input),
     },
+    /**
+     * Sets button to span full width.
+     */
     expand: Boolean,
+    /**
+     * Increases button padding.
+     */
     large: Boolean,
+    /**
+     * Changes color palette to lighter color variant.
+     */
     lighterVariant: Boolean,
   },
   computed: {

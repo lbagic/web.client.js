@@ -20,14 +20,29 @@ import { getColor } from "../../utils/getColor.js";
 export default {
   name: "SntIcon",
   props: {
+    /**
+     * Display icon. Accepts name of any icon from utils/icons/. Works out of the box with https://fonts.google.com/icons - might need some tweaking for other icons.
+     */
     icon: {
       type: String,
       required: true,
     },
+    /**
+     * Enables 'click' event and hover color.
+     */
     button: Boolean,
+    /**
+     * Icon base color.
+     */
     color: String,
+    /**
+     * Icon hover color.
+     */
     hoverColor: String,
-    scale: String,
+    /**
+     * Sets icon scale. Accepts values from zero to infinity and beyond.
+     */
+    scale: [String, Number],
   },
   mounted() {
     const style = this.$refs.iconRoot.style;

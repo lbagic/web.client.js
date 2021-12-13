@@ -13,7 +13,14 @@ export default {
   components: { SntIcon },
   name: "SntToast",
   props: {
+    /**
+     * Changes default toast/notification position.
+     */
     toastPosition: { type: String, validator, default: "top center" },
+
+    /**
+     * Changes default toast/notification position.
+     */
     notificationPosition: { type: String, validator, default: "bottom right" },
   },
   mounted() {

@@ -50,7 +50,8 @@
 
 low prio:
 
-- support modals and overlays to be used in place ✅
+- migrate to flatpickr for datetime inputs https://www.npmjs.com/package/vue-flatpickr-component
+- support modals and overlays to be used in constrained section ✅
 - styling components
 - input type file - dropdown area
 - table component

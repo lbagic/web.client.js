@@ -4,7 +4,10 @@
       <div
         v-if="isOpen"
         v-bind="$attrs"
-        :class="overlayClasses"
+        :class="{
+          'snt-overlay': true,
+          'snt-overlay-center': center,
+        }"
         :style="overlayStyles"
       >
         <slot name="close" v-bind="close">
@@ -42,9 +45,9 @@ export default {
   props: {
     ...overlayMixin.props,
     /**
-     * Sets background fill color. Accepts hex or css variable name. Defaults to app background color.
+     * Sets background color. Accepts hex or css variable name. Defaults to app background color.
      */
-    fill: {
+    background: {
       type: [String, Boolean],
       default: defaultColor,
     },
@@ -54,43 +57,14 @@ export default {
     center: Boolean,
   },
   computed: {
-    overlayClasses() {
-      const classes = ["snt-overlay"];
-      if (this.center) classes.push("snt-overlay-center");
-      return classes;
-    },
     overlayStyles() {
       const styles = {
         position: this.disableTeleport ? "absolute" : "fixed",
       };
-      if (this.fill) styles.background = getColor(this.fill, this.fill);
+      if (this.background)
+        styles.background = getColor(this.background, this.background);
       return styles;
     },
   },
 };
 </script>
-
-<style scoped lang="scss">
-.snt-overlay {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  backdrop-filter: var(--snt-overlay-backdrop-filter);
-  z-index: var(--snt-z-index-overlay);
-}
-.snt-overlay-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.snt-overlay-close {
-  position: sticky;
-  top: 10px;
-  right: 10px;
-  float: right;
-  padding: 5px;
-  overflow: hidden;
-}
-</style>

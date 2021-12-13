@@ -3,7 +3,7 @@
     <transition name="snt-drop" appear>
       <div
         v-if="isOpen"
-        class="snt-overlay"
+        class="snt-modal-root"
         :style="overlayStyles"
         @click="close"
       >
@@ -12,7 +12,7 @@
             <snt-icon
               v-if="!hideCloseIcon"
               icon="Close"
-              class="snt-overlay-close"
+              class="snt-modal-close"
               scale="1.5"
               button
               color="error-lighter"
@@ -41,9 +41,9 @@ export default {
   props: {
     ...overlayMixin.props,
     /**
-     * Sets background fill color. Accepts hex, css variable name or boolean. Defaults to app primary color.
+     * Sets background color. Accepts hex, css variable name or boolean. Defaults to app primary color.
      */
-    fill: {
+    background: {
       type: [String, Boolean],
       default: "primary",
     },
@@ -60,7 +60,8 @@ export default {
       const styles = {
         position: this.disableTeleport ? "absolute" : "fixed",
       };
-      if (this.fill) styles.background = getColor(this.fill, this.fill);
+      if (this.background)
+        styles.background = getColor(this.background, this.background);
       if (this.opacity && styles.background)
         styles.background = hexToRGBA(styles.background, Number(this.opacity));
 
@@ -69,32 +70,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.snt-overlay {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: var(--snt-overlay-backdrop-filter);
-  z-index: var(--snt-z-index-modal);
-}
-.snt-modal {
-  position: relative;
-  min-height: 300px;
-  max-height: calc(100% - 32px);
-  overflow-y: auto;
-  padding: 1rem;
-  background: var(--snt-app-background);
-  border-radius: var(--snt-overlay-border-radius);
-}
-.snt-overlay-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px;
-}
-</style>

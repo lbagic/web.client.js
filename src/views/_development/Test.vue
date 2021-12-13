@@ -7,6 +7,7 @@
       <router-link to="/development#modal">Modal</router-link>
       <router-link to="/development#modal-boxed">Modal Boxed</router-link>
       <router-link to="/development#overlay">Overlay</router-link>
+      <button>Button</button>
     </div>
 
     <snt-modal hash="#modal">

@@ -95,7 +95,7 @@ export default {
   & > * {
     box-shadow: none;
     // scroll-snap-align: start end;
-    padding: 1rem;
+    padding: 8px;
     color: inherit;
     outline: none;
   }

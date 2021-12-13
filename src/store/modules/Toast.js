@@ -1,5 +1,6 @@
+let id = 1;
 const createMessage = ({ message, type, error }) => ({
-  id: Date.now(),
+  id: id++,
   message,
   type,
   error: !!error,

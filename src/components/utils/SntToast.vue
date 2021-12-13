@@ -1,216 +1,155 @@
-<template>
-  <teleport to="body">
-    <transition-group
-      v-if="position.same"
-      :name="wrapperAnimation(position.toast)"
-      :style="wrapperStyles(position.toast)"
-      class="snt-toast-wrapper"
-      tag="div"
-    >
-      <div v-for="el in all" :key="el.id" :class="elementClasses(el)">
-        <snt-icon
-          v-if="el.type === 'notification'"
-          icon="Close"
-          color="error-lightest"
-          hoverColor="error-lighter"
-          button
-          @click="$store.commit('Toast/removeToasts', el.id)"
-        />
-        <p>
-          {{ el.message }}
-        </p>
-      </div>
-    </transition-group>
-    <transition-group
-      v-if="!position.same"
-      :name="wrapperAnimation(position.toast)"
-      :style="wrapperStyles(position.toast)"
-      class="snt-toast-wrapper"
-      tag="div"
-    >
-      <div v-for="el in toasts" :key="el.id" :class="elementClasses(el)">
-        {{ el.message }}
-      </div>
-    </transition-group>
-    <transition-group
-      v-if="!position.same"
-      :name="wrapperAnimation(position.notification)"
-      :style="wrapperStyles(position.notification)"
-      class="snt-toast-wrapper"
-      tag="div"
-    >
-      <div v-for="el in notifications" :key="el.id" :class="elementClasses(el)">
-        <snt-icon
-          v-if="el.type === 'notification'"
-          icon="Close"
-          color="error-lightest"
-          hoverColor="error-lighter"
-          button
-          @click="$store.commit('Toast/removeToasts', el.id)"
-        />
-        <p>
-          {{ el.message }}
-        </p>
-      </div>
-    </transition-group>
-  </teleport>
-</template>
-
 <script>
+import { h } from "@vue/runtime-core";
 import SntIcon from "./SntIcon.vue";
-const validPositions = ["top", "bottom", "right", "left", "center"];
-const validator = (input) =>
-  input.split(" ").every((pos) => validPositions.includes(pos));
+import { TransitionGroup } from "@vue/runtime-dom";
+
+const validator = (value) =>
+  ["left", "right", "center"].some((x) => value.includes(x)) &&
+  ["top", "bottom"].some((y) => value.includes(y));
+const parseTransitionValue = (computedStyle, cssVar) =>
+  Number(computedStyle.getPropertyValue(cssVar).split("px")[0]);
 
 export default {
   components: { SntIcon },
   name: "SntToast",
   props: {
-    toastPosition: {
-      type: String,
-      validator,
-      default: "top center",
-    },
-    notificationPosition: {
-      type: String,
-      validator,
-      default: "bottom right",
-    },
+    toastPosition: { type: String, validator, default: "top center" },
+    notificationPosition: { type: String, validator, default: "bottom right" },
+  },
+  mounted() {
+    const computedStyle = getComputedStyle(this.$refs.toastRoot.$el);
+    this.enterFrom = parseTransitionValue(computedStyle, "--enter-from");
+    this.leaveTo = parseTransitionValue(computedStyle, "--leave-to");
+  },
+  data() {
+    return {
+      enterFrom: 0,
+      leaveTo: 0,
+    };
   },
   computed: {
     all: (vm) => vm.$store.state.Toast.toasts,
     toasts: (vm) => vm.all.filter((el) => el.type === "toast"),
     notifications: (vm) => vm.all.filter((el) => el.type === "notification"),
-    position() {
-      const toast = this.getPosition(this.toastPosition);
-      const notification = this.getPosition(this.notificationPosition);
+    specs() {
+      const { toastPosition: tp, notificationPosition: np } = this;
+      const ty = tp.includes("bottom") ? "bottom" : "top";
+      const tx = tp.includes("left")
+        ? "left"
+        : tp.includes("right")
+        ? "right"
+        : "center";
+      const ny = np.includes("bottom") ? "bottom" : "top";
+      const nx = np.includes("left")
+        ? "left"
+        : np.includes("center")
+        ? "center"
+        : "right";
+
+      console.log({ ty, tx, ny, nx });
       return {
-        toast,
-        notification,
-        same: toast.x === notification.x && toast.y === notification.y,
+        toast: { x: tx, y: ty, ...this.calcTransition(ty) },
+        notification: { x: nx, y: ny, ...this.calcTransition(ny) },
+        same: tx === nx && ty === ny,
       };
     },
-    toastStyle: (vm) => vm.wrapperStyles(vm.position.toast),
-    notificationStyle: (vm) => vm.wrapperStyles(vm.position.notification),
   },
   methods: {
-    getPosition: (el) => ({
-      x: el.includes("left")
-        ? "left"
-        : el.includes("center")
-        ? "center"
-        : "right",
-      y: el.includes("top") ? "top" : "bottom",
-    }),
-    wrapperStyles(pos) {
-      const styles = {};
-      styles.display = "flex";
-      if (pos.y === "top") {
-        styles.top = "0.5rem";
-        styles.flexDirection = "column";
-      } else {
-        styles.bottom = "0.5rem";
-        styles.flexDirection = "column-reverse";
-      }
-      if (pos.x === "center") {
-        styles.left = "50%";
-        styles.transform = "translateX(-50%)";
-      } else if (pos.x === "right") {
-        styles.right = "1rem";
-      } else if (pos.x === "left") {
-        styles.left = "1rem";
-      }
-      return styles;
+    calcTransition(position) {
+      const movement = {
+        top: { enterFrom: this.enterFrom, leaveTo: -1 * this.leaveTo },
+        bottom: { enterFrom: -1 * this.enterFrom, leaveTo: this.leaveTo },
+      }[position];
+      for (let key in movement) movement[key] = movement[key] + "px";
+      return movement;
     },
-    wrapperAnimation(pos) {
-      return pos.y === "top"
-        ? "snt-toast-animation-top"
-        : "snt-toast-animation-bottom";
+    rootStyles(pos) {
+      const yStyles = {
+        top: { top: "8px", flexDirection: "column" },
+        bottom: { bottom: "8px", flexDirection: "column-reverse" },
+      }[pos.y];
+      const xStyles = {
+        left: { left: "16px" },
+        center: { left: "50%", transform: "translateX(-50%)" },
+        right: { right: "16px" },
+      }[pos.x];
+
+      return { display: "flex", ...yStyles, ...xStyles };
     },
     elementClasses(el) {
-      const classes = [];
-      classes.push("snt-toast");
-      if (el.type === "toast") {
+      const classes = ["snt-toast"];
+      if (el.type === "toast")
         classes.push(el.error ? "snt-toast-error" : "snt-toast-success");
-      } else classes.push("snt-notification");
+      else classes.push("snt-toast-notification");
       return classes;
     },
+  },
+  render() {
+    const closeIcon = (el) =>
+      h(SntIcon, {
+        icon: "Close",
+        color: "error-lightest",
+        hoverColor: "error-lighter",
+        button: true,
+        onClick: () => this.$store.commit("Toast/removeToasts", el.id),
+      });
+    const elementArray = (elements) =>
+      elements.map((el) => {
+        const msg = h("p", el.message);
+        const inner = el.type === "notification" ? [closeIcon(el), msg] : msg;
+        return h("div", { key: el.id, class: this.elementClasses(el) }, inner);
+      });
+    const rootElement = (type, elements) =>
+      h(
+        TransitionGroup,
+        {
+          tag: "div",
+          class: "snt-toast-root",
+          style: this.rootStyles(this.specs[type]),
+          name: `snt-${type}-animation`,
+          ref: "toastRoot",
+        },
+        { default: () => elementArray(elements) }
+      );
+    return this.specs.same
+      ? rootElement("toast", this.all)
+      : [
+          rootElement("toast", this.toasts),
+          rootElement("notification", this.notifications),
+        ];
   },
 };
 </script>
 
 <style scoped lang="scss">
-.snt-toast-wrapper {
-  --snt-toast-transition: all cubic-bezier(0.72, 0.16, 0.28, 0.93) 0.3s;
-  position: fixed;
-  display: flex;
-  width: 250px;
-  max-width: 90vw;
-  z-index: var(--snt-z-index-toast);
+.snt-toast-animation-move,
+.snt-notification-animation-move {
+  transition: var(--transition);
 }
-
-.snt-toast {
-  padding: 1rem 0.5rem;
-  width: 100%;
-  text-align: center;
-  border-radius: 2px;
-  margin: 0.5rem 0;
-  overflow-wrap: break-word;
-  box-shadow: 0 0 3px #0003;
-}
-.snt-notification {
-  color: white;
-  background: #000a;
-  backdrop-filter: blur(2px);
-  border: 1px solid black;
-  display: grid;
-  align-items: center;
-  grid-template-columns: auto 1fr;
-}
-.snt-toast-success {
-  background: var(--snt-color-success-lightest);
-  border: 1px solid var(--snt-color-success);
-}
-.snt-toast-error {
-  background: var(--snt-color-error-lightest);
-  border: 1px solid var(--snt-color-error);
-}
-
-.snt-toast-animation-top-move,
-.snt-toast-animation-bottom-move {
-  transition: var(--snt-toast-transition);
-}
-.snt-toast-animation-top-leave-active,
-.snt-toast-animation-bottom-leave-active {
-  transition: var(--snt-toast-transition);
+.snt-toast-animation-leave-active,
+.snt-notification-animation-leave-active {
+  transition: var(--transition);
   position: absolute;
 }
-
-.snt-toast-animation-top-enter-active {
-  transition: var(--snt-toast-transition);
+.snt-toast-animation-enter-active,
+.snt-notification-animation-enter-active {
+  transition: var(--transition);
   position: relative;
-  bottom: 0;
 }
-.snt-toast-animation-top-enter-from {
+.snt-toast-animation-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(v-bind("specs.toast.enterFrom"));
 }
-.snt-toast-animation-top-leave-to {
+.snt-toast-animation-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(v-bind("specs.toast.leaveTo"));
 }
-
-.snt-toast-animation-bottom-enter-active {
-  transition: var(--snt-toast-transition);
-  position: relative;
-  top: 0;
-}
-.snt-toast-animation-bottom-enter-from {
+.snt-notification-animation-enter-from {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(v-bind("specs.notification.enterFrom"));
 }
-.snt-toast-animation-bottom-leave-to {
+.snt-notification-animation-leave-to {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(v-bind("specs.notification.leaveTo"));
 }
 </style>

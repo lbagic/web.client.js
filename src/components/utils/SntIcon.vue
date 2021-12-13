@@ -1,10 +1,13 @@
 <template>
-  <div style="display: flex; align-items: center">
+  <div ref="iconRoot" class="snt-icon-root">
     <component
       :is="component"
-      :class="classes"
       :style="styles"
-      class="snt-icon"
+      :class="{
+        'snt-icon': true,
+        pointer: button,
+        'snt-icon-hover': button,
+      }"
       @click="button && $emit('click')"
     />
   </div>
@@ -22,60 +25,40 @@ export default {
       required: true,
     },
     button: Boolean,
-    color: {
-      type: String,
-      default: "primary",
-    },
-    hoverColor: {
-      type: String,
-      default: "primary-darker",
-    },
+    color: String,
+    hoverColor: String,
     scale: String,
   },
-  data() {
-    return {
-      colorValue: getColor(this.color, "#000"),
-      hoverColorValue: getColor(this.hoverColor, "#333"),
-    };
+  mounted() {
+    const style = this.$refs.iconRoot.style;
+    this.$watch(
+      "color",
+      (color) => color && style.setProperty("--color", getColor(color, "#000")),
+      { immediate: true }
+    );
+    this.$watch(
+      "hoverColor",
+      (hover) =>
+        hover && style.setProperty("--hover-color", getColor(hover, "#333")),
+      { immediate: true }
+    );
   },
   computed: {
-    component: (vm) => {
+    component() {
       const loaderConfig = {
-        loader: () => import(`./icons/${vm.icon}.vue`),
+        loader: () => import(`./icons/${this.icon}.vue`),
       };
       if (process.env !== "production")
         loaderConfig.onError = () =>
-          console.warn(`[SntIcon] Missing icon '${vm.icon}'.`);
+          console.warn(`[SntIcon] Missing icon '${this.icon}'.`);
       return defineAsyncComponent(loaderConfig);
-    },
-    classes() {
-      const classes = [];
-      this.button && classes.push("pointer");
-      this.color && classes.push("snt-icon-color");
-      this.hoverColor && this.button && classes.push("snt-icon-hover-color");
-      return classes;
     },
     styles() {
       const styles = {};
       if (this.scale) styles.transform = `scale(${this.scale})`;
+      if (this.button) styles.tabindex = 0;
       return styles;
     },
   },
 };
 </script>
-
-<style scoped lang="scss">
-:deep().snt-icon {
-  & > * {
-    transition: all 0.2s ease-in-out;
-  }
-
-  &-color > path:not([fill="none"]) {
-    fill: v-bind(colorValue);
-  }
-
-  &-hover-color:hover > path:not([fill="none"]) {
-    fill: v-bind(hoverColorValue);
-  }
-}
-</style>

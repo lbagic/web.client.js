@@ -46,7 +46,6 @@ export default {
         ? "center"
         : "right";
 
-      console.log({ ty, tx, ny, nx });
       return {
         toast: { x: tx, y: ty, ...this.calcTransition(ty) },
         notification: { x: nx, y: ny, ...this.calcTransition(ny) },

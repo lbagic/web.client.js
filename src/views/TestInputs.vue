@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import SntInput from "../../components/utils/SntInput.vue";
+import SntInput from "../components/utils/SntInput.vue";
 
 const o1 = {
   textOptions: 2,

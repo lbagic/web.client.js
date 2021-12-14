@@ -1,13 +1,8 @@
 <template>
-  <div v-if="!$route.meta.isDev" id="application">
-    <navigation />
-    <router-view />
-  </div>
-  <div v-else id="dev-application">
-    <router-view />
-  </div>
-  <component :is="devPopup" />
+  <navigation />
+  <router-view />
   <snt-toast />
+  <component :is="Docs" />
 </template>
 
 <script>
@@ -18,10 +13,13 @@ import SntToast from "./components/utils/SntToast.vue";
 export default {
   name: "App",
   components: { Navigation, SntToast },
+  mounted() {
+    console.log(process.env.VUE_APP_BASE_URL);
+  },
   computed: {
-    devPopup() {
+    Docs() {
       return process.env.NODE_ENV === "development"
-        ? defineAsyncComponent(() => import("@/views/dev/DevPopup.vue"))
+        ? defineAsyncComponent(() => import("@/components/Docs.vue"))
         : undefined;
     },
   },
@@ -30,9 +28,6 @@ export default {
 
 <style lang="scss">
 #app {
-  height: 100%;
-}
-#application {
   min-height: 100%;
   display: grid;
   grid-template-rows: auto 1fr;

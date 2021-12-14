@@ -8,7 +8,8 @@
     "html-error-too-long": "Value is too long.",
     "html-error-too-short": "Value is too short.",
     "html-error-type-mismatch": "Value is of wrong type.",
-    "html-error-value-missing": "Value is missing."
+    "html-error-value-missing": "Value is missing.",
+    "field-is-required": "This field is required"
   },
   "general": {
     "hello_world": "Hello World"

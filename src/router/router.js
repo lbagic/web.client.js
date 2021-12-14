@@ -28,7 +28,8 @@ router.beforeEach((to, from, next) => {
   const wasAuthorized = authorizeLocation(from);
   const error404 = !to.matched.length;
 
-  if (!isAuthorized) return next(wasAuthorized ? false : homePage);
+  if (!isAuthorized && from.meta.isDev) return next(homePage);
+  else if (!isAuthorized) return next(wasAuthorized ? false : homePage);
   else if (error404) return next(homePage);
   else next();
 });

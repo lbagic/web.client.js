@@ -1,6 +1,11 @@
 <template>
-  <navigation />
-  <router-view />
+  <div v-if="!$route.meta.isDev" id="application">
+    <navigation />
+    <router-view />
+  </div>
+  <div v-else id="dev-application">
+    <router-view />
+  </div>
   <component :is="devPopup" />
   <snt-toast />
 </template>
@@ -25,6 +30,9 @@ export default {
 
 <style lang="scss">
 #app {
+  height: 100%;
+}
+#application {
   min-height: 100%;
   display: grid;
   grid-template-rows: auto 1fr;

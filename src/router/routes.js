@@ -31,5 +31,6 @@ export const routes = [
     component: () => import("../views/onboarding/PasswordReset.vue"),
     meta: { visitorOnly: true },
   },
-  ...devRoutes,
 ];
+
+if (process.env.NODE_ENV === "development") routes.push(...devRoutes);

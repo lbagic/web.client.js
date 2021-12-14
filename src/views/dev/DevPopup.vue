@@ -1,13 +1,42 @@
-<template>
-  <div class="snt-dev-popup">
-    <router-link to="/dev/test">&#9876; Test</router-link>
-    <router-link to="/dev/docs">&#9874; Docs</router-link>
-  </div>
-</template>
-
 <script>
+import { h } from "@vue/runtime-core";
+import { RouterLink } from "vue-router";
+import { routes } from "../../router/routes";
+
 export default {
   name: "DevPopup",
+  data() {
+    return {
+      lastPath: "/",
+    };
+  },
+  methods: {
+    savePath() {
+      if (this.$route.meta.isDev) return;
+      this.lastPath = this.$route.fullPath;
+    },
+  },
+  render() {
+    const isInactiveDevRoute = (route) =>
+      route.meta?.isDev && route.path !== this.$route.fullPath;
+    const createRouterLink = (route) =>
+      h(RouterLink, {
+        to: route.path,
+        onClick: this.savePath,
+        innerHTML: route.name,
+      });
+
+    const links = routes
+      .filter((route) => isInactiveDevRoute(route))
+      .map((route) => createRouterLink(route));
+
+    if (this.$route.meta.isDev)
+      links.unshift(
+        h(RouterLink, { to: this.lastPath, innerHTML: "&#129144; Back to app" })
+      );
+
+    return h("div", { class: "snt-dev-popup" }, { default: () => links });
+  },
 };
 </script>
 

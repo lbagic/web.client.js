@@ -1,14 +1,19 @@
 import { createStore } from "vuex";
 import VuexPersist from "vuex-persist";
 
-const ERROR_CASE = {
-  encryptedOnNormalProject:
-    "Encrypted localStorage detected on non-encrypted project. Clearing localstorage and retrying.",
-  normalOnEncryptedProject:
-    "Non-encrypted localStorage detected on encrypted project. Clearing localstorage and retrying.",
-  other:
-    "There was a problem while booting up your vuex store. If the project uses encrypted localStorage and browser has a cached non-encrypted localStorage (or vice-versa) it will result in an error. You can try to recover from this error by clearing browser cache.",
-};
+const errorHandler = (e) =>
+  e.name === "SyntaxError" && e.message.includes("Unexpected token")
+    ? console.warn(
+        `Encrypted localStorage detected on non-encrypted project. Clearing localstorage and retrying.`
+      ) && localStorage.clear()
+    : e.name === "Uncaught Error" && e.message === "Could not parse JSON"
+    ? console.warn(
+        `Non-encrypted localStorage detected on encrypted project. Clearing localstorage and retrying.`
+      ) && localStorage.clear()
+    : console.error(e) &&
+      console.warn(
+        `There was a problem while booting up your vuex store. If the project uses encrypted localStorage and browser has a cached non-encrypted localStorage (or vice-versa) it will result in an error. You can try to recover from this error by clearing browser cache.`
+      );
 
 export const createVuexStore = (
   module = {
@@ -24,13 +29,7 @@ export const createVuexStore = (
   try {
     return storeFactory(module);
   } catch (e) {
-    if (e.name === "SyntaxError" && e.message.includes("Unexpected token")) {
-      console.warn(ERROR_CASE.encryptedOnNormalProject);
-      localStorage.clear();
-    } else {
-      console.error(e);
-      console.warn(ERROR_CASE.other);
-    }
+    errorHandler(e);
     return storeFactory(module);
   }
 };

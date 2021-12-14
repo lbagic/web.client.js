@@ -1,7 +1,7 @@
 <template>
   <navigation />
   <router-view />
-  <component :is="developmentPopup" />
+  <component :is="devPopup" />
   <snt-toast />
 </template>
 
@@ -14,11 +14,9 @@ export default {
   name: "App",
   components: { Navigation, SntToast },
   computed: {
-    developmentPopup() {
+    devPopup() {
       return process.env.NODE_ENV === "development"
-        ? defineAsyncComponent(() =>
-            import("@/views/_development/DevelopmentPopup.vue")
-          )
+        ? defineAsyncComponent(() => import("@/views/dev/DevPopup.vue"))
         : undefined;
     },
   },
@@ -30,6 +28,7 @@ export default {
   min-height: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
+  align-items: flex-start;
   background: var(--snt-app-background);
   color: var(--snt-app-color);
 }

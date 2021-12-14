@@ -1,6 +1,12 @@
-import { addDevelopmentRoutes } from "./routes.development";
+import { devRoutes } from "./routes.dev";
 
 export const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: () => import("../views/Home.vue"),
+    meta: { userOnly: true },
+  },
   {
     path: "/login",
     name: "Login",
@@ -25,12 +31,5 @@ export const routes = [
     component: () => import("../views/onboarding/PasswordReset.vue"),
     meta: { visitorOnly: true },
   },
-  {
-    path: "/",
-    name: "Home",
-    component: () => import("../views/Home.vue"),
-    meta: { userOnly: true },
-  },
+  ...devRoutes,
 ];
-
-if (process.env.NODE_ENV === "development") addDevelopmentRoutes(routes);

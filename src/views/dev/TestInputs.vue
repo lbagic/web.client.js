@@ -7,8 +7,14 @@
       <snt-input
         type="radio"
         label="I am radio with a really really really loooooooooooooong label"
+        required
       />
-      <snt-input type="range" label="Range label" labelPosition="block end" />
+      <snt-input
+        type="range"
+        label="Range label"
+        labelPosition="block end"
+        required
+      />
     </div>
     <p>Basic inputs</p>
     <div class="test-wrapper">

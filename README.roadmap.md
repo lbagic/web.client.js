@@ -5,9 +5,12 @@
 - quick start
   - husky (+ monorepo config)
   - vscode plugins
+- project structure
 - plugins
   - i18n
   - breakpoint
+- recommende plugins
+  - carousel - https://swiperjs.com/
 - components
   - snt-button
   - snt-icon

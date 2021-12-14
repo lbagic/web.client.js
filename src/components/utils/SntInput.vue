@@ -3,7 +3,9 @@
     <label ref="inputRoot" :class="labelClass" tabindex="-1">
       <!-- label slot #before -->
       <slot v-if="hasLabel && labelPlacement.start" name="label">
-        <p>{{ label }}</p>
+        <p :class="labelTextClass" :title="labelTextTitle">
+          {{ label }}
+        </p>
       </slot>
       <component
         :is="config.component"
@@ -34,7 +36,7 @@
       </component>
       <!-- label slot #after -->
       <slot v-if="hasLabel && labelPlacement.end" name="label">
-        <p>{{ label }}</p>
+        <p :class="labelTextClass" :title="labelTextTitle">{{ label }}</p>
       </slot>
       <!-- datalist for text input with options -->
       <datalist
@@ -373,8 +375,20 @@ export default {
     labelClass() {
       if (!this.hasLabel) return;
       return this.labelPlacement.inline
-        ? "snt-input-label__inline"
-        : "snt-input-label__block";
+        ? "snt-input-label-inline"
+        : "snt-input-label-block";
+    },
+    isRequired() {
+      const req = this.inputAttrs.required;
+      return req === "" || req === true;
+    },
+    labelTextClass() {
+      if (!this.isRequired) return;
+      return "snt-input-label-required";
+    },
+    labelTextTitle() {
+      if (!this.isRequired) return;
+      return this.$t("forms.field-is-required");
     },
     labelPlacement() {
       const pos = this.labelPosition

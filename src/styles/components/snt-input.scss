@@ -41,19 +41,23 @@
   min-width: var(--min-width);
   width: var(--width);
 }
-
-.snt-input-label__block {
-  & > * + * {
+.snt-input-label {
+  &-required::after {
+    content: "*";
+    color: red;
+  }
+  &-block > * + * {
     margin-block-start: var(--label-margin-block-start);
   }
-}
-.snt-input-label__inline {
-  display: inline-flex;
-  align-items: center;
-  & > * + * {
-    margin-inline-start: var(--label-margin-inline-start);
+  &-inline {
+    display: inline-flex;
+    align-items: center;
+    & > * + * {
+      margin-inline-start: var(--label-margin-inline-start);
+    }
   }
 }
+
 .snt-input-info-help {
   color: var(--info-help-color);
   font-size: var(--info-font-size);

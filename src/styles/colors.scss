@@ -32,13 +32,13 @@ $snt-color-variants: (
     "light": 15%,
     "lighter": 20%,
     "lightest": 75%,
-    "tint": 95%,
+    "max-light": 95%,
   ),
   black: (
     "dark": 10%,
     "darker": 15%,
     "darkest": 75%,
-    "shade": 90%,
+    "max-dark": 90%,
   ),
 );
 

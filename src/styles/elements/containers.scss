@@ -1,10 +1,9 @@
 %snt-container-base {
-  --snt-container-padding: 1rem;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  padding-left: var(--snt-container-padding);
-  padding-right: var(--snt-container-padding);
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .snt-container-s {
@@ -35,6 +34,16 @@
 .container {
   padding: 1rem;
 }
+
+.snt-card {
+  padding: 1rem;
+  background: var(--snt-color-primary-max-light);
+  border: 1px solid;
+  border-color: var(--snt-color-primary-lightest);
+  border-radius: 8px;
+  box-shadow: 0 0 8px #00000011;
+}
+
 .snt-grid {
   --gap: 0.5rem;
   display: grid;

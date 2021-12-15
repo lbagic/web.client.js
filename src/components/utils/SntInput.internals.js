@@ -9,8 +9,8 @@ export const htmlErrors = {
   stepMismatch: "Input step mismatch.",
   tooLong: "Value is too long.",
   tooShort: "Value is too short.",
-  typeMismatch: "Please provide a valid value.",
-  valueMissing: "This field is required.",
+  typeMismatch: "Value is not valid.",
+  valueMissing: "Value is required.",
 };
 export const htmlErrorKeys = Object.keys(htmlErrors);
 

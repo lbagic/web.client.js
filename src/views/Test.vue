@@ -1,7 +1,5 @@
 <template>
-  <div class="snt-flex">
-    <router-link to="/dev/inputs">Test inputs</router-link>
-  </div>
+  <div>Test</div>
 </template>
 
 <script>

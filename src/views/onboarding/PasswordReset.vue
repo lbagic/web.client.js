@@ -1,54 +1,60 @@
 <template>
-  <fieldset class="snt-container-s my-auto">
-    <input v-model="email" type="email" name="email" placeholder="Email" />
-    <input
-      v-model="form.recovery_token"
+  <fieldset
+    class="snt-container-s my-auto snt-grid snt-card"
+    style="--gap: 12px"
+  >
+    <legend class="snt-fs-2" style="color: var(--snt-color-primary-darker)">
+      Reset password
+    </legend>
+    <snt-input
+      :model="{ email: form }"
+      type="email"
+      name="email"
+      label="Email"
+    />
+    <snt-input
+      :model="{ recovery_token: form }"
       type="text"
       name="recovery-token"
-      placeholder="Recovery token"
+      label="Recovery token"
     />
-    <input
-      v-model="form.password"
+    <snt-input
+      :model="{ password: form }"
       type="password"
       name="password"
-      placeholder="New password"
+      label="New password"
     />
-    <button
-      class="primary w-1-1"
-      style="color: var(--snt-color-light); margin-top: 8px"
+    <snt-button
+      style="margin-top: 12px"
       @click="
         $store
-          .dispatch('AccountModule/resetPassword', {
-            ...form,
-            email: $store.state.AccountModule.recoverEmail,
-          })
+          .dispatch('AccountModule/resetPassword', form)
           .then(() => $router.push('/login'))
       "
     >
       Reset password
-    </button>
+    </snt-button>
   </fieldset>
 </template>
 
 <script>
+import SntButton from "../../components/utils/SntButton.vue";
+import SntInput from "../../components/utils/SntInput.vue";
 export default {
+  components: { SntInput, SntButton },
   name: "Forgot Password",
   data() {
     return {
       form: {
+        email: this.$store.state.AccountModule.recoveryEmail,
         recovery_token: "",
         password: "",
       },
     };
   },
-  computed: {
-    email: {
-      get() {
-        return this.$store.state.AccountModule.recoverEmail;
-      },
-      set(value) {
-        this.$store.commit("AccountModule/setRecoverEmail", value);
-      },
+  watch: {
+    "form.email"(value) {
+      this.$store.commit("AccountModule/setRecoveryEmail", value);
     },
   },
 };

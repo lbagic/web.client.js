@@ -1,7 +1,7 @@
 import { Api } from "./base/Api";
 
 export const AccountService = {
-  login: (data) => Api.snt.post("accounts/login/email", data),
+  emailLogin: (data) => Api.snt.post("accounts/login/email", data),
   register: (data) => Api.snt.post("accounts/register/email", data),
   logout: () => Api.snt.post("accounts/logout"),
   recoverPassword: (data) => Api.snt.post("accounts/recover_password", data),

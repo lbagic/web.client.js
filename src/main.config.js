@@ -11,9 +11,12 @@ export const mainConfig = () => {
   // global properties
   const global = app.config.globalProperties;
   global.$log = process.env !== "production" ? console.log : () => {};
-  global.$formValid = (form) =>
+  global.$validate = (form) =>
     form?._valid && Object.values(form._valid)?.every((el) => el);
   global.$isLoggedIn = store.getters["AccountModule/isLoggedIn"];
+  global.$dispatch = store.dispatch;
+  global.$commit = store.commit;
+  global.$getters = store.getters;
 
   return {
     app,

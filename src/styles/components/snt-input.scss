@@ -43,6 +43,7 @@
 }
 .snt-input-label {
   &-required::after {
+    margin-left: 2px;
     content: "*";
     color: red;
   }

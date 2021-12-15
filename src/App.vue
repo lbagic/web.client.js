@@ -13,9 +13,6 @@ import SntToast from "./components/utils/SntToast.vue";
 export default {
   name: "App",
   components: { Navigation, SntToast },
-  mounted() {
-    console.log(process.env.VUE_APP_BASE_URL);
-  },
   computed: {
     Docs() {
       return process.env.NODE_ENV === "development"

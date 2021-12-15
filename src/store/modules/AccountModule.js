@@ -4,14 +4,14 @@ import { AccountService } from "../../services/AccountService";
 export const AccountModule = {
   state: () => ({
     token: undefined,
-    recoverEmail: "",
+    recoveryEmail: "",
   }),
   getters: {
     isLoggedIn: (s) => !!s.token,
   },
   actions: {
-    login({ commit, dispatch }, payload) {
-      const promise = AccountService.login(payload);
+    emailLogin({ commit, dispatch }, payload) {
+      const promise = AccountService.emailLogin(payload);
       promise.then(({ payload }) => {
         commit("setToken", payload.token);
         commit("UserModule/setUser", payload.user, { root: true });
@@ -33,8 +33,10 @@ export const AccountModule = {
       const promise = AccountService.register(payload);
       return promise;
     },
-    recoverPassword(ctx, payload) {
-      const promise = AccountService.recoverPassword(payload);
+    recoverPassword({ state }) {
+      const promise = AccountService.recoverPassword({
+        email: state.recoveryEmail,
+      });
       return promise;
     },
     resetPassword(ctx, payload) {

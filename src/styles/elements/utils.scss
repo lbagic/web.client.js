@@ -71,3 +71,11 @@
 .uppercase {
   text-transform: uppercase;
 }
+
+// content handlers
+*[content-before]::before {
+  content: attr(content-before);
+}
+*[content-after]::after {
+  content: attr(content-after);
+}

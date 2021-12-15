@@ -22,7 +22,7 @@
   - variables
   - breakpoints
 
-## Styles - 5/6
+## Styles - 5/5
 
 - variables & utility classes ✅
 - fonts ✅

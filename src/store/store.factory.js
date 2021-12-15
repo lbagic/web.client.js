@@ -1,19 +1,6 @@
 import { createStore } from "vuex";
 import VuexPersist from "vuex-persist";
-
-const errorHandler = (e) =>
-  e.name === "SyntaxError" && e.message.includes("Unexpected token")
-    ? console.warn(
-        `Encrypted localStorage detected on non-encrypted project. Clearing localstorage and retrying.`
-      ) && localStorage.clear()
-    : e.name === "Uncaught Error" && e.message === "Could not parse JSON"
-    ? console.warn(
-        `Non-encrypted localStorage detected on encrypted project. Clearing localstorage and retrying.`
-      ) && localStorage.clear()
-    : console.error(e) &&
-      console.warn(
-        `There was a problem while booting up your vuex store. If the project uses encrypted localStorage and browser has a cached non-encrypted localStorage (or vice-versa) it will result in an error. You can try to recover from this error by clearing browser cache.`
-      );
+import { persistedStorage } from "./store.persistedStorage";
 
 export const createVuexStore = (
   module = {
@@ -26,15 +13,6 @@ export const createVuexStore = (
     plugins: [],
   }
 ) => {
-  try {
-    return storeFactory(module);
-  } catch (e) {
-    errorHandler(e);
-    return storeFactory(module);
-  }
-};
-
-const storeFactory = (module) => {
   const customStore = createVuexModule(module, {
     root: true,
     name: "store.js",
@@ -213,4 +191,4 @@ const clearState = (stateTree, state) => {
 };
 
 const createVuexPersist = (reducer) =>
-  new VuexPersist({ storage: localStorage, reducer });
+  new VuexPersist({ storage: persistedStorage, reducer });

@@ -1,7 +1,8 @@
 .snt-toast-root {
-  --transition: all cubic-bezier(0.72, 0.16, 0.28, 0.93) 0.5s;
+  --transition: all 0.5s cubic-bezier(0.72, 0.16, 0.28, 0.93);
   --enter-from: 7px;
   --leave-to: 20px;
+
   position: fixed;
   display: flex;
   width: 250px;

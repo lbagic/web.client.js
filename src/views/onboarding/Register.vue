@@ -25,7 +25,7 @@
       type="password"
       name="password"
       :validator="
-        (value) => (value !== form.password ? 'Passwords do not match' : true)
+        (value) => (value !== form.password ? 'Passwords do not match.' : true)
       "
       label="Confirm password"
       required

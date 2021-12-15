@@ -1,6 +1,5 @@
 .snt-button {
-  --border-width: 1.5px;
-  --border-radius: 2px;
+  --height: 50px;
   --padding: 6px 12px;
   --padding-large: 12px 24px;
 
@@ -11,11 +10,11 @@
   white-space: nowrap;
   vertical-align: middle;
   user-select: none;
-  border: var(--border-width) solid transparent;
+  border: 1.5px solid transparent;
   padding: var(--padding);
   font-size: 16px;
   line-height: 1.5;
-  border-radius: var(--border-radius);
+  border-radius: 2px;
   transition-timing-function: ease-in-out;
   transition-duration: 0.15s;
   transition-property: color, background-color, border-color, box-shadow,
@@ -31,8 +30,7 @@
 
 .snt-button-type-default,
 .snt-button-type-outline {
-  --height: 55px;
-
+  height: var(--height);
   min-height: var(--height);
   box-shadow: 0 0 4px #0008;
 }

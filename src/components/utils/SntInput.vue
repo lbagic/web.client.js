@@ -66,7 +66,7 @@
       />
     </label>
     <p v-if="help" class="snt-input-info-help">{{ help }}</p>
-    <transition v-if="!disableErrors" name="snt-drop">
+    <transition v-if="!disableErrors" name="snt-input-info-error-animation">
       <p v-if="showError" class="snt-input-info-error">{{ errorMessage }}</p>
     </transition>
   </div>

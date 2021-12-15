@@ -52,11 +52,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.p1 {
-  padding: 1rem;
-}
-.p0 {
-  padding: 0rem;
-}
-</style>
+<style scoped lang="scss"></style>

@@ -5,6 +5,8 @@
 - quick start
   - husky (+ monorepo config)
   - vscode plugins
+  - gotchas? wsl wont start?
+    - script for wsl?
 - project structure
 - plugins
   - i18n

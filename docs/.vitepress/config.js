@@ -1,67 +1,31 @@
 module.exports = {
-  title: "web.stack.js",
+  title: "Sintezis Web Stack",
   description: "Just playing around.",
-  nav: [
-    { text: "Guide", link: "/", activeMatch: "^/$|^/guide/" },
-    {
-      text: "Config Reference",
-      link: "/config/basics",
-      activeMatch: "^/config/",
+  themeConfig: {
+    sidebar: {
+      "/": getSidebar(),
     },
-    {
-      text: "Release Notes",
-      link: "https://github.com/vuejs/vitepress/releases",
-    },
-  ],
-  sidebar: {
-    "/guide/": getGuideSidebar(),
-    "/config/": getConfigSidebar(),
-    "/": getGuideSidebar(),
   },
 };
 
-function getGuideSidebar() {
+function getSidebar() {
   return [
     {
       text: "Introduction",
       children: [
-        { text: "What is VitePress?", link: "/" },
-        { text: "Getting Started", link: "/guide/getting-started" },
-        { text: "Configuration", link: "/guide/configuration" },
-        { text: "Asset Handling", link: "/guide/assets" },
-        { text: "Markdown Extensions", link: "/guide/markdown" },
-        { text: "Using Vue in Markdown", link: "/guide/using-vue" },
-        { text: "Deploying", link: "/guide/deploy" },
+        { text: "Getting Started", link: "/" },
+        { text: "Stack Overview", link: "/guide/overview" },
+        { text: "Roadmap", link: "/guide/roadmap" },
       ],
     },
-    {
-      text: "Advanced",
-      children: [
-        { text: "Frontmatter", link: "/guide/frontmatter" },
-        { text: "Theming", link: "/guide/theming" },
-        { text: "API Reference", link: "/guide/api" },
-        {
-          text: "Differences from Vuepress",
-          link: "/guide/differences-from-vuepress",
-        },
-      ],
-    },
-  ];
-}
-
-function getConfigSidebar() {
-  return [
-    {
-      text: "App Config",
-      children: [{ text: "Basics", link: "/config/basics" }],
-    },
-    {
-      text: "Theme Config",
-      children: [
-        { text: "Homepage", link: "/config/homepage" },
-        { text: "Algolia Search", link: "/config/algolia-search" },
-        { text: "Carbon Ads", link: "/config/carbon-ads" },
-      ],
-    },
+    // {
+    //   text: "In-Depth",
+    //   children: [
+    //     {
+    //       text: "Components",
+    //       link: "/in-depth/components",
+    //     },
+    //   ],
+    // },
   ];
 }

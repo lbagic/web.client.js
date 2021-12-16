@@ -1,5 +1,9 @@
 <template>
-  <a href="http://localhost:8081" target="_blank" class="docs-link">
+  <a
+    href="http://localhost:8081/guide/overview"
+    target="_blank"
+    class="docs-link"
+  >
     <span>Docs</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -51,7 +51,7 @@ export default {
      * Sets background opacity. Defaults to 0.3.
      */
     opacity: {
-      type: String,
+      type: [String, Number],
       default: "0.3",
     },
   },
@@ -62,8 +62,13 @@ export default {
       };
       if (this.background)
         styles.background = getColor(this.background, this.background);
-      if (this.opacity && styles.background)
-        styles.background = hexToRGBA(styles.background, Number(this.opacity));
+      if (this.opacity && styles.background) {
+        const opacity =
+          typeof this.opacity === "number"
+            ? this.opacity
+            : Number(this.opacity);
+        styles.background = hexToRGBA(styles.background, opacity);
+      }
 
       return styles;
     },

@@ -21,7 +21,7 @@ function getSidebar() {
     },
     {
       text: "In-Depth",
-      children: [{ text: "Component Props", link: "/in-depth/components" }],
+      children: [{ text: "Components", link: "/in-depth/components" }],
     },
   ];
 }

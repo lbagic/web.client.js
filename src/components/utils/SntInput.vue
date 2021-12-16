@@ -106,7 +106,7 @@ export default {
   ],
   props: {
     /**
-     * Preferred way to bind data. Ex. :model="{ field: form }" where form.field is defined in data. Will autogenerate validation flag under 'form._valid.field'.
+     * Preferred way to bind data. I.e. :model="{ field: form }" where form.field is defined in data. Will autogenerate validation flag under 'form._valid.field'.
      */
     model: Object,
     /**
@@ -129,14 +129,6 @@ export default {
      */
     label: String,
     /**
-     * Input field help text.
-     */
-    help: String,
-    /**
-     * Custom error message.
-     */
-    error: String,
-    /**
      * Space delimited string defining direction and placement of label.
      * Valid values: block/inline, start/end. Ex. 'block end'
      */
@@ -149,14 +141,21 @@ export default {
       },
     },
     /**
-     * Options passed to datetime component ("vue3-date-time-picker": "^2.3.6").
-     * Please refer to https://vue3datepicker.com/api/props for available options.
+     * Input field help text.
      */
-    datetimeOptions: Object,
+    help: String,
+    /**
+     * Custom error message.
+     */
+    error: String,
     /**
      * Disable showing errors.
      */
     disableErrors: Boolean,
+    /**
+     * A list of options for text or select inputs. Don't forget to set optionIdBy and optionLabelBy.
+     */
+    options: [Array, Object],
     /**
      * Dot delimited path to id, or function that resolves object id.
      */
@@ -166,13 +165,14 @@ export default {
      */
     optionLabelBy: { type: [String, Function], default: "label" },
     /**
-     * A list of options for text or select inputs. Don't forget to set optionIdBy and optionLabelBy.
-     */
-    options: [Array, Object],
-    /**
      * Attributes that will be applied affect the root element of snt-input component.
      */
     rootAttrs: Object,
+    /**
+     * Options passed to datetime component ("vue3-date-time-picker": "^2.3.6").
+     * Please refer to https://vue3datepicker.com/api/props for available options.
+     */
+    datetimeOptions: Object,
     /**
      * Prefer using 'model' over 'v-bind' to bind data when you need to include validation.
      */
@@ -366,7 +366,10 @@ export default {
         ? this.options.map((el) => this.resolveOption(el))
         : typeof this.options === "object"
         ? Object.entries(this.options).reduce(
-            (a, [label, id]) => [...a, { label, id }],
+            (a, [label, id]) => [
+              ...a,
+              { [this.optionLabelBy]: label, [this.optionIdBy]: id },
+            ],
             []
           )
         : [];

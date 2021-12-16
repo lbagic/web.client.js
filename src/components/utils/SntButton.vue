@@ -27,13 +27,17 @@ export default {
      */
     large: Boolean,
     /**
-     * Changes color palette to lighter color variant.
+     * Sets color palette to lighter/darker color variant.
      */
-    lighterVariant: Boolean,
+    variant: {
+      type: String,
+      default: "dark",
+      validator: (value) => ["light", "dark"].includes(value),
+    },
   },
   computed: {
     colors() {
-      const accent = this.lighterVariant ? "lighter" : "darker";
+      const accent = this.variant === "dark" ? "darker" : "lighter";
       return {
         default: getColor(this.color),
         accent: getColor(`${this.color}-${accent}`),

@@ -59,6 +59,6 @@ export const breakpoint = {
       };
     });
 
-    app.config.globalProperties.$breakpoint = breakpoint;
+    app.config.globalProperties.$bp = breakpoint;
   },
 };

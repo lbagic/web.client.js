@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import { breakpoint } from "./config/plugins/breakpoint.js";
 import { i18n } from "./config/plugins/i18n.js";
-import { breakpoint } from "./config/plugins/sntBreakpoints.js";
 import { router } from "./router/router.js";
 import { store } from "./store/store.js";
 

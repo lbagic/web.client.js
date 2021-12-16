@@ -2,6 +2,7 @@ import { store } from "../../store/store";
 import { createApi } from "./Api.factory";
 
 export const Api = {
+  axios: createApi({ baseUrl: "" }),
   snt: createApi({
     baseURL: process.env.VUE_APP_SNT_REST_API_URL,
     getToken: () => store?.state?.AccountModule?.token,
@@ -23,5 +24,4 @@ export const Api = {
       };
     },
   }),
-  axios: createApi({ baseUrl: "" }),
 };

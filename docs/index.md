@@ -41,23 +41,26 @@ The following topics include steps for initial project configuration.
 
 ### Setting up VSCode
 
-**Install these VSCode plugins:**\
+**Mandatory VSCode extensions:**\
 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - enforces coding styles\
 [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - enforces coding styles\
 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) - Vue.js tooling
 
-**The following plugins & settings are optional but help with productivity:**
+**The following extensions & settings are optional but help with productivity:**
 
 [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag) - renaming one html tag will auto-rename the other\
 [advanced-new-file](https://marketplace.visualstudio.com/items?itemName=patbenatar.advanced-new-file) - ctrl+alt+n to create new file
 
-Add the following to VSCode settings.\
-Tip: Pressing `ctrl + ,` opens VSCode settings
+Add the following to your VSCode settings:
 
 ```json
 "editor.bracketPairColorization.enabled": true,
 "editor.guides.bracketPairs": "active",
 ```
+
+::: tip
+Pressing `ctrl + ,` opens VSCode settings.
+:::
 
 ### Setting up Husky
 
@@ -90,7 +93,7 @@ Adjust the .env file according to your project needs.
 
 Feel free to remove any unecessary variables from .env file, but also **remember to update .env.example** as you add more variables to your .env file.
 ::: danger
-Never define variables in .env.example. It may lead to leaks and unauthorized uses of private keys.
+Never set values in .env.example. It may lead to leaks and unauthorized uses of private keys.
 :::
 
 ## A Note To All WSL2 Users

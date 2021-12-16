@@ -10,6 +10,7 @@ $css-variables: (
 :root {
   @include generate-css-variables($css-variables);
 }
+
 :export {
   rawBreakpoints: generate-json-map(get("breakpoint"));
 }

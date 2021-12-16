@@ -57,11 +57,14 @@
 
 ## Integrations
 
-| Integrations (9/12)          | status |
+| Integrations (9/13)          | status |
 | ---------------------------- | ------ |
+| api factory                  | ✅     |
+| api pagination handler       |        |
+| api integration with popups? |        |
+| service crud generator       | ✅     |
 | grpc                         |        |
 | firebase integrations        |        |
-| api integration with popups? |        |
 | i18n                         | ✅     |
 | husky                        | ✅     |
 | store implementation         | ✅     |
@@ -69,8 +72,6 @@
 | ↪ reset functionality        | ✅     |
 | ↪ persistance                | ✅     |
 | ↪ crud generator             | ✅     |
-| api factory                  | ✅     |
-| service crud generator       | ✅     |
 
 #### Low priority:
 

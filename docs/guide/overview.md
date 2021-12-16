@@ -6,61 +6,73 @@ sidebarDepth: 3
 
 Shortlist of custom stack features.
 
-## Components
+## [Components](/in-depth/components)
 
-### SntButton
+### [SntButton](/in-depth/components#sntbutton)
 
 Wrapper for handling `button`, `router link`, and `anchor` elements.
 
-### SntIcon
+### [SntIcon](/in-depth/components#snticon)
 
 Component for handling svg icons.
 
-### SntInput
+### [SntInput](/in-depth/components#sntinput)
 
 A versatile component with integrated validation. Supports most input types.
 ::: tip
 Always prefer using `snt-input` instead of the default `input` element.
 :::
 
-### SntModal & SntOverlay
+### [SntModal & SntOverlay](/in-depth/components#sntmodal-sntoverlay)
 
 Components for managing modals and full screen overlays.
 
-### SntToast
+### [SntToast](/in-depth/components#snttoast)
 
 Component for handling toast and notification messages.
 
 ---
 
-## Plugins
+## [Plugins](/in-depth/plugins)
 
-### i18n: `$t`
+### [i18n: `$t`](/in-depth/plugins#i18n)
 
-Internationalization plugin.
-::: warning
-If project is using multiple languages, never hardcode application strings - use them through i18n.
-:::
+Internationalization plugin.\
+Provides an accessible interface to create an application that supports multiple languages.
 
-### sntBreakpoints: `$breakpoint`
+For full documentation visit https://kazupon.github.io/vue-i18n/introduction.html.
 
-Plugin for managing screen breakpoints in javascript.
+### [breakpoint: `$bp`](/in-depth/plugins#breakpoint)
 
----
-
-## Services
-
-Application layer that handles calling external services (all outside communication goes through this layer).
-
-Api and external services are placed here.
+Plugin for managing screen breakpoints in javascript.\
+Works in tandem with your css media declarations.
 
 ---
 
-## Store (vuex)
+## [Services](/in-depth/services)
 
-A system for managing global application state.
+Service layer is a place through which all outside communication flows.\
+It provides a "dumb" api interface which is used by other parts of application for calling external providers.
 
-Most of the business logic lives here.
+Api methods and scripts that connect to external providers are placed here.
+
+Read more - [Creating API Endpoint](/in-depth/services#creating-api-endpoint), [Creating Service Endpoint](/in-depth/services#creating-service-endpoint)
+
+---
+
+## [Store (vuex)](/in-depth/store)
+
+A system for managing global application state. Separated into multiple self-contained modules, it has proven to be a good solution for managing medium to large scale applications.
+
+Most of the business logic should live here.
+
+For full documentation visit https://vuex.vuejs.org/.
+
+---
+
+## [Styles (SCSS)](/in-depth/styles)
+
+A small stylesheet ecosystem that handles `containers`, `breakpoints`, `colors`, `animations`, `tables`, `typography`, and a few other things.
 
 ---
 
@@ -74,17 +86,15 @@ Notable mentions:
 - `datetime.js` - for parsing dates
 - `hashPassword.js` - for hashing passwords
 
----
-
-## Styles (SCSS)
-
-A small stylesheet ecosystem that handles `containers`, `breakpoints`, `colors`, `animations`, `tables`, `typography`, and a few other things.
+::: tip
+Reference `./src/utils` to check out other utility functions. Feel free to add more functions if you need them.
+:::
 
 ---
 
 ## Project structure
 
-| root  | ---            | Description                                            |
+| root  | path           | Description                                            |
 | ----- | -------------- | ------------------------------------------------------ |
 | src/  | assets/        | Static project assets (i.e. images)                    |
 |       | components/    | Vue components (used within views or other components) |

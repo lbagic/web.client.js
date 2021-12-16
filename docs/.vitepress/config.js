@@ -21,7 +21,13 @@ function getSidebar() {
     },
     {
       text: "In-Depth",
-      children: [{ text: "Components", link: "/in-depth/components" }],
+      children: [
+        { text: "Components", link: "/in-depth/components" },
+        { text: "Plugins", link: "/in-depth/plugins" },
+        { text: "Services", link: "/in-depth/services" },
+        { text: "Store", link: "/in-depth/store" },
+        { text: "Styles", link: "/in-depth/styles" },
+      ],
     },
   ];
 }

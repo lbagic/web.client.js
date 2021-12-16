@@ -8,34 +8,39 @@ Shortlist of custom stack features.
 
 ## Components
 
-#### SntButton
+### `<snt-button>`
 
 Wrapper for handling `<button>`, `<router-link>`, and `<a>` elements.
 
-#### SntIcon
+### `<snt-icon>`
 
 Component for handling svg icons.
 
-#### SntInput
+### `<snt-input>`
 
-A versatile component with integrated validation. Supports most input types.\
+A versatile component with integrated validation. Supports most input types.
+::: tip
 Always prefer using `<snt-input>` instead of the default `<input>` element.
+:::
 
-#### SntModal / SntOverlay
+### `<snt-modal>` & `<snt-overlay>`
 
 Components for managing modals and full screen overlays.
 
-#### SntToast
+### `<snt-toast>`
 
 Component for handling toast and notification messages.
 
 ## Plugins
 
-#### i18n ($t)
+### i18n: `$t`
 
 Internationalization plugin.
+::: warning
+If project is using multiple languages, never hardcode application strings - use them through i18n.
+:::
 
-#### sntBreakpoints ($breakpoint)
+### sntBreakpoints: `$breakpoint`
 
 Plugin for managing screen breakpoints in javascript.
 
@@ -43,13 +48,17 @@ Plugin for managing screen breakpoints in javascript.
 
 Application layer that handles calling external services (all outside communication goes through this layer).
 
+Api and external services are placed here.
+
 ## Store (vuex)
 
-A system for managing global application state. Most of the business logic lives here.
+A system for managing global application state.
+
+Most of the business logic lives here.
 
 ## Utils
 
-A collection of useful utilities for tackling various problems.
+A collection of useful utilities for tackling common problems.
 
 Notable mentions:
 

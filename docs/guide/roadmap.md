@@ -1,73 +1,76 @@
 # ROADMAP
 
-## Documentation 1/2
+## Documentation
 
-- create up docs page ✅
-- complete documentation
+| Docs (1/2)                   | status |
+| ---------------------------- | ------ |
+| Set up docs page             | ✅     |
+| Write up whole documentation |        |
 
-## Styles - 5/5
+## Styles
 
-- variables & utility classes ✅
-- fonts ✅
-- breakpoints ✅
-- focus styles ✅
-- normalized styles ✅
-- component styles ✅
+| Styles (7/7)                | status |
+| --------------------------- | ------ |
+| variables & utility classes | ✅     |
+| fonts                       | ✅     |
+| breakpoints                 | ✅     |
+| color palette               | ✅     |
+| animations                  | ✅     |
+| normalized styles           | ✅     |
+| component styles            | ✅     |
 
-## Components - 15/15
+## Components
 
-- `icon` component ✅
-- `button` component (with anchor and router-link support) ✅
-- overlays
-  - `modal` and `overlay` component ✅
-  - add support for hash and route query ✅
-- toasts
-  - toasts (go away automatically) ✅
-  - notifications (go away when interacting) ✅
-- inputs
-  - input styling ✅
-  - integrate validation ✅
-  - add date range support ✅
-  - support default input types ✅
-  - intergrate error and help text ✅
-  - support options for text and select inputs ✅
-  - add datetime support (date, month, time) ✅
-  - add v-model and advanced model binding support ✅
-  - support label placement: block/inline start/end ✅
+| Compoonents (16/16)                                       | status |
+| --------------------------------------------------------- | ------ |
+| `icon` component                                          | ✅     |
+| `button` component                                        | ✅     |
+| `button` feature: support anchors and router-link         | ✅     |
+| `modal` & `overlay` component                             | ✅     |
+| ↪ support hash and route query                            | ✅     |
+| `toasts` (go away automatically)                          | ✅     |
+| `notifications` (go away when interacting)                | ✅     |
+| `input` component                                         | ✅     |
+| ↪ default input types                                     | ✅     |
+| ↪ styling                                                 | ✅     |
+| ↪ validation                                              | ✅     |
+| ↪ support types: `date`, `time`, `month`                  | ✅     |
+| ↪ support date range                                      | ✅     |
+| ↪ support error & help text                               | ✅     |
+| ↪ add advanced `model` binding                            | ✅     |
+| ↪ support label placement `block`/`inline`, `start`/`end` | ✅     |
 
 #### Low priority:
 
 - support overriding component styles ✅
 - support modals and overlays to be used in constrained section ✅
 - migrate to flatpickr for datetime inputs https://www.npmjs.com/package/vue-flatpickr-component
-- input type file - dropdown area
 - add table component - or is class enough?
-- slider/carousel component (not sure if worth the bundle size, swiperjs seems like an okay plugin)
-- slideout navigation -- slots for 'top' 'slide' 'top-when-slide'? Is it even used that often to justify adding a complex component?
-- topbar loading state
+- slider/carousel component (probably not worth bundle size - use swipper.js plugin)
+- topbar loading state (connected with api calls?)
 - inputs:
+  - input type file - dropdown area
   - icon support (+ default icons for some input types)
-  - snt-fieldset - generate whole forms (scope to replace elements)
-  - support errors from api calls (current_password field gets current_password error)
+  - snt-fieldset - generate whole forms
+  - support errors from api calls (i.e. current_password field gets current_password error)
 - custom components a11y
 
-## Integrations - 9/12
+## Integrations
 
-- grpc
-- api integration with popups? Wor
-- i18n ✅
-- husky hooks ✅
-- store implementation
-  - store reset ✅
-  - basic methods ✅
-  - store persistance ✅
-  - cleanup store.factory ✅
-  - generate crud actions ✅
-- service implementation
-  - api service ✅
-  - generate service crud ✅
-- external services
-  - google, twitter, facebook, stripe, etc... (cleanup firebase integrations)
+| Integrations (9/12)          | status |
+| ---------------------------- | ------ |
+| grpc                         |        |
+| firebase integrations        |        |
+| api integration with popups? |        |
+| i18n                         | ✅     |
+| husky                        | ✅     |
+| store implementation         | ✅     |
+| ↪ scaffold basic methods     | ✅     |
+| ↪ reset functionality        | ✅     |
+| ↪ persistance                | ✅     |
+| ↪ crud generator             | ✅     |
+| api factory                  | ✅     |
+| service crud generator       | ✅     |
 
 #### Low priority:
 

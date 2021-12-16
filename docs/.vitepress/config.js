@@ -1,6 +1,7 @@
-module.exports = {
+export default {
+  lang: "en-US",
   title: "Sintezis Web Stack",
-  description: "Just playing around.",
+  description: "Sintezis Web Stack Documentation.",
   themeConfig: {
     sidebar: {
       "/": getSidebar(),
@@ -18,14 +19,11 @@ function getSidebar() {
         { text: "Roadmap", link: "/guide/roadmap" },
       ],
     },
-    // {
-    //   text: "In-Depth",
-    //   children: [
-    //     {
-    //       text: "Components",
-    //       link: "/in-depth/components",
-    //     },
-    //   ],
-    // },
+    {
+      text: "In-Depth",
+      children: [
+        { text: "Component Properties", link: "/in-depth/components" },
+      ],
+    },
   ];
 }

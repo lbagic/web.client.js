@@ -7,7 +7,7 @@ export default {
   name: "SntButton",
   props: {
     /**
-     * Sets button color scheme - accepts hex values or css variable names (i.e. primary).
+     * Sets button color scheme - accepts hex values or css variable names (e.g. primary).
      */
     color: { type: String, default: "primary" },
     /**

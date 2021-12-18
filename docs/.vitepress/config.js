@@ -25,7 +25,7 @@ function getSidebar() {
         { text: "Components", link: "/in-depth/components" },
         { text: "Plugins", link: "/in-depth/plugins" },
         { text: "Services", link: "/in-depth/services" },
-        { text: "Store", link: "/in-depth/store" },
+        { text: "Vuex (State Management)", link: "/in-depth/state-management" },
         { text: "Styles", link: "/in-depth/styles" },
       ],
     },

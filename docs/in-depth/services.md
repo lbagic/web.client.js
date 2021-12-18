@@ -1,4 +1,8 @@
-# Services
+# Service Layer
+
+Service layer is the one responsible to create and handle communications between the outside world and your data layer (Vuex Store).
+
+> A strong suggestion is to keep it minimal and expose just simple functions that make calls to external providers.
 
 ## Creating API Endpoint
 
@@ -6,7 +10,7 @@ Application Programming Interface (or API for short) is a set of definitions whi
 
 In most cases that other application will be Sintezis backend application.
 
-#### To create an API endpoint, we can use a `createApi` factory method
+#### To create an API endpoint, we can use the `createApi` factory method.
 
 The factory method takes the following arguments:
 
@@ -70,7 +74,10 @@ The `Api.snt` endpoint has configured the following:
 
 Service endpoints are a subset of an API endpoint. Each service endpoint maps to a specific resource of the API endpoint.
 
-To quickly scaffold service endpoints, we can use `createServiceCrud` function. The function takes two parameters: `API Endpoint` and a `resource URI`.
+#### To quickly scaffold service endpoints, we can use `createServiceCrud` function.
+
+The function takes two parameters: `API Endpoint` and a `resource URI`;<br>
+and it outputs an object with the following methods `get(id)`, `getAll`, `create(data)`, `update(data)`, `delete(id)`.
 
 #### Example - creating a simple UserService with CRUD calls
 
@@ -81,6 +88,8 @@ import { Api } from "./base/Api";
 
 export const UserService = createServiceCrud(Api.snt, "/users");
 ```
+
+As an example, after using the `createServiceCrud` for our Users resource, we can easily manage our Users by doing `UserService.getAll()`, or `UserService.create(user)`, or any of the above mentioned methods.
 
 ::: danger
 To take advantage of `createServiceCrud`, the response from Api endpoint must at least have the following response signature.

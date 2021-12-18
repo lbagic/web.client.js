@@ -106,7 +106,7 @@ export default {
   ],
   props: {
     /**
-     * Preferred way to bind data. I.e. :model="{ field: form }" where form.field is defined in data. Will autogenerate validation flag under 'form._valid.field'.
+     * Preferred way to bind data. E.g. :model="{ field: form }" where form.field is defined in data. Will autogenerate validation flag under 'form._valid.field'.
      */
     model: Object,
     /**

@@ -2,10 +2,11 @@
 
 ## Documentation
 
-| Docs (1/2)                   | status |
+| Docs (1/3)                   | status |
 | ---------------------------- | ------ |
 | Set up docs page             | ✅     |
 | Write up whole documentation |        |
+| Add interactive examples     |        |
 
 ## Styles
 
@@ -44,7 +45,6 @@
 
 - support overriding component styles ✅
 - support modals and overlays to be used in constrained section ✅
-- migrate to flatpickr for datetime inputs https://www.npmjs.com/package/vue-flatpickr-component
 - add table component - or is class enough?
 - slider/carousel component (probably not worth bundle size - use swipper.js plugin)
 - topbar loading state (connected with api calls?)
@@ -52,7 +52,8 @@
   - input type file - dropdown area
   - icon support (+ default icons for some input types)
   - snt-fieldset - generate whole forms
-  - support errors from api calls (i.e. current_password field gets current_password error)
+  - support errors from api calls (e.g. current_password field gets current_password error)
+  - migrate to flatpickr for datetime inputs https://www.npmjs.com/package/vue-flatpickr-component
 - custom components a11y
 
 ## Integrations

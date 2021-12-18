@@ -1,5 +1,9 @@
 # Plugins
 
+Plugins provide a way to extend the functionality of your application or introduce new components.
+
+> If you find yourself needing additional functionalities, think twice before installing a new dependancy. It may (or may not) be preferred to implement the functionality without introducing a dependancy depending on the scale of the feature and time required to implement it.
+
 ## i18n
 
 I18n is an internationalization-framework which solves the problem of translating the application to different languages with a straightforward configuration and api (`$t`).

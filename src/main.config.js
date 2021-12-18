@@ -17,6 +17,7 @@ export const mainConfig = () => {
   global.$dispatch = store.dispatch;
   global.$commit = store.commit;
   global.$getters = store.getters;
+  global.$state = store.state;
 
   return {
     app,

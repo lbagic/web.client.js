@@ -233,7 +233,7 @@ You will only ever have one SntToast component registered in your application (i
 | $dispatch("Toast/error", message)        | Pushes a toast error message.   |
 | $dispatch("Toast/notification", message) | Pushes a notification.          |
 
-## Other components
+## Other Components
 
 #### Carousel
 

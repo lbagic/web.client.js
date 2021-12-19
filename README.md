@@ -6,11 +6,16 @@
 npm install
 ```
 
+---
+
 ### Compiles and hot-reloads for development
 
 ```
 npm run serve
 ```
+
+dev server runs @ http://localhost:8080<br>
+doc server runs @ http://localhost:8081
 
 ### Compiles and minifies for production
 
@@ -18,11 +23,21 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
+---
+
+### Runs documentation development server
 
 ```
-npm run lint
+npm run docs:dev
 ```
+
+### Compiles and builds documentation
+
+```
+npm run docs:build
+```
+
+---
 
 ### Customize configuration
 

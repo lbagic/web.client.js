@@ -187,7 +187,7 @@ export default {
       (model) => {
         this.onExternalChange(model);
         if (this.extModel) this.output = model;
-        this.errorHandler();
+        this.$nextTick(() => this.errorHandler());
       },
       { immediate: true }
     );

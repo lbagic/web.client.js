@@ -1,0 +1,16 @@
+$css-variables: (
+  "breakpoint": (
+    "s": 0px,
+    "m": 600px,
+    "l": 800px,
+    "xl": 1200px,
+  ),
+);
+
+:root {
+  @include generate-css-variables($css-variables);
+}
+
+:export {
+  rawBreakpoints: generate-json-map(get("breakpoint"));
+}

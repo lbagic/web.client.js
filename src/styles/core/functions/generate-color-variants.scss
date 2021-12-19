@@ -1,0 +1,23 @@
+@function generate-color-variants($palette, $variants) {
+  $colors: ();
+  @each $colorName, $colorHex in $palette {
+    $colors: map-merge(
+      $colors,
+      (
+        "#{$colorName}": $colorHex,
+      )
+    );
+    @each $variantHex, $variantMap in $variants {
+      @each $variantName, $mixPercentage in $variantMap {
+        $colors: map-merge(
+          $colors,
+          (
+            "#{$colorName}-#{$variantName}":
+              mix($variantHex, $colorHex, $mixPercentage),
+          )
+        );
+      }
+    }
+  }
+  @return $colors;
+}

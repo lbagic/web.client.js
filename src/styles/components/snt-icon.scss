@@ -1,0 +1,17 @@
+.snt-icon-root {
+  --color: var(--snt-color-primary);
+  --hover-color: var(--snt-color-primary-darker);
+  display: flex;
+  align-items: center;
+}
+.snt-icon {
+  & > * {
+    transition: all 0.2s ease-in-out;
+  }
+  & > path:not([fill="none"]) {
+    fill: var(--color);
+  }
+  &-hover:hover > path:not([fill="none"]) {
+    fill: var(--hover-color);
+  }
+}

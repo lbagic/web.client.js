@@ -1,0 +1,52 @@
+@mixin transition($transition-property-value) {
+  &-enter-from,
+  &-leave-to {
+    @content;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: $transition-property-value;
+  }
+}
+
+@mixin touch-device {
+  @media (hover: none) {
+    @content;
+  }
+}
+@mixin click-device {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin s-only() {
+  @media (min-width: get("breakpoint.s")) and (max-width: calc(get("breakpoint.m") - 1px)) {
+    @content;
+  }
+}
+@mixin m() {
+  @media (min-width: get("breakpoint.m")) {
+    @content;
+  }
+}
+@mixin m-only() {
+  @media (min-width: get("breakpoint.m")) and (max-width: calc(get("breakpoint.l") - 1px)) {
+    @content;
+  }
+}
+@mixin l() {
+  @media (min-width: get("breakpoint.l")) {
+    @content;
+  }
+}
+@mixin l-only() {
+  @media (min-width: get("breakpoint.l")) and (max-width: calc(get("breakpoint.xl") - 1px)) {
+    @content;
+  }
+}
+@mixin xl() {
+  @media (min-width: get("breakpoint.xl")) {
+    @content;
+  }
+}

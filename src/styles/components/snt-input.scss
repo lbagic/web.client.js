@@ -1,0 +1,91 @@
+.snt-input-root {
+  --label-margin-block-start: 2px;
+  --label-margin-inline-start: 4px;
+  --info-help-color: var(--snt-color-grey);
+  --info-error-color: var(--snt-color-error);
+  --info-font-size: var(--snt-fs--1);
+
+  & > *:nth-child(2) {
+    margin-top: 3px;
+  }
+  & > *:nth-child(3) {
+    margin-top: 2px;
+  }
+}
+
+// input styles
+.snt-input {
+  --min-width: 100px;
+  --width: 100%;
+  --height: 50px;
+  --padding: 12px;
+  --background: #f8f8f8;
+}
+.snt-input:not([data-type="checkbox"]):not([data-type="radio"]):not([data-type="range"]) {
+  min-height: var(--height);
+  height: var(--height);
+  min-width: var(--min-width);
+  width: var(--width);
+  padding: var(--padding);
+  border: 1px solid var(--snt-color-muted);
+  background: var(--background);
+  &:focus {
+    border: 1px solid var(--snt-color-grey);
+  }
+}
+.snt-input[data-type="date"],
+.snt-input[data-type="time"],
+.snt-input[data-type="month"] {
+  caret-color: transparent;
+}
+.snt-input[data-type="range"] {
+  min-width: var(--min-width);
+  width: var(--width);
+}
+.snt-input-label {
+  &-required::after {
+    margin-left: 2px;
+    content: "*";
+    color: red;
+  }
+  &-block > * + * {
+    margin-block-start: var(--label-margin-block-start);
+  }
+  &-inline {
+    display: inline-flex;
+    align-items: center;
+    & > * + * {
+      margin-inline-start: var(--label-margin-inline-start);
+    }
+  }
+}
+
+.snt-input-info-help {
+  color: var(--info-help-color);
+  font-size: var(--info-font-size);
+  line-height: 1.2;
+}
+.snt-input-info-error {
+  color: var(--info-error-color);
+  font-size: var(--info-font-size);
+  line-height: 1.2;
+  max-height: 20px;
+  &-animation {
+    @include transition(all 0.2s var(--snt-bezier-1)) {
+      transform: translateY(-10px);
+      opacity: 0;
+      max-height: 0px;
+    }
+  }
+}
+
+// datepicker styles
+.dp__menu {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+.dp__arrow_top {
+  display: none;
+}

@@ -1,3 +1,5 @@
+import { developmentRoutes } from "./routes.development";
+
 export const routes = [
   {
     path: "/",
@@ -31,9 +33,4 @@ export const routes = [
   },
 ];
 
-if (process.env.NODE_ENV === "development")
-  routes.push({
-    path: "/test",
-    name: "Test",
-    component: () => import("../views/Test.vue"),
-  });
+if (process.env.NODE_ENV === "development") routes.push(...developmentRoutes);

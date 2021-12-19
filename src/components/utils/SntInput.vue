@@ -176,7 +176,9 @@ export default {
     /**
      * Prefer using 'model' over 'v-bind' to bind data when you need to include validation.
      */
-    modelValue: {},
+    modelValue: {
+      default: "",
+    },
   },
   created() {
     if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
@@ -187,8 +189,13 @@ export default {
       (model) => {
         this.onExternalChange(model);
         if (this.extModel) this.output = model;
-        this.$nextTick(() => this.errorHandler());
       },
+      { immediate: true }
+    );
+
+    this.$watch(
+      (vm) => [vm.value, vm.output, vm.wasBlurred],
+      this.errorHandler,
       { immediate: true }
     );
 

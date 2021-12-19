@@ -42,6 +42,10 @@ E.g. `disabled` attribute.
 <snt-button to="/login" type="outline">A router-link</snt-button>
 ```
 
+#### Live example:
+
+http://localhost:8080/examples/snt-button
+
 ## SntIcon
 
 A component created for managing svg elements.
@@ -66,6 +70,10 @@ A good place to look for icons is https://fonts.google.com/icons.
 <snt-icon icon="Close" />
 <snt-icon icon="Google" button color="#000" hoverColor="ternary" @click="..." />
 ```
+
+#### Live example:
+
+http://localhost:8080/examples/snt-icon
 
 ## SntInput
 
@@ -162,6 +170,10 @@ E.g. `required`, `min`, `max`, etc... play really well when you want to quickly 
 />
 ```
 
+#### Live example:
+
+http://localhost:8080/examples/snt-input
+
 ## SntModal & SntOverlay
 
 Wrapper for handling basic popover elements. Can be used in combination with router parameters for a better user experience (e.g. clicking back on browsers/phones close the popover).
@@ -212,6 +224,11 @@ Consider the location where you place this component. E.g. If you want a "contac
 <router-link to="#contact-us">Contact Us!</router-link>
 ```
 
+#### Live examples:
+
+http://localhost:8080/examples/snt-modal<br>
+http://localhost:8080/examples/snt-overlay
+
 ## SntToast
 
 A component that creates placeholders for toasts and notifications.
@@ -233,6 +250,10 @@ You will only ever have one SntToast component registered in your application (i
 | $dispatch("Toast/error", message)        | Pushes a toast error message.   |
 | $dispatch("Toast/notification", message) | Pushes a notification.          |
 
+#### Live example:
+
+http://localhost:8080/examples/snt-toast
+
 ## Other Components
 
 #### Carousel
@@ -243,3 +264,6 @@ A good carousel component is available at https://swiperjs.com/vue.
 
 This framework provides a css class `.snt-table` for styling the default html table.<br>
 If the default table does not provide enough functionality for your use case, try searching the web for a fitting table component.
+
+Live example:<br>
+http://localhost:8080/examples/html-table

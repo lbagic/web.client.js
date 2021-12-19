@@ -151,3 +151,7 @@ export const ExampleModule = {
   }
 </script>
 ```
+
+#### Live Example:
+
+http://localhost:8080/examples/vuex-store

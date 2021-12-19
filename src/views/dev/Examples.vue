@@ -8,6 +8,7 @@
       <router-link to="/examples/snt-toast">snt-toast</router-link>
       <router-link to="/examples/snt-input">snt-input</router-link>
       <router-link to="/examples/html-table">html table</router-link>
+      <router-link to="/examples/vuex-module">vuex module</router-link>
     </aside>
     <section class="snt-container">
       <p class="snt-fs-3">{{ $route.name }}</p>

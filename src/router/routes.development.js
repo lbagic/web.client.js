@@ -49,6 +49,11 @@ export const developmentRoutes = [
         name: "html table",
         component: () => import("../components/examples/ExampleTable.vue"),
       },
+      {
+        path: "vuex-module",
+        name: "vuex module",
+        component: () => import("../components/examples/ExampleVuexModule.vue"),
+      },
     ],
   },
 ];

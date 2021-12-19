@@ -6,7 +6,7 @@
 | ---------------------------- | ------ |
 | Set up docs page             | ✅     |
 | Finish writing documentation | ✅     |
-| Add interactive examples     |        |
+| Add interactive examples     | ✅     |
 
 ## Styles
 

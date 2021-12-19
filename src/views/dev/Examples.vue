@@ -7,8 +7,10 @@
       <router-link to="/examples/snt-overlay">snt-overlay</router-link>
       <router-link to="/examples/snt-toast">snt-toast</router-link>
       <router-link to="/examples/snt-input">snt-input</router-link>
+      <router-link to="/examples/html-table">html table</router-link>
     </aside>
-    <section class="snt-container example-wrap">
+    <section class="snt-container">
+      <p class="snt-fs-3">{{ $route.name }}</p>
       <router-view></router-view>
     </section>
   </div>

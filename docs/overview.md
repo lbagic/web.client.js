@@ -56,7 +56,7 @@ It provides a "dumb" api interface which is used by other parts of application f
 
 Api methods and scripts that connect to external providers are placed here.
 
-Read more - [Creating API Endpoint](/guide/services#creating-api-endpoint), [Creating Service Endpoint](/guide/services#creating-service-endpoint)
+Read more about [Creating API Endpoint](/guide/services#creating-api-endpoint), and [Creating Service Endpoint](/guide/services#creating-service-endpoint).
 
 ---
 

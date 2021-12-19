@@ -6,7 +6,7 @@ Plugins provide a way to extend the functionality of your application or introdu
 
 ## i18n
 
-I18n is an internationalization-framework which solves the problem of translating the application to different languages with a straightforward configuration and api (`$t`).
+I18n is an internationalization framework which solves the problem of translating the application to different languages with a straightforward configuration and api (`$t`).
 
 For a full api reference, check the [vue-i18n documentation](https://kazupon.github.io/vue-i18n/introduction.html).
 
@@ -26,14 +26,14 @@ For a full api reference, check the [vue-i18n documentation](https://kazupon.git
 ```
 
 ::: warning
-If project requirement is internationalization, provide all application strings via `$t` interface.
+If internationalization is one of project requirements, provide all application strings via `$t` interface.
 :::
 
 ## breakpoint
 
 Breakpoint plugin is out-of-the-box solution for using css breakpoints in javascript.
 
-It provides a simple interface (`$bp`) for checking current breakpoint size.
+It provides a simple interface (`$bp`) for checking the current breakpoint size.
 
 ::: tip
 All changes to breakpoint definitions in `./src/styles/core/variables` are automatically reflected in the `breakpoint` plugin.
@@ -59,6 +59,10 @@ $css-variables: (
 <div v-if="$bp.l">Viewport is 800 - 1199px wide</div>
 <div v-if="$bp.xl">Viewport is 1200px or wider</div>
 
-<!-- would show s/m/l/xl, depending on viewport width -->
+<!-- would show s/m/l/xl, depending on the viewport width -->
 <div>Current breakpoint is: {{$bp.active}}</div>
 ```
+
+#### Live example:
+
+http://localhost:8080/examples/breakpoints

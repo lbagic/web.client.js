@@ -1,30 +1,35 @@
 <template>
   <div style="display: grid; gap: 0.5rem">
-    <pre style="background-color: #f002">
+    <p>Example Store Module:</p>
+    <pre class="pre-block">
 export const ExampleModule = { 
   state: () => ({
     items: [],
   })
 };</pre
     >
-    <pre>Generated Getters: {{ this.getters }}</pre>
-    <pre>Generated Mutations: {{ this.mutations }}</pre>
+    <div class="pre-block">
+      <pre>Generated Getters: {{ this.getters }}</pre>
+      <pre>Generated Mutations: {{ this.mutations }}</pre>
+    </div>
 
-    <pre style="background-color: #f002">
-state.items = {{ $state.ExampleModule.items }}</pre
-    >
+    <p>Module State:</p>
+    <pre class="pre-block">state.items = {{ $state.ExampleModule.items }}</pre>
+
+    <p>Store functions:</p>
+
     <input v-model="itemsToSet" type="text" />
     <button @click="$commit('ExampleModule/setItems', JSON.parse(itemsToSet))">
-      $commit('ExampleModule/setItems', items)
+      $commit('ExampleModule/<strong>setItems</strong>', item | item[])
     </button>
     <br />
 
     <input v-model="itemsToAdd" type="text" />
     <button @click="$commit('ExampleModule/addItems', JSON.parse(itemsToAdd))">
-      $commit('ExampleModule/addItems', items)
+      $commit('ExampleModule/<strong>addItems</strong>', item | item[])
     </button>
     <button @click="$commit('ExampleModule/pushItems', JSON.parse(itemsToAdd))">
-      $commit('ExampleModule/pushItems', items)
+      $commit('ExampleModule/<strong>pushItems</strong>', item | item[])
     </button>
     <br />
 
@@ -32,15 +37,16 @@ state.items = {{ $state.ExampleModule.items }}</pre
     <button
       @click="$commit('ExampleModule/removeItems', JSON.parse(itemsToRemove))"
     >
-      $commit('ExampleModule/removeItems', itemId)
+      $commit('ExampleModule/<strong>removeItems</strong>', id | id[] | item |
+      item[])
     </button>
     <br />
 
     <button @click="$commit('ExampleModule/clearItems')">
-      $commit('ExampleModule/clearItems')
+      $commit('ExampleModule/<strong>clearItems</strong>')
     </button>
     <button @click="$commit('ExampleModule/clearState')">
-      $commit('ExampleModule/clearState')
+      $commit('ExampleModule/<strong>clearState</strong>')
     </button>
   </div>
 </template>
@@ -93,5 +99,10 @@ input {
 button {
   background: var(--snt-color-primary);
   color: white;
+}
+.pre-block {
+  padding: 0.5rem;
+  border-radius: 5px;
+  background: #0001;
 }
 </style>

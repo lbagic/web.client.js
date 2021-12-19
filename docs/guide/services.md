@@ -1,6 +1,6 @@
 # Service Layer
 
-Service layer is the one responsible to create and handle communications between the outside world and your data layer (Vuex Store).
+Service layer is responsible for creating and handling communication with the outside world.
 
 > A strong suggestion is to keep it minimal and expose just simple functions that make calls to external providers.
 
@@ -8,7 +8,7 @@ Service layer is the one responsible to create and handle communications between
 
 Application Programming Interface (or API for short) is a set of definitions which allows two applications to talk to each other.
 
-In most cases that other application will be Sintezis backend application.
+In most cases that other application will be the Sintezis backend application.
 
 #### To create an API endpoint, we can use the `createApi` factory method.
 
@@ -66,18 +66,18 @@ export const Api = {
 The `Api.snt` endpoint has configured the following:
 
 - `baseURL` - string specifying endpoint url
-- `getToken` function - enables automatic auth handling
+- `getToken` function - enables automatic handling of authorization headers
 - `responseHandler` function - flattens the response for easier management
 - `errorHandler` function - flattens the error response and provides a handler for 401 response
 
 ## Creating Service Endpoint
 
-Service endpoints are a subset of an API endpoint. Each service endpoint maps to a specific resource of the API endpoint.
+Service endpoints are a subset of an API endpoint. Each service endpoint maps to a specific resource on the API endpoint.
 
 #### To quickly scaffold service endpoints, we can use `createServiceCrud` function.
 
-The function takes two parameters: `API Endpoint` and a `resource URI`;<br>
-and it outputs an object with the following methods `get(id)`, `getAll`, `create(data)`, `update(data)`, `delete(id)`.
+The function takes two parameters - `API Endpoint` and a `resource URI`;<br>
+and outputs an object with the following methods `get(id)`, `getAll()`, `create(data)`, `update(data)`, `delete(id)`.
 
 #### Example - creating a simple UserService with CRUD calls
 
@@ -89,7 +89,7 @@ import { Api } from "./base/Api";
 export const UserService = createServiceCrud(Api.snt, "/users");
 ```
 
-As an example, after using the `createServiceCrud` for our Users resource, we can easily manage our Users by doing `UserService.getAll()`, or `UserService.create(user)`, or any of the above mentioned methods.
+After scaffolding the UserService, we can easily manage our Users by calling different crud methods (e.g. `UserService.getAll()`, `UserService.create(user)`, etc...).
 
 ::: danger
 To take advantage of `createServiceCrud`, the response from Api endpoint must at least have the following response signature.

@@ -54,6 +54,12 @@ export const developmentRoutes = [
         name: "vuex module",
         component: () => import("../components/examples/ExampleVuexModule.vue"),
       },
+      {
+        path: "breakpoints",
+        name: "breakpoint plugin",
+        component: () =>
+          import("../components/examples/ExampleBreakpoints.vue"),
+      },
     ],
   },
 ];

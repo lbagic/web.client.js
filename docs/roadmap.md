@@ -63,6 +63,7 @@
 | api factory                  | ✅     |
 | api pagination handler       |        |
 | api integration with popups? |        |
+| admin panel                  |        |
 | grpc                         |        |
 | firebase integrations        |        |
 | service crud generator       | ✅     |

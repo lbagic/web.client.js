@@ -1,9 +1,6 @@
 # Custom Components
 
-Components are building blocks of web applications. In scope and complexity they range from basic html elements to groups of elements or other components.
-
-> The following components are not registered globally, and need to be imported and registered to be used.<br>
-> Each component has a dedicated .scss file located in `./src/styles/components/component-name.scss`, so be sure to adjust styles to match your project requirements.
+Components are the basic building blocks of any modern web application. In scope and complexity they can range from default html element to groups of elements or other components.
 
 ::: tip
 When building an interface, try to extract common elements into components.
@@ -13,9 +10,13 @@ When building an interface, try to extract common elements into components.
 Limit the component usage to only a few specific cases. If you ever find an element that is reused but is different each time it appears, be careful and think twice before covering all cases inside one overly complex component.
 :::
 
+Each component has a dedicated .scss file (`./src/styles/components/component-name.scss`), where the default styles can be adjusted to match the project requirements.
+
+The following components are not globally registered.
+
 ## SntButton
 
-Custom button component helps with normalizing styling of buttons across the application. It can also be used to output `<a>` or `<router-link>` elements.
+Custom button component that helps with normalizing button styles across the application.<br> It can also be used to output `<a>` or `<router-link>` elements.
 
 #### Properties:
 
@@ -30,8 +31,7 @@ Custom button component helps with normalizing styling of buttons across the app
 | `variant` | String  | 'dark'    | 'light', 'dark'              | Sets color palette to lighter/darker color variant. |
 
 ::: tip
-SntButton can accept any valid button attributes besides props above.<br>
-E.g. `disabled` attribute.
+SntButton can also accept any valid `<button>` attribute (e.g. `disabled`).
 :::
 
 #### Example:
@@ -60,9 +60,9 @@ A component created for managing svg elements.
 | `hoverColor` | String           | primary-darker | Hex or css variable color        | Sets icon hover color.                 |
 | `scale`      | [String, Number] |                | 0 - ∞                            | Sets icon scale.                       |
 
-To use icons, download a svg and save it to `src/components/utils/icons/` as a vue component (e.g. `Home.vue`).
+To use icons, download a svg and save it to `./src/components/utils/icons/` as a vue component (e.g. `Home.vue`).
 
-A good place to look for icons is https://fonts.google.com/icons.
+A good place to look for more icons is https://fonts.google.com/icons.
 
 #### Example:
 
@@ -77,9 +77,9 @@ http://localhost:8080/examples/snt-icon
 
 ## SntInput
 
-Custom input component that should be used in place of default `<input>` or `<select>` elements.
+A custom input component that should be used instead of `<input>` or `<select>` elements.<br>
 
-It has built in support for solving boilerplate tasks such as managing labels, errors, hints, validation or multiple options.
+The features of this component allow for easier handling of forms and form inputs which usually involve a lot of boilerplate code to properly set up.
 
 #### Slots: `label`
 
@@ -104,8 +104,8 @@ It has built in support for solving boilerplate tasks such as managing labels, e
 | `rootAttrs`       | [String, Object]   |         |                                   | Attributes that will appear on root element.                                                     |
 
 ::: tip
-SntInput can accept any valid input attributes besides props above.<br>
-E.g. `required`, `min`, `max`, etc... play really well when you want to quickly define some basic validation.
+SntInput can also accept any valid `<input>` attribute (e.g. `disabled`, `required`, etc.).<br>
+Validation attributes can be usefull when you want to quickly define input validation.
 :::
 
 #### Example 1 - labels and help text:
@@ -176,7 +176,7 @@ http://localhost:8080/examples/snt-input
 
 ## SntModal & SntOverlay
 
-Wrapper for handling basic popover elements. Can be used in combination with router parameters for a better user experience (e.g. clicking back on browsers/phones close the popover).
+Wrapper for handling basic popover elements. Can be used in combination with router parameters for a better user experience (e.g. clicking back in web or phone browser closes the popover).
 
 #### Events: `open`, `close`, `toggle`
 
@@ -231,7 +231,7 @@ http://localhost:8080/examples/snt-overlay
 
 ## SntToast
 
-A component that creates placeholders for toasts and notifications.
+A component for creating toast and notification placeholders.
 
 #### Properties:
 
@@ -240,7 +240,9 @@ A component that creates placeholders for toasts and notifications.
 | `toastPosition`        | String | 'top center'   | top, bottom, left, right, center | Sets toast location.        |
 | `notificationPosition` | String | 'bottom right' | top, bottom, left, right, center | Sets notification location. |
 
-You will only ever have one SntToast component registered in your application (in App.vue) to enable showing toasts and notifications.
+::: tip
+You will only ever have one `<snt-toast>` component registered in your application (in App.vue) to enable showing toasts and notifications.
+:::
 
 #### Methods:
 

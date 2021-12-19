@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # State Management with Vuex Store
 
 Vuex is a state management solution built for Vue.js. It provides a way to store state which can then be accessed from any part of the application.
@@ -8,13 +12,13 @@ Vuex is a state management solution built for Vue.js. It provides a way to store
 
 The basic building blocks of a Vuex store (and store modules) are the following: `state`, `getters`, `mutations`, `actions`.
 
-`State` holds the data;<br>`Getters` are computed properties that are calculated based on state;<br>`Mutations` provide an interface for changing the state;<br>and `Actions` which contain the business logic, make service calls and invoke mutations.
+`State` holds the data;<br>`Getters` are computed properties that are calculated based on state;<br>`Mutations` provide an interface for changing the state;<br>and `Actions` usually contain most of the business logic, make service calls, and invoke mutations.
 
 #### Vuex Modules
 
 The vuex store can be divided into modules - where each module should contain data that's semantically similar.
 
-> A "UserModule" would include all data and methods related to user, and<br>an "AuthModule" would include all data and methods related to users Authentication.
+> E.g. a `UserModule` would include all data and methods related to user, and<br>an `AuthModule` would include all data and methods related to Authentication.
 
 ## Creating Vuex Store And Modules
 
@@ -38,9 +42,9 @@ export const store = createVuexStore({
 
 > `modules` represent registered store modules and<br>`persist` tags modules for persisted storage (localStorage by default).
 >
-> Other properties that it can accept are `state`, `getters`, `mutations`, `actions` and `plugins`.
+> Other properties that it can accept are `state`, `getters`, `mutations`, `actions`, and `plugins`.
 
-#### Creating a Module
+#### Creating Module
 
 The same syntax and properties for creating the Store Instance apply to creating a Module as well.<br>
 Example of creating a module:
@@ -72,7 +76,7 @@ export const AccountModule = {
 
 ## Auto-generated Store Methods
 
-To avoid writing boilerplate code, Vuex Store is set up in a way that it will automatically create generic **mutations** and **getters** based on defined `state`.
+To avoid writing boilerplate code, Vuex Store is configured to automatically generate **mutations** and **getters** based on defined `state`.
 
 Here is the list of auto generated methods based on this ExampleModule:
 
@@ -84,69 +88,94 @@ export const ExampleModule = {
 };
 ```
 
-| method              | parameters                   | generated for | description             |
-| ------------------- | ---------------------------- | ------------- | ----------------------- |
-| mutation.clearState |                              | module        | clears module state     |
-| mutation.clearItem  |                              | item          | clears item state       |
-| mutation.setItem    | payload                      | item          | item setter             |
-| getter.getItem      |                              | item          | item getter             |
-| mutation.addItem    | item \| item[]               | item[]        | adds or updates item(s) |
-| mutation.removeItem | item \| item[] \| id \| id[] | item[]        | removes item(s)         |
-| mutation.pushItem   | item \| item[]               | item[]        | pushes item(s)          |
-| getter.findItem     | id                           | item[]        | finds item by id        |
+| Method     | Parameters                   | Type     | Applies to  | Description             |
+| ---------- | ---------------------------- | -------- | ----------- | ----------------------- |
+| clearState |                              | mutation | all states  | clears module state     |
+| clearItem  |                              | mutation | state       | clears item state       |
+| setItem    | payload                      | mutation | state       | item setter             |
+| getItem    |                              | getter   | state       | item getter             |
+| addItem    | item \| item[]               | mutation | array state | adds or updates item(s) |
+| removeItem | item \| item[] \| id \| id[] | mutation | array state | removes item(s)         |
+| pushItem   | item \| item[]               | mutation | array state | pushes item(s)          |
+| findItem   | id                           | getter   | array state | finds item by id        |
 
-> To generate array getters and mutations you need to assign an array as initial item state<br>e.g. `state: () => ({ item: [] })`
+::: tip
+To generate array getters and mutations, the initial state must be defined as an array.<br>E.g. `state: () => ({ items: [] })`
+:::
+
+---
+
+The methods are generated for nested properties as well. Consider the following example.
+
+#### This is what you write:
+
+```js
+export const ExampleModule = {
+  state: () => ({
+    user: {
+      id: undefined,
+    },
+  }),
+};
+```
+
+#### This is what you get:
+
+```js
+export const ExampleModule = {
+  state: () => ({
+    user: {
+      id: undefined,
+    },
+  }),
+  getters: {
+    getUser: (state) => state.user,
+    getUserId: (state) => state.user.id,
+  },
+  mutations: {
+    clearState: ({ state }) => (state.user = { id: undefined }),
+    clearUser: ({ state }) => (state.user = { id: undefined }),
+    clearUserId: ({ state }) => (state.user.id = undefined),
+    setUser: ({ state }, payload) => (state.user = payload),
+    setUserId: ({ state }, payload) => (state.user.id = payload),
+  },
+};
+```
 
 ## How To Use Store
 
-#### Using store within components (directly)
+Examples below show how to use the store inside of your components.<br>More options documented at the [official vuex website](https://vuex.vuejs.org/).
+
+| Description         | Syntax                           |
+| ------------------- | -------------------------------- |
+| Accessing state     | $store.state.Module.item         |
+| Accessing getters   | $store.getters['Module/getter']  |
+| Commiting mutations | $store.commit('Module/mutation') |
+| Dispatching actions | $store.dispatch('Module/action') |
+
+::: tip
+To save a few keystrokes, the framework provides the following shorthand properties:<br>`$state`, `$getters`, `$commit`, and `$dispatch`.
+:::
+
+### Mapping store properties to the component
+
+Vuex provides a way to map the store properties directly to the component.
 
 ```html
 <template>
-  <button @click="$commit('setItem', 'payload')">
-    {{ $state.ExampleModule.item }}
-  </button>
-  <button @click="$dispatch('itemAction', 'payload')">
-    {{ $getter['ExampleModule/item'] }}
-  </button>
+  <p>Item state: {{item}}</p>
+  <p>Item state via getter: {{getItem}}</p>
+  <button @click="setItem('payload')">commit mutation</button>
+  <button @click="itemAction('payload')">dispatch action</button>
 </template>
 <script>
   export default {
-    methods: {
-      accessingStoreDirectly() {
-        this.$state.ExampleModule.item;
-        this.$getters["ExampleModule/item"];
-        this.$commit("ExampleModule/setItem", "payload");
-        this.$dispatch("ExampleModule/itemAction", "payload");
-      },
-    },
-  };
-</script>
-```
-
-#### Using store within components (via mapped elements)
-
-```html
-<template>
-  <button @click="setItem('payload')">{{ item }}</button>
-  <button @click="itemAction('payload')">{{ getItem }}</button>
-</template>
-<script>
-  export default {
-    methods: {
-      accessingStoreViaMappedElements() {
-        this.item
-        this.getItem
-        this.setItem('payload')
-        this.itemAction('payload')
-      }
-    }
     computed: {
-      // mapping mutations, getters, state & actions to the component
-      ...mapState('ExampleModule', ['item'])
-      ...mapGetters('ExampleModule', ['getItem'])
-      ...mapMutations('ExampleModule', ['setItem'])
-      ...mapActions('ExampleModule', ['itemAction'])
+      // mapping state, getters, mutations, and actions to the component
+      ...mapState('ModuleName', ['item'])
+      ...mapGetters('ModuleName', ['getItem'])
+      ...mapMutations('ModuleName', ['setItem'])
+      ...mapActions('ModuleName', ['itemAction'])
     }
   }
 </script>

@@ -4,25 +4,26 @@ sidebarDepth: 3
 
 # Project Stylesheets
 
-Every web project needs stylesheets for describing the presentation of the markup layer. This starter project comes with SCSS pre-processor which has become the de facto standard for managing stylesheets.
+Every web project needs stylesheets for describing the presentation of the markup layer. This starter project comes with SCSS pre-processor which has become the de facto standard for writing stylesheets.
 
 ::: warning A Note About SCSS
-Although SCSS introduces many additional functionalities. Some of them should be avoided in favor of using standard CSS - `scss variables` being the prime example since they are natively supported within CSS and JS.
+Although SCSS introduces additional functionalities. Some of them should be avoided in favor of using standard CSS - `scss variables` being the prime example since they are natively supported within CSS and JS.
 :::
 
 ## Managing Project Styles
 
 There are multiple ways of introducing styles to a Vue codebase:
 
-1. **_Importing styles globally_** (entrypoint: `main.js`) is the most basic way of adding styles to the project. Styles added here can be used in whole application.
+1. **_Importing styles globally_** (entrypoint: `main.js`) is the most basic way of adding styles to the project. Styles added here can be used within the whole application.
 2. **_Writing styles directly in component_** is probably the most used way of adding styles - it affects only the component in which style are written.
-3. **_Injecting styles via webpack_** (entrypoint: `./vue.config.js`) is used when we want to add scss mixins and functions which will be available throughout the app.
+3. **_Injecting styles via webpack_** (entrypoint: `./vue.config.js`) is used when we want to add scss mixins and functions which will be available throughout the application.
 
 ::: danger
-Do not use **_"3. Injecting styles via webpack"_** for writing classes or any other styling blocks since they will be repeatedly imported into each component - resulting in heavy duplication of styles.
+Do not use **_"3. Injecting styles via webpack"_** for writing classes or any other styling blocks since they will be repeatedly imported for each component - resulting in severe duplication.
 :::
 
-Here is the default file structure for stylesheets files in the project.
+The following table describes the default file structure of stylesheet files in the project.<br>
+When adding additional styles to the project, please follow the predefined structure.
 
 | Root         | Path           | Description                                                                                         |
 | ------------ | -------------- | --------------------------------------------------------------------------------------------------- |
@@ -33,15 +34,13 @@ Here is the default file structure for stylesheets files in the project.
 |              | colors.scss    | Project color palette                                                                               |
 |              | normalize.scss | Initial markup styles and normalization across browsers.<br> ❌ Avoid editing ❌                    |
 
-When adding additional styles to the project, please follow the predefined structure.
-
 ::: tip
 When adding classes for commonly used elements, make sure to add the **`snt`** prefix to avoid conflicts with external library class names.<br>Example: `.card` or `.container` would become `.snt-card` or `.snt-container`.
 :::
 
 ## Tips For Writing CSS
 
-Writing concise and well strucutured css might seem like a daunting task, especially when codebase starts to grow. The initial structure for stylesheets is set and should cover most if not all needs for managing project styles, but still some guidelines should be followed for creating a manageable css codebase.
+Writing concise and well strucutured css might seem like a daunting task, especially when the codebase starts to grow. The initial structure for stylesheets is set and should cover most (if not all) needs for managing project styles, but still some guidelines should be followed for creating a manageable css codebase.
 
 ### CSS Selectors
 
@@ -51,7 +50,7 @@ When writing styles, you should always use class selectors (e.g. `.class-name`),
 
 Try keeping specificity as low as possible.
 
-Avoid writing combinator selectors (e.g. `.class > p`, `div ul a`), especially as part of global styles. It will hinder your ability to override styles later on.
+Avoid writing combinator selectors (e.g. `.class > p`, `div ul a`), especially as part of global styles. It will hinder the possibility to easily override styles later on.
 
 _Avoid using `!important` keyword!_
 
@@ -63,21 +62,31 @@ Example:
 ```html
 <section class="section">
   <h2 class="section-title"></h2>
-  <ul class="section-body">
-    <li class="section-body-item"></li>
+  <ul class="section-list">
+    <li class="section-list-item"></li>
   </ul>
 </section>
 ```
 
-### Use Component Styles
+### Browser Compatibility
+
+::: warning
+The majority of css properties are well supported across all modern browsers, but some properties still lack support or behave differenlty on different browsers.
+
+When developing, frequently test the page on different browsers.
+:::
+
+### Using Component Styles
 
 Most of the CSS you write will be specific for each component. Do not bloat global styles with seemingly "common" classes and style blocks, and prefer writing your css directly into components.
 
 ### Using CSS Variables
 
-A lot of stylesheets have predefined css variables in them. You can easily adjust those to fit your project needs and use them wherever needed.<br>Example: `.class { background: var(--snt-app-background) }`
+A lot of stylesheets have predefined css variables in them. Those variables should be adjusted to fit the project needs.
 
-Some predefined classes have css variables. When you use such classes you can easily change the value of those variables.<br>Example: `<nav class="snt-flex" style="--gap: 20px;"></nav>`
+Variables defined in the `:root` block can easily be used inside your classes or directly on style attribute of the elements.<br> E.g. `:root { --my-color: black }`, `.class { background: var(--my-color); }`, `<p style="color: var(--my-color)"></p>`.
+
+Some predefined classes have css variables. When you use such classes you can easily change the value of those variables inline.<br>Example: `<nav class="snt-flex" style="--gap: 20px;"></nav>`
 
 # Predefined Styles
 
@@ -145,10 +154,6 @@ File: `./src/styles/elements/containers.scss`
 | .snt-grid-fill        | Grid w/ dynamic column count |
 | .snt-flex             | Flexbox with gap             |
 | .snt-flex-wrap        | Flexbox with gap             |
-
-::: warning
-Flex gap still does not have good enough browser support to be used. Prefer using `.snt-flex` (or it's gap implementation if you want flexbox with gaps).
-:::
 
 ## Cards & Tables
 

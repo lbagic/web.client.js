@@ -6,61 +6,61 @@ sidebarDepth: 3
 
 Shortlist of custom stack features.
 
-## [Components](/in-depth/components)
+## [Components](/guide/components)
 
-#### [SntButton](/in-depth/components#sntbutton)
+#### [SntButton](/guide/components#sntbutton)
 
 Component for handling `button`, `router link`, and `anchor` elements.
 
-#### [SntIcon](/in-depth/components#snticon)
+#### [SntIcon](/guide/components#snticon)
 
 Component for handling svg icons.
 
-#### [SntInput](/in-depth/components#sntinput)
+#### [SntInput](/guide/components#sntinput)
 
 A versatile input component for dealing with inputs and forms.<br> Supports relevant input types.
 ::: tip
 Prefer using `snt-input` instead of the default `input` element.
 :::
 
-#### [SntModal & SntOverlay](/in-depth/components#sntmodal-sntoverlay)
+#### [SntModal & SntOverlay](/guide/components#sntmodal-sntoverlay)
 
 Components for managing modals and full screen overlays.
 
-#### [SntToast](/in-depth/components#snttoast)
+#### [SntToast](/guide/components#snttoast)
 
 Component for displaying toast and notification messages.
 
 ---
 
-## [Plugins](/in-depth/plugins)
+## [Plugins](/guide/plugins)
 
-#### [i18n: `$t`](/in-depth/plugins#i18n)
+#### [i18n: `$t`](/guide/plugins#i18n)
 
 Internationalization plugin.<br>
 Provides an accessible interface to create an application that supports multiple languages.
 
 For full documentation visit https://kazupon.github.io/vue-i18n/introduction.html.
 
-#### [breakpoint: `$bp`](/in-depth/plugins#breakpoint)
+#### [breakpoint: `$bp`](/guide/plugins#breakpoint)
 
 Plugin for managing screen breakpoints in javascript.<br>
 Works in tandem with your css media declarations.
 
 ---
 
-## [Services](/in-depth/services)
+## [Services](/guide/services)
 
 Service layer is a place through which all outside communication flows.<br>
 It provides a "dumb" api interface which is used by other parts of application for calling external providers.
 
 Api methods and scripts that connect to external providers are placed here.
 
-Read more - [Creating API Endpoint](/in-depth/services#creating-api-endpoint), [Creating Service Endpoint](/in-depth/services#creating-service-endpoint)
+Read more - [Creating API Endpoint](/guide/services#creating-api-endpoint), [Creating Service Endpoint](/guide/services#creating-service-endpoint)
 
 ---
 
-## [Vuex (State Management)](/in-depth/state-management)
+## [Vuex (State Management)](/guide/state-management)
 
 Vuex provides an interface for managing global application state. Separated into multiple self-contained modules, it has proven to be a good solution for managing medium to large scale applications.
 
@@ -72,7 +72,7 @@ For full documentation visit https://vuex.vuejs.org/.
 
 ---
 
-## [Styles (SCSS)](/in-depth/styles)
+## [Styles (SCSS)](/guide/styles)
 
 A small stylesheet ecosystem that handles `containers`, `breakpoints`, `colors`, `animations`, `tables`, `typography`, and a few other things.
 
@@ -80,7 +80,7 @@ A small stylesheet ecosystem that handles `containers`, `breakpoints`, `colors`,
 
 ## Utils
 
-A collection of useful utilities for tackling common problems.
+A collection of javascript utilities for tackling common problems.
 
 Notable mentions:
 
@@ -134,7 +134,7 @@ It will will help creating a more organized codebase - especially on larger proj
 
 ### File Structure
 
-| root  | path           | Description                                            |
+| Root  | Path           | Description                                            |
 | ----- | -------------- | ------------------------------------------------------ |
 | src/  | assets/        | Static project assets (e.g. images)                    |
 |       | components/    | Vue components (used within views or other components) |

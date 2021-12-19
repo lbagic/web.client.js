@@ -8,14 +8,14 @@ Sintezis Web Stack is a frontend framework solution built with Vue.js 3.
 
 The actual framework is a barebones Vue.js installation with predefined configuration and a few custom solutions that solve some of the most common web development problems.
 ::: tip
-Skim through the docs so you get the general feel of what this framework provides. You can check out the full list of custom additions on the [stack overview page](/guide/overview).
+Skim through the docs so you get the general idea of what this framework provides. You can check out the full list of custom additions on the [stack overview page](/overview).
 :::
 
 > This documentation does not cover Vue.js basics, they have a good [documentation site](https://v3.vuejs.org/guide/introduction.html) which you can **and should** reference whenever you have vue-related questions.
 
 > Besides the documentation site, Vue has an active community of developers who are willing to answer any questions related to Vue on the [official discord channel](https://discord.gg/vue).
 
-## Starting a Project
+## Creating a Project
 
 Follow these steps to create a new project from Sintezis Web Stack.
 
@@ -32,8 +32,7 @@ npm install
 npm run serve
 ```
 
-Application is now available at http://localhost:8080.<br>
-Documentation is served on http://localhost:8081.
+After running npm run serve, the application will be hosted on http://localhost:8080, and the documentation will be hosted on http://localhost:8081.
 
 ## Mandatory Configuration
 
@@ -96,6 +95,14 @@ Feel free to remove any unecessary variables from .env file, but also **remember
 ::: danger
 Never set values in .env.example. It may lead to leaks and unauthorized uses of private keys.
 :::
+
+### Favicon, Title, OG Tags
+
+Favicon can be changed at `./public/favicon.ico`.
+
+OG Tags can be added in `./public/index.html`.
+
+Title can be changed in `./src/router/router.js`. You can also configure title for each route by adding the `meta.title` property to route object.
 
 ## A Note To All WSL2 Users
 

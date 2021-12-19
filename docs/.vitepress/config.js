@@ -6,6 +6,14 @@ export default {
     sidebar: {
       "/": getSidebar(),
     },
+    nav: [
+      { text: "Stack Overview", link: "/overview" },
+      {
+        text: "Guides",
+        link: "/guide/components",
+        activeMatch: "^/guide/",
+      },
+    ],
   },
 };
 
@@ -15,18 +23,19 @@ function getSidebar() {
       text: "Introduction",
       children: [
         { text: "Getting Started", link: "/" },
-        { text: "Stack Overview", link: "/guide/overview" },
-        { text: "Roadmap", link: "/guide/roadmap" },
+        { text: "Stack Overview", link: "/overview" },
+        { text: "Roadmap", link: "/roadmap" },
       ],
     },
     {
-      text: "In-Depth",
+      sidebarDepth: 4,
+      text: "In-Depth Guides",
       children: [
-        { text: "Components", link: "/in-depth/components" },
-        { text: "Plugins", link: "/in-depth/plugins" },
-        { text: "Services", link: "/in-depth/services" },
-        { text: "Vuex (State Management)", link: "/in-depth/state-management" },
-        { text: "Styles", link: "/in-depth/styles" },
+        { text: "Components", link: "/guide/components" },
+        { text: "Plugins", link: "/guide/plugins" },
+        { text: "Services", link: "/guide/services" },
+        { text: "Vuex (State Management)", link: "/guide/state-management" },
+        { text: "Stylesheets", link: "/guide/styles" },
       ],
     },
   ];

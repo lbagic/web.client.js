@@ -1,4 +1,4 @@
-# Plugins
+# Vue Plugins
 
 Plugins provide a way to extend the functionality of your application or introduce new components.
 

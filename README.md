@@ -1,12 +1,5 @@
 # web.stack.js
 
-## Development setup (vscode)
-
-Install the following plugins:
-[Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode),
-[Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint),
-[Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
-
 ## Project setup
 
 ```

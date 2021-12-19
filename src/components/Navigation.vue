@@ -1,6 +1,6 @@
 <template>
   <header class="navigation-wrapper">
-    <nav class="navigation container-expand">
+    <nav class="navigation .snt-container-expand">
       <router-link
         v-for="route in routes"
         :key="route.name"

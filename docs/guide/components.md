@@ -1,4 +1,4 @@
-# Components
+# Custom Components
 
 Components are building blocks of web applications. In scope and complexity they range from basic html elements to groups of elements or other components.
 

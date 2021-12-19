@@ -1,10 +1,12 @@
 // position
-
 .relative {
   position: relative;
 }
 .absolute {
   position: absolute;
+}
+.fixed {
+  position: fixed;
 }
 .pointer {
   cursor: pointer;
@@ -19,7 +21,15 @@
 }
 
 // containers
-
+.block {
+  display: block;
+}
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
 .grid {
   display: grid;
 }

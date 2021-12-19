@@ -2,10 +2,10 @@
 
 ## Documentation
 
-| Docs (1/3)                   | status |
+| Docs (2/3)                   | status |
 | ---------------------------- | ------ |
 | Set up docs page             | ✅     |
-| Write up whole documentation |        |
+| Finish writing documentation | ✅     |
 | Add interactive examples     |        |
 
 ## Styles
@@ -63,9 +63,9 @@
 | api factory                  | ✅     |
 | api pagination handler       |        |
 | api integration with popups? |        |
-| service crud generator       | ✅     |
 | grpc                         |        |
 | firebase integrations        |        |
+| service crud generator       | ✅     |
 | i18n                         | ✅     |
 | husky                        | ✅     |
 | store implementation         | ✅     |

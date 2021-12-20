@@ -1,16 +1,19 @@
+import { i18n } from "../../config/plugins/i18n";
 import { formatDate, getTwoDigitFormat } from "../../utils/datetime";
+
+const { t } = i18n.global;
 
 export const htmlErrors = {
   // customError: false,
-  badInput: "Bad input value.",
-  patternMismatch: "Value is not allowed.",
-  rangeOverflow: "Value is larger than allowed.",
-  rangeUnderflow: "Value is smaller than allowed.",
-  stepMismatch: "Input step mismatch.",
-  tooLong: "Value is too long.",
-  tooShort: "Value is too short.",
-  typeMismatch: "Value is not valid.",
-  valueMissing: "Value is required.",
+  badInput: t("forms.html-error-bad-input"),
+  patternMismatch: t("forms.html-error-pattern-mismatch"),
+  rangeOverflow: t("forms.html-error-range-overflow"),
+  rangeUnderflow: t("forms.html-error-range-underflow"),
+  stepMismatch: t("forms.html-error-step-mismatch"),
+  tooLong: t("forms.html-error-too-long"),
+  tooShort: t("forms.html-error-too-short"),
+  typeMismatch: t("forms.html-error-type-mismatch"),
+  valueMissing: t("forms.html-error-value-missing"),
 };
 export const htmlErrorKeys = Object.keys(htmlErrors);
 

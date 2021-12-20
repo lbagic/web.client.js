@@ -82,11 +82,12 @@ export default {
   height: 3px;
 }
 .navigation-wrapper {
-  height: var(--snt-nav-height);
   display: flex;
   overflow-x: auto;
   background: var(--snt-color-primary);
-  // scroll-snap-type: x mandatory;
+  position: sticky;
+  top: 0;
+  height: var(--snt-nav-height);
 }
 .navigation {
   width: 100%;
@@ -94,7 +95,6 @@ export default {
   color: var(--snt-color-light);
   & > * {
     box-shadow: none;
-    // scroll-snap-align: start end;
     padding: 8px 16px;
     color: inherit;
     outline: none;

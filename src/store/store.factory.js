@@ -122,12 +122,10 @@ const generateModuleFunctions = (
         _items.forEach((item) => {
           const isObject = item.id !== undefined;
           const newObject = isObject ? { ...item } : item;
-          let foundIndex = undefined;
-          _array.some((entity, entityIndex) => {
-            const isFound = isObject ? entity.id === item.id : entity === item;
-            if (isFound) foundIndex = entityIndex;
-          });
-          if (foundIndex === undefined) _array.push(newObject);
+          const foundIndex = _array.findIndex((entity) =>
+            isObject ? entity.id === item.id : entity === item
+          );
+          if (foundIndex === -1) _array.push(newObject);
           else _array[foundIndex] = newObject;
         });
       };
@@ -138,12 +136,10 @@ const generateModuleFunctions = (
         const _array = valuePointer(state);
         _items.forEach((item) => {
           const id = item.id === undefined ? item : item.id;
-          let foundIndex = undefined;
-          _array.some((entity, entityIndex) => {
-            const isFound = entity.id === id || entity === id;
-            if (isFound) foundIndex = entityIndex;
-          });
-          if (foundIndex !== undefined) _array.splice(foundIndex, 1);
+          const foundIndex = _array.findIndex(
+            (entity) => entity.id === id || entity === id
+          );
+          if (foundIndex > -1) _array.splice(foundIndex, 1);
         });
       };
 

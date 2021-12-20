@@ -1,6 +1,7 @@
 <template>
   <navigation />
   <router-view />
+  <!-- elements out of document flow -->
   <snt-toast />
   <component :is="Docs" />
 </template>

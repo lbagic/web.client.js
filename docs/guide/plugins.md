@@ -16,13 +16,13 @@ For a full api reference, check the [vue-i18n documentation](https://kazupon.git
 // ./src/config/translations/en.json
 {
   "general": {
-    "hello_world": "Hello World"
+    "hello-world": "Hello World"
   }
 }
 ```
 
 ```html
-<button>$t('general.hello_world')</button>
+<button>$t('general.hello-world')</button>
 ```
 
 ::: warning

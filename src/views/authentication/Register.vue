@@ -1,6 +1,6 @@
 <template>
   <fieldset
-    class="snt-container-s my-auto snt-grid snt-card"
+    class="snt-container-s m-auto snt-grid snt-card"
     style="--gap: 12px"
   >
     <legend class="snt-fs-2" style="color: var(--snt-color-primary-darker)">

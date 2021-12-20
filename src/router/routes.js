@@ -10,25 +10,25 @@ export const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/onboarding/Login.vue"),
+    component: () => import("../views/authentication/Login.vue"),
     meta: { visitorOnly: true },
   },
   {
     path: "/register",
     name: "Register",
-    component: () => import("../views/onboarding/Register.vue"),
+    component: () => import("../views/authentication/Register.vue"),
     meta: { visitorOnly: true },
   },
   {
     path: "/forgot-password",
     name: "Forgot Password",
-    component: () => import("../views/onboarding/PasswordForgot.vue"),
+    component: () => import("../views/authentication/ForgotPassword.vue"),
     meta: { visitorOnly: true },
   },
   {
     path: "/reset-password",
     name: "Reset password",
-    component: () => import("../views/onboarding/PasswordReset.vue"),
+    component: () => import("../views/authentication/ResetPassword.vue"),
     meta: { visitorOnly: true },
   },
 ];

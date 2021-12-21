@@ -1,15 +1,31 @@
 /**
- * Scaffold crud calls for a service.
+ * @typedef {{import("axios").AxiosInstance}} AxiosInstance
+ * @typedef {{import("axios").AxiosRequestConfig}} AxiosRequestConfig
+ * @typedef {{import("axios").AxiosResponse}} AxiosResponse
  *
- * @param {import("axios").AxiosInstance} api Axios instance.
+ * @typedef {{
+ *   get: (id: (string|number), config?: AxiosRequestConfig) => Promise<AxiosResponse>,
+ *   getAll: (config?: AxiosRequestConfig) => Promise<AxiosResponse>,
+ *   create: (data: {}, config?: AxiosRequestConfig) => Promise<AxiosResponse>,
+ *   update: (id: (string|number), data: {}, config?: AxiosRequestConfig) => Promise<AxiosResponse>,
+ *   delete: (id: (string|number), config?: AxiosRequestConfig) => Promise<AxiosResponse>,
+ * }} ServiceCrudInstance
+ *
+ * @typedef {{
+ *   get: { then: (ctx, res, id) => {}, catch: (ctx, err, id) => {}, finally: (ctx, id) => {} },
+ *   getAll: { then: (ctx, res) => {}, catch: (ctx, err) => {}, finally: (ctx) => {} },
+ *   create: { then: (ctx, res, data) => {}, catch: (ctx, err, data) => {}, finally: (ctx, data) => {} },
+ *   update: { then: (ctx, res, {id, data}) => {}, catch: (ctx, err, {id, data}) => {}, finally: (ctx, {id, data}) => {} },
+ *   delete: { then: (ctx, res, id) => {}, catch: (ctx, err, id) => {}, finally: (ctx, id) => {} },
+ * }} ServiceCrudInstanceHooks
+ */
+
+/**
+ * Scaffold service crud calls.
+ *
+ * @param {AxiosInstance} api Axios instance.
  * @param {string} url Resource url.
- * @return {{
- *   get: (id: (string|number), config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   getAll: (config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   create: (data: {}, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   update: (id: (string|number), data: {}, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   delete: (id: (string|number), config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- * }} Returns service crud instance.
+ * @return {ServiceCrudInstance} Returns service crud instance.
  */
 
 export const createServiceCrud = (api, url) => ({
@@ -25,30 +41,12 @@ export const createServiceCrud = (api, url) => ({
 });
 
 /**
- * Scaffold crud calls for a module.
+ * Scaffold service crud calls for a store module.
  *
- * @param {{
- *   get: (id: any, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   getAll: (config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   create: (data: {}, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   update: (id: any, data: {}, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   delete: (id: any, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- * }} serviceCrud Service crud instance.
- * @param {string} path Path to state expressed as a string.
- * @param {{
- *   get: { then: (ctx, res, id) => {}, catch: (ctx, err, id) => {}, finally: (ctx, id) => {} },
- *   getAll: { then: (ctx, res) => {}, catch: (ctx, err) => {}, finally: (ctx) => {} },
- *   create: { then: (ctx, res, data) => {}, catch: (ctx, err, data) => {}, finally: (ctx, data) => {} },
- *   update: { then: (ctx, res, {id, data}) => {}, catch: (ctx, err, {id, data}) => {}, finally: (ctx, {id, data}) => {} },
- *   delete: { then: (ctx, res, id) => {}, catch: (ctx, err, id) => {}, finally: (ctx, id) => {} },
- * }} hooks Optional promise hooks.
- * @return {{
- *   get: (id: any, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   getAll: (config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   create: (data: {}, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   update: (id: any, data: {}, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- *   delete: (id: any, config: import("axios").AxiosRequestConfig) => Promise<import("axios").AxiosResponse>,
- * }} Returns module crud instance (actions).
+ * @param {ServiceCrudInstance} serviceCrud Service crud instance.
+ * @param {string} path Path to state expressed as a dot notation string.
+ * @param {ServiceCrudInstanceHooks} hooks Optional service crud promise hooks.
+ * @return {ServiceCrudInstance} Returns service crud instance.
  */
 
 export const createModuleCrud = (serviceCrud, path, hooks = {}) => {

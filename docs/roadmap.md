@@ -2,7 +2,7 @@
 
 ## Documentation
 
-| Docs (2/3)                   | status |
+| Docs (3/3)                   | status |
 | ---------------------------- | ------ |
 | Set up docs page             | ✅     |
 | Finish writing documentation | ✅     |
@@ -19,6 +19,10 @@
 | animations                  | ✅     |
 | normalized styles           | ✅     |
 | component styles            | ✅     |
+
+#### Low priority:
+
+- loading animations
 
 ## Components
 
@@ -58,7 +62,7 @@
 
 ## Integrations
 
-| Integrations (9/13)          | status |
+| Integrations (9/14)          | status |
 | ---------------------------- | ------ |
 | api factory                  | ✅     |
 | api pagination handler       |        |
@@ -77,6 +81,8 @@
 
 #### Low priority:
 
+- hooks for triggering loading animations
+- type definitions for utils and custom integrations
 - stylelint
 - api integrations via call config
   - isLoading: true, // show loading

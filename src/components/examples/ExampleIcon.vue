@@ -1,13 +1,13 @@
 <template>
-  <p>icon="home"</p>
+  <p>Props: <i>icon="Home"</i></p>
   <snt-icon icon="Home" />
-  <p>icon="home" color="secondary"</p>
+  <p>Props: <i>icon="Home" color="secondary"</i></p>
   <snt-icon icon="Home" color="secondary" />
-  <p>icon="home" button</p>
+  <p>Props: <i>icon="Home" button</i></p>
   <snt-icon icon="Home" button />
-  <p>icon="home" button hoverColor="ternary"</p>
+  <p>Props: <i>icon="Home" button hoverColor="ternary"</i></p>
   <snt-icon icon="Home" button hoverColor="ternary" />
-  <p>icon="home" scale="2"</p>
+  <p>Props: <i>icon="Home" scale="2"</i></p>
   <snt-icon icon="Home" scale="2" />
 </template>
 
@@ -19,4 +19,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+i {
+  font-weight: bold;
+}
+</style>

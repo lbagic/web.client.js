@@ -1,79 +1,50 @@
 <template>
   <header class="navigation-wrapper">
-    <nav class="navigation .snt-container-expand">
-      <router-link
-        v-for="route in routes"
-        :key="route.name"
-        v-bind="route.$attrs"
-        @click="snap"
-        >{{ route.innerHtml }}</router-link
-      >
-      <button
-        v-if="$isLoggedIn"
-        class="snt-animate-underline primary"
-        style="margin-left: auto"
-        @click="$store.dispatch('AccountModule/logout')"
-      >
-        <snt-icon icon="Power" color="light" />
-      </button>
+    <nav class="navigation snt-container-expand">
+      <router-link to="/" class="navigation-link snt-fs-2">Logo</router-link>
+      <!-- User routes -->
+      <template v-if="$getters['AccountModule/isLoggedIn']">
+        <button
+          class="navigation-link snt-animate-underline"
+          style="margin-left: auto"
+          @click="$dispatch('AccountModule/logout')"
+        >
+          <snt-icon icon="Power" color="light" />
+        </button>
+      </template>
+      <!-- Visitor routes -->
+      <template v-else>
+        <router-link
+          to="/login"
+          class="navigation-link snt-animate-underline snt-fs--1"
+          >Login</router-link
+        >
+        <router-link
+          to="/register"
+          class="navigation-link snt-animate-underline snt-fs--1"
+          >Register</router-link
+        >
+        <button
+          style="margin-left: auto"
+          class="navigation-link snt-animate-underline snt-fs--1"
+          @click="
+            $commit('AccountModule/setToken', 'TOKEN');
+            $router.push('/');
+          "
+        >
+          [test login]
+        </button>
+      </template>
     </nav>
   </header>
 </template>
 
 <script>
-import { routes as routerRoutes } from "../router/routes.js";
 import SntIcon from "./utils/SntIcon.vue";
 
 export default {
   components: { SntIcon },
   name: "Navigation",
-  data() {
-    return {
-      startRoutes: [{ name: "Home", text: "Logo" }],
-    };
-  },
-  computed: {
-    routes() {
-      const logoClass = "flex align-items snt-fs-2";
-      const linkClass = "flex align-items snt-animate-underline snt-fs--1";
-
-      const routes = this.$isLoggedIn
-        ? [
-            {
-              name: "Home",
-              innerHtml: "Logo",
-              $attrs: { class: logoClass },
-            },
-          ]
-        : [
-            {
-              name: "Login",
-              innerHtml: "Logo",
-              $attrs: { class: logoClass },
-            },
-            { name: "Login", $attrs: { class: linkClass } },
-            { name: "Register", $attrs: { class: linkClass } },
-          ];
-
-      return routes.map((el) => {
-        const route = routerRoutes.find((route) => el.name === route.name);
-        if (!route) throw new Error(`Can't find route with name "${el.name}"`);
-
-        return {
-          innerHtml: el.innerHtml ?? el.name,
-          $attrs: { ...el.$attrs, to: route.path },
-        };
-      });
-    },
-  },
-  methods: {
-    snap({ target }) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-      });
-    },
-  },
 };
 </script>
 
@@ -90,7 +61,7 @@ export default {
   height: var(--snt-nav-height);
 }
 .navigation {
-  width: 100%;
+  min-width: fit-content;
   display: flex;
   color: var(--snt-color-light);
   & > * {
@@ -99,5 +70,9 @@ export default {
     color: inherit;
     outline: none;
   }
+}
+.navigation-link {
+  display: flex;
+  align-items: center;
 }
 </style>

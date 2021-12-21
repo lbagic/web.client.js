@@ -1,22 +1,20 @@
 <template>
-  <p>(default)</p>
+  <p>Props: <i>(none)</i></p>
   <snt-button>Button</snt-button>
-  <p>large</p>
+  <p>Props: <i>large</i></p>
   <snt-button large>Button</snt-button>
-  <p>expand</p>
+  <p>Props: <i>expand</i></p>
   <snt-button expand>Button</snt-button>
-  <p>type="outline"</p>
+  <p>Props: <i>type="outline"</i></p>
   <snt-button type="outline">Button</snt-button>
-  <p>type="text"</p>
+  <p>Props: <i>type="text"</i></p>
   <snt-button type="text">Button</snt-button>
-  <p>color="secondary"</p>
+  <p>Props: <i>color="secondary"</i></p>
   <snt-button color="secondary">Button</snt-button>
-  <p>color="ternary"</p>
-  <snt-button color="ternary">Button</snt-button>
-  <p>to="/examples/snt-button" (router-link)</p>
-  <snt-button to="/examples/snt-button">Button</snt-button>
-  <p>href="/examples/snt-button" (anchor)</p>
-  <snt-button href="/examples/snt-button">Button</snt-button>
+  <p>Props: <i>to="/examples/snt-button"</i></p>
+  <snt-button to="/examples/snt-button">Router link</snt-button>
+  <p>Props: <i>href="/examples/snt-button"</i></p>
+  <snt-button href="/examples/snt-button">Anchor element</snt-button>
 </template>
 
 <script>
@@ -33,5 +31,8 @@ export default {
   grid-template-columns: auto 1fr;
   gap: 1rem;
   justify-items: flex-start;
+}
+i {
+  font-weight: bold;
 }
 </style>

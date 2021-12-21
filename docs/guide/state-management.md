@@ -78,26 +78,26 @@ export const AccountModule = {
 
 To avoid writing boilerplate code, Vuex Store is configured to automatically generate **mutations** and **getters** based on defined `state`.
 
-Here is the list of auto generated methods based on this ExampleModule:
+Here is the list of auto generated methods based on this ExampleResourceModule:
 
 ```js
-export const ExampleModule = {
+export const ExampleResourceModule = {
   state: () => ({
-    item: undefined,
+    items: [],
   }),
 };
 ```
 
-| Method     | Parameters                   | Type     | Applies to  | Description             |
-| ---------- | ---------------------------- | -------- | ----------- | ----------------------- |
-| clearState |                              | mutation | all states  | clears module state     |
-| clearItem  |                              | mutation | state       | clears item state       |
-| setItem    | payload                      | mutation | state       | item setter             |
-| getItem    |                              | getter   | state       | item getter             |
-| addItem    | item \| item[]               | mutation | array state | adds or updates item(s) |
-| removeItem | item \| item[] \| id \| id[] | mutation | array state | removes item(s)         |
-| pushItem   | item \| item[]               | mutation | array state | pushes item(s)          |
-| findItem   | id                           | getter   | array state | finds item by id        |
+| Method      | Parameters                   | Type     | Applies to  | Description             |
+| ----------- | ---------------------------- | -------- | ----------- | ----------------------- |
+| clearState  |                              | mutation | all states  | clears module state     |
+| clearItems  |                              | mutation | state       | clears item state       |
+| setItems    | payload                      | mutation | state       | item setter             |
+| getItems    |                              | getter   | state       | item getter             |
+| addItems    | item \| item[]               | mutation | array state | adds or updates item(s) |
+| removeItems | item \| item[] \| id \| id[] | mutation | array state | removes item(s)         |
+| pushItems   | item \| item[]               | mutation | array state | pushes item(s)          |
+| findItems   | id                           | getter   | array state | finds item by id        |
 
 ::: tip
 To generate array getters and mutations, the initial state must be defined as an array.<br>E.g. `state: () => ({ items: [] })`
@@ -110,7 +110,7 @@ The methods are generated for nested properties as well. Consider the following 
 #### This is what you write:
 
 ```js
-export const ExampleModule = {
+export const ExampleResourceModule = {
   state: () => ({
     user: {
       id: undefined,
@@ -122,7 +122,7 @@ export const ExampleModule = {
 #### This is what you get:
 
 ```js
-export const ExampleModule = {
+export const ExampleResourceModule = {
   state: () => ({
     user: {
       id: undefined,

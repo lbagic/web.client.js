@@ -1,3 +1,4 @@
+import { appConfig } from "../../appConfig";
 import { router } from "../../router/router";
 import { AccountService } from "../../services/AccountService";
 
@@ -16,7 +17,7 @@ export const AccountModule = {
         commit("setToken", payload.token);
         commit("UserModule/setUser", payload.user, { root: true });
         dispatch("onLogin", undefined, { root: true });
-        router.go();
+        router.push(appConfig.userHome);
       });
       return promise;
     },
@@ -26,7 +27,7 @@ export const AccountModule = {
         .finally(() => {
           commit("clearState", undefined, { root: true });
           dispatch("onLogout", undefined, { root: true });
-          router.go();
+          router.push(appConfig.visitorHome);
         });
     },
     register(ctx, payload) {

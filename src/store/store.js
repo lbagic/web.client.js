@@ -1,26 +1,20 @@
 import { AccountModule } from "./modules/AccountModule";
-import { ExampleModule } from "./modules/ExampleModule";
+import { ExampleResourceModule } from "./modules/ExampleResourceModule";
 import { Toast } from "./modules/Toast";
 import { UserModule } from "./modules/UserModule";
 import { createVuexStore } from "./store.factory";
 
-const modules = {
-  AccountModule,
-  UserModule,
-  Toast,
-};
-
-const persist = {
-  AccountModule,
-  UserModule,
-};
-
-if (process.env.NODE_ENV === "development")
-  modules.ExampleModule = ExampleModule;
-
 export const store = createVuexStore({
-  modules,
-  persist,
+  modules: {
+    AccountModule,
+    UserModule,
+    Toast,
+    ExampleResourceModule,
+  },
+  persist: {
+    AccountModule,
+    UserModule,
+  },
   actions: {
     onOpen() {},
     onClose() {},

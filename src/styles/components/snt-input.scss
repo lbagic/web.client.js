@@ -46,7 +46,7 @@
   &-required::after {
     margin-left: 2px;
     content: "*";
-    color: red;
+    color: var(--snt-color-error);
   }
   &-block > * + * {
     margin-block-start: var(--label-margin-block-start);

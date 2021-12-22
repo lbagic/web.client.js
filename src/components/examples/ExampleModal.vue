@@ -8,10 +8,10 @@
   <router-link to="#bg-modal"
     >Props:
     <i
-      >hash="#bg-modal" background="secondary" opacity="1" hideCloseIcon</i
+      >hash="#bg-modal" background="secondary" opacity=".8" hideCloseIcon</i
     ></router-link
   >
-  <snt-modal hash="#bg-modal" background="secondary" opacity="1" hideCloseIcon
+  <snt-modal hash="#bg-modal" background="secondary" opacity=".8" hideCloseIcon
     >I am a #bg-modal</snt-modal
   >
 </template>

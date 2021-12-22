@@ -183,4 +183,4 @@ Vuex provides a way to map the store properties directly to the component.
 
 #### Live Example:
 
-http://localhost:8080/examples/vuex-store
+http://localhost:8080/examples/vuex-module

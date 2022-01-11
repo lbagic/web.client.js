@@ -13,10 +13,11 @@
   justify-content: center;
 }
 .snt-overlay-close {
-  position: sticky;
+  // position: sticky;
+  position: fixed;
   top: 10px;
   right: 10px;
-  float: right;
+  // float: right;
   padding: 5px;
   overflow: hidden;
 }

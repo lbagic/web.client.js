@@ -193,6 +193,7 @@ Wrapper for handling basic popover elements. Can be used in combination with rou
 | `hash`            | String  |         | e.g. '#hash'    | Route hash that activates modal/oerlay.                                                                                     |
 | `query`           | String  |         |                 | Route query that activates modal/oerlay                                                                                     |
 | `hideCloseIcon`   | Boolean | false   |                 | Hides close icon.                                                                                                           |
+| `nonClosable`     | Boolean | false   |                 | Disables manual closing of modal/overlay.                                                                                   |
 | `disableTeleport` | Boolean | false   |                 | Disables teleporting to "body" element. Should be used when you want to open modal/overlay in specific element on the page. |
 
 #### Modal only properties:

@@ -3,7 +3,6 @@
     <transition name="snt-drop" appear>
       <div
         v-if="isOpen"
-        v-bind="$attrs"
         :class="{
           'snt-overlay': true,
           'snt-overlay-center': center,
@@ -12,7 +11,7 @@
       >
         <slot name="close" v-bind="close">
           <snt-icon
-            v-if="!hideCloseIcon"
+            v-if="!hideCloseIcon && !nonClosable"
             icon="Close"
             class="snt-overlay-close"
             scale="1.5"
@@ -22,7 +21,9 @@
             @click="close()"
           />
         </slot>
-        <slot></slot>
+        <div v-bind="$attrs">
+          <slot></slot>
+        </div>
       </div>
     </transition>
   </teleport>

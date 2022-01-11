@@ -44,6 +44,10 @@ export const overlayMixin = {
      */
     hideCloseIcon: Boolean,
     /**
+     * Disables manual closing of modal.
+     */
+    nonClosable: Boolean,
+    /**
      * Toggles use of teleport to html body.
      */
     disableTeleport: Boolean,
@@ -57,10 +61,12 @@ export const overlayMixin = {
       ],
     }[this.openMethod];
     if (watcher) this.$watch(...watcher, { immediate: true });
-    this.$watch(
-      () => overlayShared.escEvent,
-      () => (this.isOpen = false)
-    );
+    if (!this.nonClosable) {
+      this.$watch(
+        () => overlayShared.escEvent,
+        () => (this.isOpen = false)
+      );
+    }
   },
   mounted() {
     const isOpenWatcher = (flag) => {

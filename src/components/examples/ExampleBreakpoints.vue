@@ -1,7 +1,7 @@
 <template>
   <div class="breakpoint-grid">
     <p>$bp.actie:</p>
-    <p style="color: black">{{ $bp.active }}</p>
+    <p style="color: black">{{ $bp.size }}</p>
     <p>$bp.s:</p>
     <p :data-active="$bp.s">{{ $bp.s }}</p>
     <p>$bp.m:</p>

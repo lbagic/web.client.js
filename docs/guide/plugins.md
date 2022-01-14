@@ -60,7 +60,7 @@ $css-variables: (
 <div v-if="$bp.xl">Viewport is 1200px or wider</div>
 
 <!-- would show s/m/l/xl, depending on the viewport width -->
-<div>Current breakpoint is: {{$bp.active}}</div>
+<div>Current breakpoint is: {{$bp.size}}</div>
 ```
 
 #### Live example:

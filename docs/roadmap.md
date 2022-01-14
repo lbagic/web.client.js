@@ -49,6 +49,7 @@
 
 - support overriding component styles ✅
 - support modals and overlays to be used in constrained section ✅
+- loader component (or just css class)
 - add table component - or is class enough?
 - slider/carousel component (probably not worth bundle size - use swipper.js plugin)
 - topbar loading state (connected with api calls?)

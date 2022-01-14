@@ -37,7 +37,7 @@ export const breakpoint = {
         a[key] = initialBreakpoint === key;
         return a;
       },
-      { active: initialBreakpoint }
+      { size: initialBreakpoint }
     );
 
     // create reactive reference
@@ -53,7 +53,7 @@ export const breakpoint = {
       window.matchMedia(query).onchange = (event) => {
         if (!event.matches) return;
         nextTick(() => {
-          breakpoint.active = activeKey;
+          breakpoint.size = activeKey;
           keys.forEach((key) => (breakpoint[key] = activeKey === key));
         });
       };

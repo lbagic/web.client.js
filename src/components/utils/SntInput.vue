@@ -96,14 +96,7 @@ const resolvePath = (object, path) =>
 export default {
   name: "TestInput",
   inheritAttrs: false,
-  emits: [
-    "valid",
-    "update:modelValue",
-    "blur",
-    "focus",
-    "select",
-    "inputValue",
-  ],
+  emits: ["valid", "update:modelValue", "blur", "focus", "select", "input"],
   props: {
     /**
      * Preferred way to bind data. E.g. :model="{ field: form }" where form.field is defined in data. Will autogenerate validation flag under 'form._valid.field'.
@@ -232,7 +225,7 @@ export default {
       if (this.lastError === this.errorMessage) this.lastError = "";
       this.config.onInternal(this, input);
       this.$emit("update:modelValue", this.output);
-      this.$emit("inputValue", this.value);
+      this.$emit("input", this.value);
     },
     onExternalChange(model) {
       this.config.onExternal(this, model);

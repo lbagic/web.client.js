@@ -163,15 +163,15 @@ export default {
      */
     optionLabelBy: { type: [String, Function], default: "label" },
     /**
-     * Attributes that will be applied affect the root element of snt-input component.
+     * Attributes that will be applied to the root element.
      */
     rootAttrs: Object,
     /**
-     * Classes that will be applied affect the root element of snt-input component.
+     * Classes that will be applied to the the root element.
      */
     rootClass: [Object, String],
     /**
-     * Styles that will be applied affect the root element of snt-input component.
+     * Styles that will be applied to the root element.
      */
     rootStyle: [Object, String],
     /**

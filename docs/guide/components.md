@@ -101,7 +101,9 @@ The features of this component allow for easier handling of forms and form input
 | `optionIdBy`      | [String, Function] | 'id'    |                                   | Dot notation string pointing to object 'id', or a function that resolves it.                     |
 | `optionLabelBy`   | [String, Function] | 'label' |                                   | Dot notation string pointing to object 'label', or a function that resolves it.                  |
 | `datetimeOptions` | [String, Object]   |         |                                   | Refer to [datepicker documentation](https://vue3datepicker.com/api/props) for available options. |
-| `rootAttrs`       | [String, Object]   |         |                                   | Attributes that will appear on root element.                                                     |
+| `rootAttrs`       | Object             |         |                                   | Attributes that will be applied to the root element.                                             |
+| `rootClass`       | [Object, String]   |         |                                   | Classes that will be applied to the root element.                                                |
+| `rootStyles`      | [Object, String]   |         |                                   | Styles that will be applied to the root element.                                                 |
 
 ::: tip
 SntInput can also accept any valid `<input>` attribute (e.g. `disabled`, `required`, etc.).<br>

@@ -1,5 +1,10 @@
 <template>
-  <div v-bind="rootAttrs" class="snt-input-root">
+  <div
+    v-bind="rootAttrs"
+    :class="rootClass"
+    :style="rootStyle"
+    class="snt-input-root"
+  >
     <label ref="inputRoot" :class="labelClass" tabindex="-1">
       <!-- label slot #before -->
       <slot v-if="hasLabel && labelPlacement.start" name="label">
@@ -161,6 +166,14 @@ export default {
      * Attributes that will be applied affect the root element of snt-input component.
      */
     rootAttrs: Object,
+    /**
+     * Classes that will be applied affect the root element of snt-input component.
+     */
+    rootClass: [Object, String],
+    /**
+     * Styles that will be applied affect the root element of snt-input component.
+     */
+    rootStyle: [Object, String],
     /**
      * Options passed to datetime component ("vue3-date-time-picker": "^2.3.6").
      * Please refer to https://vue3datepicker.com/api/props for available options.

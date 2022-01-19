@@ -20,15 +20,14 @@ Custom button component that helps with normalizing button styles across the app
 
 #### Properties:
 
-| Property  | Type    | Default   | Accepted Values              | Description                                         |
-| --------- | ------- | --------- | ---------------------------- | --------------------------------------------------- |
-| `to`      | String  |           | Route path                   | Converts button to `router-link` element            |
-| `href`    | String  |           |                              | Converts button to `a` element                      |
-| `color`   | String  | 'primary' | Css variable color           | Sets button color scheme.                           |
-| `type`    | String  | 'default' | 'default', 'text', 'outline' | Sets button type.                                   |
-| `expand`  | Boolean | false     |                              | Sets button to span full width.                     |
-| `large`   | Boolean | false     |                              | Increases button padding.                           |
-| `variant` | String  | 'dark'    | 'light', 'dark'              | Sets color palette to lighter/darker color variant. |
+| Property  | Type   | Default   | Accepted Values              | Description                                         |
+| --------- | ------ | --------- | ---------------------------- | --------------------------------------------------- |
+| `to`      | String |           | Route path                   | Converts button to `router-link` element            |
+| `href`    | String |           |                              | Converts button to `a` element                      |
+| `color`   | String | 'primary' | Css variable color           | Sets button color scheme.                           |
+| `type`    | String | 'default' | 'default', 'text', 'outline' | Sets button type.                                   |
+| `size`    | String |           | 'small', 'large', 'expand'   | Changes button size.                                |
+| `variant` | String | 'dark'    | 'light', 'dark'              | Sets color palette to lighter/darker color variant. |
 
 ::: tip
 SntButton can also accept any valid `<button>` attribute (e.g. `disabled`).
@@ -67,8 +66,8 @@ A good place to look for more icons is https://fonts.google.com/icons.
 #### Example:
 
 ```html
-<snt-icon icon="Close" />
-<snt-icon icon="Google" button color="#000" hoverColor="ternary" @click="..." />
+<snt-icon icon="close" />
+<snt-icon icon="google" button color="#000" hoverColor="ternary" @click="..." />
 ```
 
 #### Live example:

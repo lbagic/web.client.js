@@ -19,13 +19,12 @@ export default {
       validator: (input) => ["default", "text", "outline"].includes(input),
     },
     /**
-     * Sets button to span full width.
+     * Changes button size.
      */
-    expand: Boolean,
-    /**
-     * Increases button padding.
-     */
-    large: Boolean,
+    size: {
+      type: String,
+      validator: (value) => ["small", "large", "expand"].includes(value),
+    },
     /**
      * Sets color palette to lighter/darker color variant.
      */
@@ -47,8 +46,7 @@ export default {
     classes() {
       const classes = ["snt-button"];
       classes.push(`snt-button-type-${this.type}`);
-      if (this.expand) classes.push("snt-button-expand");
-      if (this.large) classes.push("snt-button-large");
+      if (this.size) classes.push(`snt-button-${this.size}`);
 
       return classes;
     },

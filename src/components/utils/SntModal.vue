@@ -11,7 +11,7 @@
           <slot name="close">
             <snt-icon
               v-if="!hideCloseIcon && !nonClosable"
-              icon="Close"
+              icon="close"
               class="snt-modal-close"
               scale="1.5"
               button

@@ -9,7 +9,7 @@
           style="margin-left: auto"
           @click="$dispatch('AccountModule/logout')"
         >
-          <snt-icon icon="Power" color="light" />
+          <snt-icon icon="power" color="light" />
         </button>
       </template>
       <!-- Visitor routes -->

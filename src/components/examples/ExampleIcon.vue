@@ -1,14 +1,14 @@
 <template>
-  <p>Props: <i>icon="Home"</i></p>
-  <snt-icon icon="Home" />
-  <p>Props: <i>icon="Home" color="secondary"</i></p>
-  <snt-icon icon="Home" color="secondary" />
-  <p>Props: <i>icon="Home" button</i></p>
-  <snt-icon icon="Home" button />
-  <p>Props: <i>icon="Home" button hoverColor="ternary"</i></p>
-  <snt-icon icon="Home" button hoverColor="ternary" />
-  <p>Props: <i>icon="Home" scale="2"</i></p>
-  <snt-icon icon="Home" scale="2" />
+  <p>Props: <i>icon="home"</i></p>
+  <snt-icon icon="home" />
+  <p>Props: <i>icon="home" color="secondary"</i></p>
+  <snt-icon icon="home" color="secondary" />
+  <p>Props: <i>icon="home" button</i></p>
+  <snt-icon icon="home" button />
+  <p>Props: <i>icon="home" button hoverColor="ternary"</i></p>
+  <snt-icon icon="home" button hoverColor="ternary" />
+  <p>Props: <i>icon="home" scale="2"</i></p>
+  <snt-icon icon="home" scale="2" />
 </template>
 
 <script>

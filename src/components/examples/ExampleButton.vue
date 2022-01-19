@@ -1,10 +1,12 @@
 <template>
   <p>Props: <i>(none)</i></p>
   <snt-button>Button</snt-button>
-  <p>Props: <i>large</i></p>
-  <snt-button large>Button</snt-button>
-  <p>Props: <i>expand</i></p>
-  <snt-button expand>Button</snt-button>
+  <p>Props: <i>size="small"</i></p>
+  <snt-button size="small">Button</snt-button>
+  <p>Props: <i>size="large"</i></p>
+  <snt-button size="large">Button</snt-button>
+  <p>Props: <i>size="expand"</i></p>
+  <snt-button size="expand">Button</snt-button>
   <p>Props: <i>type="outline"</i></p>
   <snt-button type="outline">Button</snt-button>
   <p>Props: <i>type="text"</i></p>

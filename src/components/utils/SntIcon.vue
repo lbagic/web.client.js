@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from "@vue/runtime-core";
+import { defineAsyncComponent, markRaw } from "@vue/runtime-core";
 import { getColor } from "../../utils/getColor.js";
 
 export default {
@@ -58,16 +58,26 @@ export default {
       { immediate: true }
     );
   },
-  computed: {
-    component() {
-      const loaderConfig = {
-        loader: () => import(`./icons/${this.icon}.vue`),
-      };
-      if (process.env !== "production")
-        loaderConfig.onError = () =>
-          console.warn(`[SntIcon] Missing icon '${this.icon}'.`);
-      return defineAsyncComponent(loaderConfig);
+  data() {
+    return {
+      component: undefined,
+    };
+  },
+  watch: {
+    icon: {
+      immediate: true,
+      handler(icon) {
+        const loaderConfig = {
+          loader: () => import(`./icons/${icon}.vue`),
+        };
+        if (process.env !== "production")
+          loaderConfig.onError = () =>
+            console.warn(`[SntIcon] Missing icon '${icon}'.`);
+        this.component = markRaw(defineAsyncComponent(loaderConfig));
+      },
     },
+  },
+  computed: {
     styles() {
       const styles = {};
       if (this.scale) styles.transform = `scale(${this.scale})`;

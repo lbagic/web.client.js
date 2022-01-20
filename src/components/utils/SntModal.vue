@@ -5,9 +5,11 @@
         v-if="isOpen"
         class="snt-modal-root"
         :style="overlayStyles"
-        @click="() => !nonClosable && close()"
+        @click="
+          (e) => !e.target.closest('.snt-modal') && !nonClosable && close()
+        "
       >
-        <div v-bind="$attrs" class="snt-modal snt-container-m" @click.stop>
+        <div v-bind="$attrs" class="snt-modal snt-container-m">
           <slot name="close">
             <snt-icon
               v-if="!hideCloseIcon && !nonClosable"

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { appConfig } from "../appConfig";
+import { appConfig } from "../config/appConfig";
 import { store } from "../store/store";
 import { routes } from "./routes";
 

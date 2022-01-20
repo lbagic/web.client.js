@@ -3,7 +3,7 @@
   <router-view />
   <!-- elements out of document flow -->
   <snt-toast />
-  <component :is="Docs" />
+  <component :is="AppDocs" />
 </template>
 
 <script>
@@ -15,9 +15,9 @@ export default {
   name: "App",
   components: { Navigation, SntToast },
   computed: {
-    Docs() {
+    AppDocs() {
       return process.env.NODE_ENV === "development"
-        ? defineAsyncComponent(() => import("@/components/Docs.vue"))
+        ? defineAsyncComponent(() => import("@/components/AppDocs.vue"))
         : undefined;
     },
   },

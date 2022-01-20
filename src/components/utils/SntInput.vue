@@ -163,6 +163,10 @@ export default {
      */
     optionLabelBy: { type: [String, Function], default: "label" },
     /**
+     * Enforce validation based on provided options.
+     */
+    strictOptions: { type: Boolean, default: true },
+    /**
      * Attributes that will be applied to the root element.
      */
     rootAttrs: Object,
@@ -262,6 +266,15 @@ export default {
 
       if (propV && typeof propV === "function") {
         const state = propV(this.output);
+        isValid = state === true;
+        message = typeof state === "string" ? state : undefined;
+        if (!isValid) return { isValid, message };
+      }
+
+      if (this.strictOptions && this.parsedOptions.length && this.output) {
+        const state =
+          this.parsedOptions.some(({ id }) => id === this.output) ||
+          this.$t("forms.html-error-type-mismatch");
         isValid = state === true;
         message = typeof state === "string" ? state : undefined;
         if (!isValid) return { isValid, message };

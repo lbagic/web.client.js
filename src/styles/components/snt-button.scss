@@ -5,6 +5,7 @@
   --padding-large: 12px 48px;
 
   display: inline-block;
+  width: fit-content;
   cursor: pointer;
   font-weight: 400;
   text-align: center;
@@ -34,7 +35,7 @@
 .snt-button-type-outline {
   // height: var(--height);
   min-height: var(--height);
-  box-shadow: 0 0 4px #0008;
+  box-shadow: 0 0 4px #0004;
 }
 
 .snt-button-small {

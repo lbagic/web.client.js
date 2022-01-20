@@ -99,6 +99,7 @@ The features of this component allow for easier handling of forms and form input
 | `options`         | [Array, Object]    |         |                                   | Options to display when using 'select' or 'text' type.                                           |
 | `optionIdBy`      | [String, Function] | 'id'    |                                   | Dot notation string pointing to object 'id', or a function that resolves it.                     |
 | `optionLabelBy`   | [String, Function] | 'label' |                                   | Dot notation string pointing to object 'label', or a function that resolves it.                  |
+| `strictOptions`   | Boolean            | true    |                                   | Enforces validation based on provided options.                                                   |
 | `datetimeOptions` | [String, Object]   |         |                                   | Refer to [datepicker documentation](https://vue3datepicker.com/api/props) for available options. |
 | `rootAttrs`       | Object             |         |                                   | Attributes that will be applied to the root element.                                             |
 | `rootClass`       | [Object, String]   |         |                                   | Classes that will be applied to the root element.                                                |

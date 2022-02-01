@@ -1,4 +1,4 @@
-import { appConfig } from "../../config/appConfig";
+import { appConfig } from "../../config";
 import { router } from "../../router/router";
 import { AccountService } from "../../services/AccountService";
 

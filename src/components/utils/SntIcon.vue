@@ -70,7 +70,7 @@ export default {
         const loaderConfig = {
           loader: () => import(`./icons/${icon}.vue`),
         };
-        if (process.env !== "production")
+        if (process.env.NODE_ENV !== "production")
           loaderConfig.onError = () =>
             console.warn(`[SntIcon] Missing icon '${icon}'.`);
         this.component = markRaw(defineAsyncComponent(loaderConfig));

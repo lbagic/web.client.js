@@ -102,7 +102,7 @@ Favicon can be changed at `./public/favicon.ico`.
 
 OG Tags can be added in `./public/index.html`.
 
-Page title and other project specific configurations can be changed in `./src/appConfig.js`.
+Page title and other project specific configurations can be changed in `./src/config.js`.
 
 ## A Note To All WSL2 Users
 

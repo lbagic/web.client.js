@@ -12,7 +12,7 @@ const app = createApp(App);
 Object.assign(app.config.globalProperties, {
   $validate: (form) =>
     form?._valid && Object.values(form._valid)?.every((el) => el),
-  $log: process.env !== "production" ? console.log : () => {},
+  $log: process.env.NODE_ENV !== "production" ? console.log : () => {},
   $commit: store.commit,
   $dispatch: store.dispatch,
   $getters: store.getters,

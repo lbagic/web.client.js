@@ -3,6 +3,12 @@ const getMethodNames = (object) =>
     (key) => typeof object[key] === "function"
   );
 
+const hasProperty = (object, prop) =>
+  Object.prototype.hasOwnProperty.call(object, prop);
+
+const hasProperties = (object, methodNames) =>
+  methodNames.every((name) => hasProperty(object, name));
+
 const replaceMethod = (target, aspect, advice) => (methodName) => {
   const method = target[methodName];
   target[methodName] = (...args) => {
@@ -26,17 +32,18 @@ const replaceMethod = (target, aspect, advice) => (methodName) => {
 const inject =
   (advice) =>
   (target, aspect, methodNames = null) => {
-    if (typeof target !== "object")
-      throw new Error("Provided aspect is not a function.");
+    if (Array.isArray(methodNames)) {
+      if (!hasProperties(target, methodNames))
+        throw new Error("Target does not have provided methods.");
+    } else if (typeof methodNames === "string") {
+      if (!hasProperty(target, methodNames))
+        throw new Error("Target does not have provided method.");
+    } else if (!methodNames) {
+      if (typeof target !== "object")
+        throw new Error("Target is not an object.");
+    }
     if (typeof aspect !== "function")
-      throw new Error("Provided target is not an object.");
-    if (
-      methodNames &&
-      (typeof methodNames !== "string" || !Array.isArray(methodNames))
-    )
-      throw new Error(
-        "Provided method is not a string or array of method names."
-      );
+      throw new Error("Provided aspect is not a function.");
 
     const names = !methodNames
       ? getMethodNames(target)

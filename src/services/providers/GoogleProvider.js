@@ -39,7 +39,7 @@ export const GoogleAuth = {
         GoogleAuth.isAuthorized = GoogleAuth.instance.isSignedIn.get();
       })
       .catch((e) => {
-        if (process.env !== "productin") console.error(e);
+        if (process.env.NODE_ENV !== "production") console.error(e);
       }),
 
   signIn: () =>

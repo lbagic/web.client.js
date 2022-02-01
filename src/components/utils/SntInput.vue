@@ -151,17 +151,21 @@ export default {
      */
     disableErrors: Boolean,
     /**
-     * A list of options for text or select inputs. Don't forget to set optionIdBy and optionLabelBy.
+     * A list of options for text or select inputs, or a function that returns options. Don't forget to set optionId and optionLabel.
      */
-    options: [Array, Object],
+    options: [Array, Object, Function],
     /**
      * Dot delimited path to id, or function that resolves object id.
      */
-    optionIdBy: { type: [String, Function], default: "id" },
+    optionId: { type: [String, Function], default: "id" },
     /**
      * Dot delimited path to label, or function that resolves object label.
      */
-    optionLabelBy: { type: [String, Function], default: "label" },
+    optionLabel: { type: [String, Function], default: "label" },
+    /**
+     * Recalculates options based on input.
+     */
+    watchOptions: Boolean,
     /**
      * Enforce validation based on provided options.
      */
@@ -192,6 +196,12 @@ export default {
   },
   created() {
     if (this.isDatetime) require("vue3-date-time-picker/dist/main.css");
+    if (typeof this.options === "function") {
+      this.recalculateOptions();
+      if (this.watchOptions)
+        this.$watch("value", (value) => this.recalculateOptions(value));
+      this.internalOptions = this.options();
+    } else this.internalOptions = this.options;
   },
   mounted() {
     this.$watch(
@@ -221,6 +231,7 @@ export default {
       dateValue: "",
       output: "",
       uniqueId: `${this.$options.__scopeId}-${uniqueIndex.value++}`,
+      internalOptions: undefined,
       wasBlurred: false,
       lastError: "",
       errorMessage: "",
@@ -340,12 +351,15 @@ export default {
     },
     resolveBy: (object, by) =>
       typeof by === "function" ? by(object) : resolvePath(object, by),
+    recalculateOptions(value) {
+      this.internalOptions = this.options(value);
+    },
     resolveOption(object) {
       return typeof object !== "object"
         ? { id: object, label: object }
         : {
-            id: this.resolveBy(object, this.optionIdBy),
-            label: this.resolveBy(object, this.optionLabelBy),
+            id: this.resolveBy(object, this.optionId),
+            label: this.resolveBy(object, this.optionLabel),
           };
     },
   },
@@ -386,15 +400,16 @@ export default {
       return dtAttrs;
     },
     parsedOptions() {
-      return !this.options && (this.type !== "search" || this.type !== "text")
+      const options = this.internalOptions;
+      return !options && (this.type !== "search" || this.type !== "text")
         ? []
-        : Array.isArray(this.options)
-        ? this.options.map((el) => this.resolveOption(el))
-        : typeof this.options === "object"
-        ? Object.entries(this.options).reduce(
+        : Array.isArray(options)
+        ? options.map((el) => this.resolveOption(el))
+        : typeof options === "object"
+        ? Object.entries(options).reduce(
             (a, [label, id]) => [
               ...a,
-              { [this.optionLabelBy]: label, [this.optionIdBy]: id },
+              { [this.optionLabel]: label, [this.optionId]: id },
             ],
             []
           )

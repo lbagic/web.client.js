@@ -97,8 +97,8 @@ The features of this component allow for easier handling of forms and form input
 | `error`           | String             |         |                                   | Manually set error text.                                                                         |
 | `disableErrors`   | Boolean            | false   |                                   | Disables displaying errors.                                                                      |
 | `options`         | [Array, Object]    |         |                                   | Options to display when using 'select' or 'text' type.                                           |
-| `optionIdBy`      | [String, Function] | 'id'    |                                   | Dot notation string pointing to object 'id', or a function that resolves it.                     |
-| `optionLabelBy`   | [String, Function] | 'label' |                                   | Dot notation string pointing to object 'label', or a function that resolves it.                  |
+| `optionId`        | [String, Function] | 'id'    |                                   | Dot notation string pointing to object 'id', or a function that resolves it.                     |
+| `optionLabel`     | [String, Function] | 'label' |                                   | Dot notation string pointing to object 'label', or a function that resolves it.                  |
 | `strictOptions`   | Boolean            | true    |                                   | Enforces validation based on provided options.                                                   |
 | `datetimeOptions` | [String, Object]   |         |                                   | Refer to [datepicker documentation](https://vue3datepicker.com/api/props) for available options. |
 | `rootAttrs`       | Object             |         |                                   | Attributes that will be applied to the root element.                                             |
@@ -166,8 +166,8 @@ Validation attributes can be usefull when you want to quickly define input valid
 <snt-input :options="[{ id: 1, label: 'zvone' }, { id: 2, label: 'marko' }]" />
 <!-- changing label and identifier keys -->
 <snt-input
-  optionIdBy="uniqueId"
-  optionLabelBy="(el) => el.name"
+  optionId="uniqueId"
+  optionLabel="(el) => el.name"
   :options="[{ uniqueId: 1, name: 'zvone' }, { uniqueId: 2, name: 'marko' }]"
 />
 ```

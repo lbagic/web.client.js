@@ -40,7 +40,7 @@ export const Api = {
 export const Api = {
   sampleEndpoint: createApi({ baseUrl: "https://sample.endpoint.url" }),
   snt: createApi({
-    baseURL: process.env.VUE_APP_SNT_REST_API_URL,
+    baseURL: process.env.VUE_APP_SNT_REST_URL,
     getToken: () => store?.state?.AccountModule?.token,
     responseHandler: (response) => ({
       msg: response?.data?.response?.msg,

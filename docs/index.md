@@ -69,16 +69,22 @@ We use Husky to execute `npm run lint` as a pre-commit hook which enables painle
 
 Husky **runs out of the box** without additional config **unless a monorepo structure is used**.
 ::: warning
-If this project is part of a monorepo make sure to modify `.husky/pre-commit` by including the project path (example below).
+If this project is part of a monorepo make sure to modify `.husky/pre-commit` and `package.json` by including the project path (example below).
 :::
 
 ```bash
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-cd ./path/to/project && npx lint-staged # <-- edit ./path/to/project
+cd ./path/to/project && npx lint-staged # Change path to project
 
 ```
+```json
+"scripts": {
+  "prepare": "cd ../../ && husky install ./path/to/project/.husky", // Change path to project
+}
+```
+
 
 ### Creating .env File
 

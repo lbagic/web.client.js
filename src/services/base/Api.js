@@ -4,7 +4,7 @@ import { createApi } from "./Api.factory";
 export const Api = {
   axios: createApi({ baseUrl: "" }),
   snt: createApi({
-    baseURL: process.env.VUE_APP_SNT_REST_API_URL,
+    baseURL: process.env.VUE_APP_SNT_REST_URL,
     getToken: () => store?.state?.AccountModule?.token,
     responseHandler: (response) => ({
       msg: response?.data?.response?.msg,

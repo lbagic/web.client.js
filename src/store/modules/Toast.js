@@ -1,3 +1,5 @@
+import { store } from "../store";
+
 let id = 1;
 const createMessage = ({ message, type, error }) => ({
   id: id++,
@@ -26,4 +28,10 @@ export const Toast = {
       ctx.commit("addToasts", item);
     },
   },
+};
+
+export const toast = {
+  success: (message) => store.dispatch("Toast/success", message),
+  error: (message) => store.dispatch("Toast/error", message),
+  notification: (message) => store.dispatch("Toast/notification", message),
 };

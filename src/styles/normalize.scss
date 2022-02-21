@@ -16,9 +16,9 @@ a {
   text-decoration: none;
   color: #007bff;
   transition: color 0.15s ease-in-out;
-  &:hover {
-    color: #0056b3;
-  }
+}
+a:hover {
+  color: #0056b3;
 }
 p {
   margin: 0;
@@ -91,7 +91,6 @@ button {
   -webkit-font-smoothing: inherit;
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
-  // text-align: inherit;
 }
 fieldset {
   border-width: 1px;
